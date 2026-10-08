@@ -59,7 +59,7 @@ Essas classes ainda não foram definitivamente agrupadas em uma única classe.
 ----------------------------------------------------------------------------------
 Configuração do ambiente
 1. Clonar o repositório
-git clone https://github.com/fbrum44/tcc_wikiart
+git clone https://github.com/fbrum44/tcc_wikiart.git
 
 Entre na pasta:
 cd Wikiart
