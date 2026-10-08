@@ -1,0 +1,35 @@
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Arquivos de configuração locais
+.env
+
+# Cache
+.cache/
+huggingface/
+hf_cache/
+
+# Dados grandes / imagens
+data/raw/
+data/images/
+data/cache/
+
+# Modelos treinados
+models/
+*.pt
+*.pth
+*.ckpt
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
