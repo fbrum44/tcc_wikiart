@@ -2,7 +2,7 @@
 
 Projeto de Trabalho de Conclusão de Curso voltado à classificação automática de movimentos artísticos a partir de pinturas digitalizadas utilizando técnicas de **Visão Computacional** e **Deep Learning**.
 
-Além da classificação, o projeto utiliza técnicas de **Inteligência Artificial Explicável (XAI)** para investigar quais regiões das imagens influenciam as decisões dos modelos.
+Além da classificação, o projeto pretende utilizar técnicas de **Inteligência Artificial Explicável (XAI)**, como Grad-CAM, para investigar quais regiões das imagens influenciam as decisões dos modelos.
 
 O objetivo não é substituir a avaliação humana ou a análise de especialistas em arte, mas desenvolver uma prova de conceito capaz de:
 
@@ -10,26 +10,26 @@ O objetivo não é substituir a avaliação humana ou a análise de especialista
 - comparar diferentes arquiteturas de Deep Learning;
 - avaliar quantitativamente os modelos;
 - investigar possíveis atalhos de aprendizagem (*shortcut learning*);
-- utilizar técnicas como **Grad-CAM** para interpretar as regiões visualmente relevantes para as previsões.
+- utilizar técnicas de interpretabilidade para analisar as regiões visualmente relevantes para as previsões.
 
 ---
 
-## Dataset
+# Dataset
 
 O projeto utiliza o dataset público **WikiArt**, disponibilizado no Hugging Face:
 
 `huggan/wikiart`
 
-Na versão utilizada no projeto, o conjunto possui **81.444 obras** e os seguintes atributos:
+Na versão utilizada no projeto, o conjunto possui **81.444 obras** e os seguintes atributos principais:
 
 - `image`: imagem digital da obra;
 - `artist`: artista associado à obra;
 - `genre`: gênero ou temática da pintura;
 - `style`: movimento ou estilo artístico.
 
-O dataset possui **27 classes originais de estilo**.
+O dataset contém **27 classes originais de estilo**.
 
-As imagens não são armazenadas neste repositório. O dataset é carregado diretamente do Hugging Face por meio da biblioteca `datasets`:
+As imagens não são armazenadas neste repositório. O dataset é carregado diretamente do Hugging Face pela biblioteca `datasets`:
 
 ```python
 from datasets import load_dataset
@@ -37,7 +37,7 @@ from datasets import load_dataset
 dataset = load_dataset("huggan/wikiart")
 ```
 
-Na primeira execução, o download pode demorar devido ao tamanho do conjunto. Após o download, os arquivos permanecem no cache local do Hugging Face.
+Na primeira execução, o download pode demorar devido ao tamanho do conjunto. Depois disso, os arquivos permanecem no cache local do Hugging Face.
 
 ---
 
@@ -61,27 +61,27 @@ A classe `Renaissance` agrega:
 - `Northern_Renaissance`
 - `Mannerism_Late_Renaissance`
 
-Total original antes da auditoria:
+Quantidade original antes da auditoria:
 
 **6.565 imagens**
 
 ## Baroque
 
-A classe `Baroque` utiliza diretamente:
+Utiliza diretamente:
 
 - `Baroque`
 
-Total original antes da auditoria:
+Quantidade original:
 
 **4.240 imagens**
 
 ## Impressionism
 
-A classe `Impressionism` utiliza diretamente:
+Utiliza diretamente:
 
 - `Impressionism`
 
-Total original antes da auditoria:
+Quantidade original:
 
 **13.060 imagens**
 
@@ -93,11 +93,11 @@ A classe `Cubism` agrega:
 - `Analytical_Cubism`
 - `Synthetic_Cubism`
 
-Total original antes da auditoria:
+Quantidade original:
 
 **2.561 imagens**
 
-O conjunto candidato às quatro macroclasses possui, portanto:
+O conjunto inicial de obras candidatas às quatro macroclasses possui:
 
 **26.426 imagens**
 
@@ -107,57 +107,69 @@ As regras de agrupamento são centralizadas em:
 src/data/labels.py
 ```
 
-Não devem ser redefinidas manualmente em diferentes notebooks.
+Esses mapeamentos não devem ser redefinidos manualmente nos notebooks.
 
 ---
 
 # Estado atual do projeto
 
-Atualmente estão concluídas:
+Estão concluídas:
 
-- **Etapa 1 — Análise Exploratória dos Dados**
-- **Etapa 2 — Auditoria de Integridade do Dataset**
+- **Etapa 1 — Análise Exploratória**
+- **Etapa 2 — Auditoria de Integridade**
+- **Etapa 3 — Construção do Subconjunto Final Reproduzível**
 
 A próxima fase é:
 
-**Etapa 3 — Curadoria e construção reproduzível do subconjunto final balanceado**
+**Etapa 4 — Divisão das pinturas em treino, validação e teste**
+
+O arquivo:
+
+```text
+data/metadata/dataset_final.csv
+```
+
+é, a partir da Etapa 3, a **fonte de verdade do conjunto experimental**.
+
+As próximas etapas não devem reconstruir a seleção a partir do WikiArt bruto, exceto quando isso for explicitamente necessário para reprodução ou auditoria.
 
 ---
 
 # Etapa 1 — Análise Exploratória
 
-A análise exploratória investigou:
-
-- quantidade de imagens por estilo;
-- distribuição de artistas;
-- distribuição dos gêneros de pintura;
-- formação das macroclasses;
-- presença de `Unknown Artist`;
-- presença de `Unknown Genre`;
-- possíveis associações entre gênero e movimento artístico;
-- potenciais fontes de *shortcut learning*.
-
-O notebook principal da etapa é:
+Notebook:
 
 ```text
 notebooks/01_analise_exploratoria.ipynb
 ```
 
-Entre os principais achados estão:
+A análise exploratória investigou:
 
-- forte associação entre Renaissance e pinturas religiosas;
-- forte associação entre Impressionism e `landscape`;
-- presença relevante de `still_life` em Cubism;
-- grande quantidade de registros `Unknown Artist`;
-- diferenças importantes na distribuição de gêneros entre as classes.
+- quantidade de imagens por estilo;
+- distribuição de artistas;
+- distribuição de gêneros;
+- formação das macroclasses;
+- presença de `Unknown Artist`;
+- presença de `Unknown Genre`;
+- possíveis associações entre gênero e movimento artístico;
+- possíveis fontes de *shortcut learning*.
 
-Essas diferenças serão consideradas posteriormente na avaliação dos modelos, pois podem permitir que o classificador utilize características correlacionadas com as classes sem necessariamente aprender características estilísticas.
+Entre os principais achados:
+
+- Renaissance possui forte associação com `religious_painting`;
+- Impressionism apresenta forte presença de `landscape`;
+- Cubism apresenta concentração relevante de `still_life`;
+- Baroque apresenta distribuição temática mais heterogênea;
+- `Unknown Artist` não pode ser interpretado como um único autor;
+- `Unknown Genre` constitui uma limitação dos metadados.
+
+A distribuição de gênero não foi artificialmente equalizada.
 
 ---
 
 # Etapa 2 — Auditoria de Integridade
 
-O notebook principal da auditoria é:
+Notebook:
 
 ```text
 notebooks/02_auditoria_dataset.ipynb
@@ -165,7 +177,7 @@ notebooks/02_auditoria_dataset.ipynb
 
 Foram auditadas todas as **26.426 imagens candidatas**.
 
-## Integridade das imagens
+## Integridade técnica
 
 Resultados:
 
@@ -174,13 +186,11 @@ Resultados:
 - 0 imagens com dimensões inválidas;
 - 0 imagens com largura ou altura inferior a 256 pixels.
 
-Todas as imagens candidatas são, portanto, tecnicamente compatíveis com a estratégia de geração de patches de `256×256`.
+Todas as imagens candidatas são tecnicamente compatíveis com a estratégia de patches de `256×256`.
 
----
+## Dimensões e orientação
 
-## Dimensões e resolução
-
-A auditoria também analisou:
+Foram analisados:
 
 - largura;
 - altura;
@@ -189,52 +199,43 @@ A auditoria também analisou:
 - proporção largura/altura;
 - orientação geométrica.
 
-Foi observada forte recorrência de dimensões envolvendo aproximadamente **1.382 pixels**, indicando provável padronização ou limitação anterior das reproduções digitais.
+Foi observada forte recorrência de dimensões envolvendo aproximadamente **1.382 pixels**, sugerindo algum tipo de padronização anterior das reproduções digitais.
 
-A origem exata desse processamento não é inferida apenas a partir dos dados.
+Também foi identificada associação entre orientação e macroclasse:
 
-As quatro macroclasses apresentaram resoluções médias relativamente próximas, não havendo evidência de uma diferença dimensional extrema entre as classes.
+- Impressionism apresentou predominância horizontal;
+- Renaissance, Baroque e Cubism apresentaram predominância vertical.
 
----
-
-## Orientação das imagens
-
-Foi encontrada uma associação relevante entre orientação geométrica e macroclasse.
-
-O Impressionismo apresenta predominância de imagens horizontais, enquanto Renaissance, Baroque e Cubism apresentam predominância de imagens verticais.
-
-Esse resultado é importante porque a orientação poderá funcionar como uma variável correlacionada com a classe e deverá ser considerada posteriormente durante a investigação de *shortcut learning*.
+Essa associação foi registrada como possível fonte adicional de *shortcut learning*.
 
 ---
 
 # Auditoria de duplicatas
 
-A redundância do dataset foi investigada em duas etapas.
+A redundância foi investigada em duas etapas.
 
 ## Duplicatas exatas
 
-Foi calculado um **SHA-256** sobre:
+Foi utilizado SHA-256 calculado sobre:
 
-- dimensões da imagem;
+- dimensões;
 - pixels RGB decodificados.
 
-Os hashes repetidos foram posteriormente confirmados por comparação pixel a pixel.
+Os grupos candidatos foram posteriormente confirmados por comparação pixel a pixel.
 
 Resultado:
 
 - 17 grupos de duplicatas exatas;
-- 34 imagens envolvidas;
+- 34 registros envolvidos;
 - nenhum conflito entre macroclasses.
-
----
 
 ## Variantes digitais da mesma obra
 
-Também foi implementado um **hash perceptual baseado em DCT (pHash)**.
+Foi implementado um pHash de 64 bits baseado em DCT.
 
-Foram investigados candidatos com distância de Hamming menor ou igual a 4.
+Foram investigados pares com distância de Hamming menor ou igual a 4.
 
-O pHash foi utilizado apenas como mecanismo de triagem. Nenhuma imagem foi descartada automaticamente com base no hash perceptual.
+O pHash foi utilizado somente como mecanismo de triagem. Nenhuma imagem foi descartada automaticamente com base nesse valor.
 
 Foram encontrados:
 
@@ -246,43 +247,242 @@ Total:
 
 **136 pares candidatos**
 
-Todos os candidatos foram inspecionados visualmente.
+Todos foram inspecionados manualmente.
 
 Resultados:
 
 - 135 pares confirmados como variantes da mesma obra;
 - 1 falso positivo.
 
-Portanto, o limiar utilizado apresentou alta precisão nesta auditoria específica, mas não é tratado como uma regra universal.
+Após a consolidação:
 
----
-
-# Resultado final da auditoria
-
-As duplicatas exatas e as variantes digitais confirmadas foram consolidadas em grupos únicos.
-
-Resultado:
-
-- 147 grupos de obras duplicadas;
+- 147 grupos únicos de obras duplicadas;
 - 297 registros envolvidos;
 - 150 registros excedentes;
 - 0 grupos envolvendo macroclasses diferentes.
 
-Após a remoção dos registros redundantes:
+Depois da auditoria:
 
-**26.276 obras permanecem aprovadas pela auditoria.**
+**26.276 obras permaneceram aprovadas.**
 
-A política utilizada para escolher qual versão preservar foi:
+---
 
-1. maior quantidade total de pixels;
-2. em caso de empate, maior largura;
-3. persistindo o empate, menor `Indice_Dataset`.
+# Etapa 3 — Construção do Subconjunto Final
+
+Notebook:
+
+```text
+notebooks/03_curadoria_dataset.ipynb
+```
+
+A Etapa 3 construiu o conjunto definitivo utilizado nas próximas fases do projeto.
+
+Após a auditoria, estavam disponíveis:
+
+- Renaissance: 6.532;
+- Baroque: 4.193;
+- Impressionism: 12.993;
+- Cubism: 2.558.
+
+Foi definido um subconjunto balanceado com:
+
+```text
+2.500 pinturas por macroclasse
+10.000 pinturas no total
+```
+
+---
+
+# Seleção reproduzível
+
+Foi definida:
+
+```python
+SEED = 42
+```
+
+A seleção final não depende de `pandas.sample()`.
+
+Cada pintura recebe uma chave SHA-256 determinística calculada a partir da semente e do `Indice_Dataset`.
+
+As pinturas são então ordenadas por essa chave e selecionadas deterministicamente.
+
+Com os mesmos:
+
+- dados de entrada;
+- valores de `SEED`;
+- critérios de alocação;
+- código;
+
+o mesmo conjunto de pinturas é selecionado.
+
+---
+
+# Preservação dos estilos originais
+
+Renaissance e Cubism são macroclasses compostas.
+
+A seleção não equaliza artificialmente seus subestilos.
+
+Foi utilizado o método dos maiores restos para manter aproximadamente a composição proporcional observada após a auditoria.
+
+## Renaissance
+
+Composição final:
+
+- Early Renaissance: 530;
+- High Renaissance: 510;
+- Mannerism / Late Renaissance: 488;
+- Northern Renaissance: 972.
+
+Total:
+
+**2.500**
+
+## Cubism
+
+Composição final:
+
+- Analytical Cubism: 108;
+- Cubism: 2.181;
+- Synthetic Cubism: 211.
+
+Total:
+
+**2.500**
+
+Baroque e Impressionism utilizam diretamente 2.500 obras de seus respectivos estilos originais.
+
+---
+
+# Identificação das pinturas
+
+Cada obra do subconjunto final possui:
+
+- `Painting_ID`;
+- `Indice_Dataset`;
+- SHA-256 completo dos pixels;
+- estilo original;
+- macroclasse;
+- artista;
+- gênero;
+- largura;
+- altura;
+- resolução;
+- proporção;
+- orientação.
+
+O `Painting_ID` possui o formato:
+
+```text
+wikiart_<24 primeiros caracteres do SHA-256>
+```
+
+Exemplo:
+
+```text
+wikiart_a93f0c1b57a49fc782dd83af
+```
+
+O SHA-256 completo também permanece armazenado no manifesto.
+
+O `Indice_Dataset` é mantido porque permite recuperar a imagem na versão utilizada do WikiArt.
+
+---
+
+# Manifesto final
+
+O resultado da Etapa 3 é:
+
+```text
+data/metadata/dataset_final.csv
+```
+
+Esse arquivo contém:
+
+**10.000 pinturas**
+
+com:
+
+- 2.500 por macroclasse;
+- 10.000 `Painting_ID` únicos;
+- 10.000 `Indice_Dataset` únicos;
+- nenhuma imagem duplicada previamente descartada;
+- nenhum valor ausente inesperado.
+
+Os rótulos:
+
+```text
+Unknown Artist
+Unknown Genre
+```
+
+são valores válidos existentes no WikiArt e não são tratados como valores ausentes.
+
+---
+
+# Distribuição de gênero no conjunto final
+
+A seleção preservou aproximadamente os padrões encontrados na análise exploratória.
+
+Entre os principais resultados:
+
+## Renaissance
+
+- `religious_painting`: 56,72%;
+- `portrait`: 16,64%.
+
+## Baroque
+
+- `religious_painting`: 23,96%;
+- `portrait`: 22,48%;
+- `genre_painting`: 18,12%.
+
+## Impressionism
+
+- `landscape`: 33,68%;
+- `genre_painting`: 20,00%.
+
+## Cubism
+
+- `still_life`: 25,60%;
+- `portrait`: 13,80%;
+- `genre_painting`: 13,00%.
+
+A distribuição temática não foi artificialmente corrigida.
+
+Essas associações permanecerão relevantes durante a análise de *shortcut learning*.
+
+---
+
+# Distribuição de autoria
+
+O subconjunto possui **79 rótulos distintos de artista**.
+
+`Unknown Artist` representa 5.178 das 10.000 pinturas.
+
+Esse valor **não significa que 51,78% das obras pertençam ao mesmo artista**.
+
+`Unknown Artist` é um rótulo que pode agregar pinturas de diversos autores reais cuja identidade não está disponível nos metadados.
+
+Sua principal consequência metodológica é limitar análises e controles baseados em autoria.
+
+Entre os autores conhecidos existem algumas concentrações relevantes, como:
+
+- Rembrandt em Baroque;
+- Pablo Picasso em Cubism;
+- Renoir e Monet em Impressionism;
+- Albrecht Dürer em Renaissance.
+
+A seleção não foi artificialmente balanceada por artista.
+
+A possível dependência excessiva de características específicas de determinados autores será considerada posteriormente durante a avaliação dos modelos.
 
 ---
 
 # Arquivos de metadados
 
-Os resultados da auditoria são registrados em:
+Os principais arquivos estão em:
 
 ```text
 data/metadata/
@@ -290,68 +490,29 @@ data/metadata/
 
 ## `auditoria_integridade.csv`
 
-Contém o resultado completo da auditoria para todas as 26.426 obras candidatas.
-
-Entre as informações registradas estão:
-
-- índice original no WikiArt;
-- estilo original;
-- macroclasse;
-- largura;
-- altura;
-- status de decodificação;
-- validade dimensional;
-- resolução;
-- orientação;
-- SHA-256;
-- pHash;
-- grupo de duplicação;
-- status final da auditoria;
-- motivo de descarte, quando aplicável.
-
----
+Diagnóstico técnico das 26.426 obras candidatas.
 
 ## `candidatos_quase_duplicatas.csv`
 
-Contém os pares encontrados pelo pHash.
-
-Inclui:
-
-- índices das duas imagens;
-- estilos;
-- macroclasses;
-- distância pHash;
-- classificação manual;
-- observação da revisão.
-
----
+Pares identificados pelo pHash e respectivas classificações manuais.
 
 ## `grupos_duplicatas_confirmadas.csv`
 
-Contém os grupos consolidados de registros que representam a mesma obra.
-
-Também identifica qual registro foi preservado em cada grupo.
-
----
+Grupos consolidados de registros que representam a mesma obra.
 
 ## `descartes_auditoria.csv`
 
-Contém apenas os registros efetivamente removidos durante a auditoria.
+150 registros descartados durante a auditoria.
 
-Para cada descarte são armazenados:
+## `dataset_final.csv`
 
-- índice da imagem descartada;
-- macroclasse;
-- grupo de duplicação;
-- índice da versão preservada;
-- motivo do descarte;
-- critério utilizado para selecionar a versão mantida.
+Manifesto definitivo das 10.000 pinturas selecionadas.
+
+Este é o arquivo que deve ser utilizado como entrada para as próximas etapas.
 
 ---
 
-# Estrutura do projeto
-
-A estrutura utilizada atualmente é:
+# Estrutura atual do projeto
 
 ```text
 tcc_wikiart/
@@ -361,8 +522,9 @@ tcc_wikiart/
 ├── .gitignore
 │
 ├── notebooks/
-│   ├── 01_eda_wikiart.ipynb
-│   └── 02_auditoria_dataset.ipynb
+│   ├── 01_analise_exploratoria.ipynb
+│   ├── 02_auditoria_dataset.ipynb
+│   └── 03_curadoria_dataset.ipynb
 │
 ├── src/
 │   └── data/
@@ -373,115 +535,140 @@ tcc_wikiart/
 │       ├── auditoria_integridade.csv
 │       ├── candidatos_quase_duplicatas.csv
 │       ├── grupos_duplicatas_confirmadas.csv
-│       └── descartes_auditoria.csv
+│       ├── descartes_auditoria.csv
+│       └── dataset_final.csv
 │
 └── docs/
     └── project_log.md
 ```
 
-Novas pastas e módulos serão adicionados conforme as próximas etapas forem implementadas.
+Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
 
 ---
 
-# Onde modificar cada parte do projeto
+# Onde modificar cada parte
 
-Esta seção é especialmente importante para os integrantes do grupo.
+## Definições de classes
 
-## Alterações nas classes
-
-Qualquer mudança relacionada às classes, subestilos ou agrupamentos deve ser feita em:
+Alterações relacionadas às macroclasses devem ocorrer em:
 
 ```text
 src/data/labels.py
 ```
 
-Esse arquivo é a fonte central das definições de classe.
-
-Não criar mapeamentos diferentes diretamente nos notebooks.
+Esse arquivo é a fonte central de definição dos rótulos.
 
 ---
 
 ## Análise exploratória
 
-Alterações ou novas análises relacionadas ao dataset original devem ser feitas em:
-
 ```text
 notebooks/01_analise_exploratoria.ipynb
 ```
 
+Utilizado para:
+
+- análise geral do WikiArt;
+- gêneros;
+- artistas;
+- distribuição dos estilos;
+- investigação inicial de vieses.
+
 ---
 
-## Auditoria de integridade
-
-Alterações relacionadas a:
-
-- imagens corrompidas;
-- dimensões;
-- resolução;
-- hashes;
-- duplicatas;
-- critérios de descarte;
-
-devem ser realizadas em:
+## Auditoria
 
 ```text
 notebooks/02_auditoria_dataset.ipynb
 ```
 
+Responsável por:
+
+- abertura das imagens;
+- dimensões;
+- resolução;
+- hashes;
+- duplicatas;
+- critérios de descarte.
+
+---
+
+## Curadoria
+
+```text
+notebooks/03_curadoria_dataset.ipynb
+```
+
+Responsável por:
+
+- balanceamento;
+- seleção determinística;
+- composição proporcional dos subestilos;
+- criação do `Painting_ID`;
+- incorporação de artista e gênero;
+- geração de `dataset_final.csv`.
+
 ---
 
 ## Histórico de decisões
-
-As principais decisões metodológicas devem ser registradas em:
 
 ```text
 docs/project_log.md
 ```
 
-Esse arquivo funciona como um histórico cronológico das decisões tomadas durante o desenvolvimento.
+Contém o registro cronológico das principais decisões metodológicas.
+
+Antes de modificar critérios experimentais, consulte esse arquivo.
 
 ---
 
-# Próxima etapa
+# Próxima etapa — divisão dos dados
 
-A próxima etapa é a construção reproduzível do subconjunto final.
-
-Ela deverá utilizar **somente imagens aprovadas pela auditoria**.
-
-Entre as próximas tarefas estão:
-
-- definir o número definitivo de imagens por macroclasse;
-- produzir um conjunto balanceado;
-- preservar proporcionalmente os subestilos de Renaissance e Cubism;
-- definir uma semente aleatória fixa;
-- registrar exatamente quais índices foram selecionados;
-- verificar novamente a distribuição de gêneros após a seleção;
-- gerar o manifesto definitivo do dataset experimental.
-
-Posteriormente serão realizadas:
-
-- divisão entre treino, validação e teste;
-- geração de patches;
-- treinamento de uma CNN baseada em ResNet;
-- treinamento de Vision Transformer;
-- avaliação quantitativa;
-- análise de *shortcut learning*;
-- Grad-CAM;
-- agregação das previsões dos patches no nível da pintura.
-
----
-
-# Regra importante sobre divisão dos dados
-
-A divisão entre:
+A próxima etapa será a divisão das 10.000 pinturas em:
 
 - treino;
 - validação;
-- teste;
+- teste.
 
-deverá ocorrer **no nível da pintura original antes da geração dos patches**.
+A divisão ocorrerá **no nível da pintura original antes da geração dos patches**.
 
-Isso impede que patches provenientes da mesma obra sejam distribuídos entre treino e teste, o que provocaria vazamento de dados.
+Isso é obrigatório para evitar que regiões provenientes da mesma obra apareçam em conjuntos diferentes.
+
+A próxima etapa deverá definir:
+
+- proporções dos três subconjuntos;
+- estratégia de estratificação;
+- semente da divisão;
+- distribuição final das macroclasses;
+- distribuição de gêneros;
+- distribuição de artistas;
+- manifestos independentes de treino, validação e teste.
+
+Os arquivos previstos são:
+
+```text
+data/metadata/train.csv
+data/metadata/validation.csv
+data/metadata/test.csv
+```
+
+Nenhum patch deverá ser gerado antes de essa divisão estar definitivamente congelada.
+
+---
+
+# Etapas posteriores
+
+Após a divisão dos dados:
+
+1. geração dos patches de 256×256;
+2. definição das transformações e normalização;
+3. treinamento da ResNet;
+4. treinamento do Vision Transformer;
+5. avaliação quantitativa;
+6. agregação das previsões no nível da pintura;
+7. análise de *shortcut learning*;
+8. Grad-CAM;
+9. demonstração final.
 
 ---
 
@@ -534,31 +721,29 @@ Entre as bibliotecas atualmente utilizadas estão:
 - `jupyter`
 - `ipykernel`
 
-As dependências de treinamento serão adicionadas conforme a implementação dos modelos.
+As dependências específicas de treinamento serão adicionadas quando os modelos forem implementados.
 
 ---
 
-# Executando os notebooks
+# Ordem de execução dos notebooks
 
-Os notebooks devem ser executados na ordem:
+Atualmente:
 
 ```text
-01_eda_wikiart.ipynb
+01_analise_exploratoria.ipynb
         ↓
 02_auditoria_dataset.ipynb
         ↓
-próximas etapas
+03_curadoria_dataset.ipynb
+        ↓
+próxima etapa: divisão dos dados
 ```
 
-Abra o notebook utilizando Jupyter Notebook, JupyterLab ou Visual Studio Code e execute as células na ordem apresentada.
+A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
 
-Na primeira execução de:
+Por exemplo, se `dataset_final.csv` já estiver disponível e validado, a próxima fase poderá utilizá-lo diretamente.
 
-```python
-dataset = load_dataset("huggan/wikiart")
-```
-
-o dataset será baixado automaticamente.
+Isso evita repetir operações demoradas de auditoria e reconstrução da curadoria.
 
 ---
 
@@ -566,17 +751,19 @@ o dataset será baixado automaticamente.
 
 O dataset original não é armazenado no GitHub devido ao seu tamanho.
 
-O repositório deve armazenar apenas os artefatos necessários para reproduzir os experimentos, como:
+O repositório armazena artefatos necessários para reproduzir os experimentos, incluindo:
 
-- índices das imagens selecionadas;
+- índices das imagens utilizadas;
+- hashes;
 - decisões de auditoria;
-- divisão entre treino, validação e teste;
-- sementes aleatórias;
+- descartes;
+- seleção final;
+- sementes;
+- futuras divisões de treino, validação e teste;
 - configurações de treinamento;
-- métricas;
-- versões e parâmetros utilizados.
+- métricas.
 
-Sempre que possível, as decisões devem ser reproduzíveis a partir do dataset original e dos arquivos versionados neste repositório.
+Os notebooks possuem validações automáticas para detectar alterações inesperadas na estrutura utilizada do WikiArt.
 
 ---
 
@@ -588,39 +775,40 @@ Antes de iniciar alterações:
 git pull --rebase origin main
 ```
 
-Evitar modificar simultaneamente o mesmo notebook quando outro integrante estiver trabalhando nele.
+Evite modificar simultaneamente o mesmo notebook quando outro integrante estiver trabalhando nele.
 
 Antes de realizar um commit:
 
-1. executar as células alteradas;
-2. verificar se o notebook continua funcionando;
-3. remover outputs muito grandes;
-4. confirmar que arquivos de dados pesados não serão enviados;
-5. atualizar `project_log.md` quando houver uma decisão metodológica relevante.
+1. execute as células alteradas;
+2. verifique se o notebook continua funcionando;
+3. remova outputs muito grandes;
+4. confirme que arquivos pesados não serão enviados;
+5. atualize `project_log.md` quando houver decisão metodológica relevante;
+6. atualize o README quando uma etapa estrutural do projeto for concluída.
 
 Os notebooks devem preferencialmente ser versionados sem grandes outputs de imagens ou tabelas.
 
-Arquivos como:
+Não adicionar ao GitHub:
 
-- dataset original;
-- imagens;
+- imagens originais do WikiArt;
 - cache do Hugging Face;
+- `.venv`;
 - checkpoints de modelos;
-
-não devem ser adicionados ao GitHub.
+- arquivos temporários.
 
 ---
 
 # Fluxo de trabalho do grupo
 
-Antes de começar uma nova tarefa, recomenda-se verificar:
+Antes de começar uma tarefa:
 
-1. o `README.md`, para entender a estrutura atual;
-2. o `docs/project_log.md`, para verificar decisões já tomadas;
-3. o notebook correspondente à etapa;
-4. os arquivos existentes em `src/`, para evitar duplicar regras ou funções.
+1. consultar `README.md`;
+2. consultar `docs/project_log.md`;
+3. identificar o notebook correspondente;
+4. verificar se já existe implementação relacionada em `src/`;
+5. utilizar os manifestos existentes como fonte de entrada da etapa.
 
-Se uma lógica for reutilizada em diferentes etapas, ela deve preferencialmente ser movida para `src/`.
+Se uma lógica passar a ser reutilizada em diferentes etapas, ela deve preferencialmente ser movida para `src/`.
 
 Se uma análise for específica de uma etapa experimental, ela pode permanecer no notebook correspondente.
 
@@ -628,10 +816,10 @@ Se uma análise for específica de uma etapa experimental, ela pode permanecer n
 
 # Histórico do projeto
 
-O histórico cronológico das principais decisões metodológicas e resultados pode ser consultado em:
+O histórico cronológico das decisões metodológicas e dos principais resultados está disponível em:
 
 ```text
 docs/project_log.md
 ```
 
-Esse documento deve ser atualizado sempre que uma decisão relevante alterar o desenho experimental do projeto.
+Esse arquivo deve ser atualizado sempre que uma decisão relevante alterar o desenho experimental do projeto.
