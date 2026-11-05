@@ -118,10 +118,11 @@ Estão concluídas:
 - **Etapa 1 — Análise Exploratória**
 - **Etapa 2 — Auditoria de Integridade**
 - **Etapa 3 — Construção do Subconjunto Final Reproduzível**
+- **Etapa 4 — Divisão em treino, validação e teste**
 
 A próxima fase é:
 
-**Etapa 4 — Divisão das pinturas em treino, validação e teste**
+**Etapa 5 — Geração dos patches de 256×256**
 
 O arquivo:
 
@@ -130,6 +131,16 @@ data/metadata/dataset_final.csv
 ```
 
 é, a partir da Etapa 3, a **fonte de verdade do conjunto experimental**.
+
+A partir da Etapa 4, os manifestos:
+
+```text
+data/metadata/train.csv
+data/metadata/validation.csv
+data/metadata/test.csv
+```
+
+são a **fonte de verdade da divisão** e estão **congelados**. Eles não devem ser alterados nem regenerados com outra semente ou outras proporções.
 
 As próximas etapas não devem reconstruir a seleção a partir do WikiArt bruto, exceto quando isso for explicitamente necessário para reprodução ou auditoria.
 
@@ -480,6 +491,82 @@ A possível dependência excessiva de características específicas de determina
 
 ---
 
+# Etapa 4 — Divisão em treino, validação e teste
+
+Código:
+
+```text
+src/data/split.py
+```
+
+A Etapa 4 dividiu as **10.000 pinturas** de `dataset_final.csv` em três conjuntos, **no nível da pintura original e antes da geração dos patches**. Cada `Painting_ID` pertence a exatamente um conjunto, e todos os patches futuros herdarão o conjunto da pintura de origem.
+
+## Proporções
+
+Divisão **70% / 15% / 15%**:
+
+| Conjunto | Pinturas | Por macroclasse |
+|---|---|---|
+| Treino | 7.000 | 1.750 |
+| Validação | 1.500 | 375 |
+| Teste | 1.500 | 375 |
+
+## Método
+
+- Estratificação por **macroclasse** e por **estilo original**, de modo que Renaissance e Cubism preservem a proporção de seus subestilos em cada conjunto.
+- Método dos maiores restos para garantir contagens exatas.
+- Divisão determinística, sem `pandas.sample()` e sem bibliotecas de split.
+- `SPLIT_SEED = 42`, independente da semente da Etapa 3.
+- Cada pintura recebe uma chave SHA-256 calculada a partir da semente e do `Painting_ID`. As pinturas de cada estrato são ordenadas por essa chave e distribuídas entre os conjuntos.
+
+Composição por subestilo (treino / validação / teste):
+
+- Early Renaissance: 371 / 79 / 80;
+- High Renaissance: 357 / 77 / 76;
+- Mannerism / Late Renaissance: 342 / 73 / 73;
+- Northern Renaissance: 680 / 146 / 146;
+- Analytical Cubism: 75 / 16 / 17;
+- Cubism: 1.527 / 327 / 327;
+- Synthetic Cubism: 148 / 32 / 31.
+
+## Verificações automáticas (anti-vazamento)
+
+O script interrompe a execução com erro se qualquer verificação falhar:
+
+- todos os `Painting_ID` são únicos;
+- nenhuma sobreposição de `Painting_ID` entre os conjuntos;
+- nenhum SHA-256 de pixels aparece em conjuntos diferentes;
+- a soma dos conjuntos é igual a 10.000;
+- as contagens por macroclasse e por conjunto são exatas;
+- refazer a divisão produz exatamente o mesmo resultado.
+
+## Distribuição de gênero, autoria e orientação
+
+- Gênero: diferença máxima entre conjuntos inferior a 1,1 p.p. no total. Dentro de cada macroclasse, a diferença máxima foi de 2,86 p.p. (Impressionism) a 4,38 p.p. (Cubism), compatível com amostras de 375 pinturas.
+- `Unknown Artist`: 51,49% no treino, 51,80% na validação e 53,13% no teste.
+- Artistas identificados variaram menos de 0,6 p.p. entre conjuntos.
+- Orientação vertical: 58,80% / 58,87% / 60,00%; horizontal: 41,00% / 40,93% / 39,73%.
+
+A distribuição não foi artificialmente corrigida.
+
+## Limitações
+
+- A divisão **não é agrupada por artista**, pois `Unknown Artist` representa mais da metade das obras e não pode ser tratado como um único autor. Obras de um mesmo artista identificado podem aparecer em conjuntos diferentes.
+- 3 rótulos de artista aparecem apenas em validação ou teste, e não no treino.
+- A possível dependência de características de autores específicos deverá ser considerada na análise de *shortcut learning*.
+
+## Como reproduzir
+
+Na raiz do projeto:
+
+```bash
+python -m src.data.split --manifest data/metadata/dataset_final.csv --out data/metadata
+```
+
+Os arquivos `train.csv`, `validation.csv` e `test.csv` são regravados com conteúdo idêntico.
+
+---
+
 # Arquivos de metadados
 
 Os principais arquivos estão em:
@@ -508,7 +595,11 @@ Grupos consolidados de registros que representam a mesma obra.
 
 Manifesto definitivo das 10.000 pinturas selecionadas.
 
-Este é o arquivo que deve ser utilizado como entrada para as próximas etapas.
+## `train.csv`, `validation.csv` e `test.csv`
+
+Manifestos da divisão da Etapa 4, com 7.000, 1.500 e 1.500 pinturas, respectivamente. Possuem as mesmas colunas de `dataset_final.csv`.
+
+Estes são os arquivos que devem ser utilizados como entrada para as próximas etapas.
 
 ---
 
@@ -528,7 +619,8 @@ tcc_wikiart/
 │
 ├── src/
 │   └── data/
-│       └── labels.py
+│       ├── labels.py
+│       └── split.py
 │
 ├── data/
 │   └── metadata/
@@ -536,7 +628,10 @@ tcc_wikiart/
 │       ├── candidatos_quase_duplicatas.csv
 │       ├── grupos_duplicatas_confirmadas.csv
 │       ├── descartes_auditoria.csv
-│       └── dataset_final.csv
+│       ├── dataset_final.csv
+│       ├── train.csv
+│       ├── validation.csv
+│       └── test.csv
 │
 └── docs/
     └── project_log.md
@@ -610,6 +705,23 @@ Responsável por:
 
 ---
 
+## Divisão dos dados
+
+```text
+src/data/split.py
+```
+
+Responsável por:
+
+- divisão determinística em treino, validação e teste;
+- estratificação por macroclasse e estilo original;
+- verificações automáticas contra vazamento de dados;
+- geração de `train.csv`, `validation.csv` e `test.csv`.
+
+Os manifestos gerados estão congelados. Não altere proporções, semente ou critérios sem registrar a decisão em `docs/project_log.md` e avisar o grupo.
+
+---
+
 ## Histórico de decisões
 
 ```text
@@ -622,53 +734,39 @@ Antes de modificar critérios experimentais, consulte esse arquivo.
 
 ---
 
-# Próxima etapa — divisão dos dados
+# Próxima etapa — geração dos patches
 
-A próxima etapa será a divisão das 10.000 pinturas em:
+A próxima etapa será a geração dos patches de `256×256` a partir das pinturas dos três manifestos.
 
-- treino;
-- validação;
-- teste.
+Princípios já definidos:
 
-A divisão ocorrerá **no nível da pintura original antes da geração dos patches**.
-
-Isso é obrigatório para evitar que regiões provenientes da mesma obra apareçam em conjuntos diferentes.
+- os patches são gerados a partir de `train.csv`, `validation.csv` e `test.csv`;
+- todo patch herda o conjunto da pintura de origem;
+- os manifestos da divisão estão congelados e não devem ser alterados.
 
 A próxima etapa deverá definir:
 
-- proporções dos três subconjuntos;
-- estratégia de estratificação;
-- semente da divisão;
-- distribuição final das macroclasses;
-- distribuição de gêneros;
-- distribuição de artistas;
-- manifestos independentes de treino, validação e teste.
-
-Os arquivos previstos são:
-
-```text
-data/metadata/train.csv
-data/metadata/validation.csv
-data/metadata/test.csv
-```
-
-Nenhum patch deverá ser gerado antes de essa divisão estar definitivamente congelada.
+- stride;
+- tratamento das bordas;
+- registro da posição `x/y` de cada patch;
+- associação de cada patch à pintura original (`Painting_ID`);
+- garantia de reconstrução posterior da pintura e dos mapas de calor;
+- aplicação de *data augmentation* apenas no treino.
 
 ---
 
 # Etapas posteriores
 
-Após a divisão dos dados:
+Após a geração dos patches:
 
-1. geração dos patches de 256×256;
-2. definição das transformações e normalização;
-3. treinamento da ResNet;
-4. treinamento do Vision Transformer;
-5. avaliação quantitativa;
-6. agregação das previsões no nível da pintura;
-7. análise de *shortcut learning*;
-8. Grad-CAM;
-9. demonstração final.
+1. definição das transformações e normalização;
+2. treinamento da ResNet;
+3. treinamento do Vision Transformer;
+4. avaliação quantitativa;
+5. agregação das previsões no nível da pintura;
+6. análise de *shortcut learning*;
+7. Grad-CAM;
+8. demonstração final.
 
 ---
 
@@ -725,7 +823,7 @@ As dependências específicas de treinamento serão adicionadas quando os modelo
 
 ---
 
-# Ordem de execução dos notebooks
+# Ordem de execução dos notebooks e scripts
 
 Atualmente:
 
@@ -736,12 +834,14 @@ Atualmente:
         ↓
 03_curadoria_dataset.ipynb
         ↓
-próxima etapa: divisão dos dados
+python -m src.data.split   (Etapa 4)
+        ↓
+próxima etapa: geração dos patches
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
 
-Por exemplo, se `dataset_final.csv` já estiver disponível e validado, a próxima fase poderá utilizá-lo diretamente.
+Por exemplo, se `train.csv`, `validation.csv` e `test.csv` já estiverem disponíveis e validados, a próxima fase poderá utilizá-los diretamente.
 
 Isso evita repetir operações demoradas de auditoria e reconstrução da curadoria.
 
@@ -759,7 +859,7 @@ O repositório armazena artefatos necessários para reproduzir os experimentos, 
 - descartes;
 - seleção final;
 - sementes;
-- futuras divisões de treino, validação e teste;
+- divisões de treino, validação e teste;
 - configurações de treinamento;
 - métricas.
 
