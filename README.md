@@ -489,8 +489,6 @@ A seleção não foi artificialmente balanceada por artista.
 
 A possível dependência excessiva de características específicas de determinados autores será considerada posteriormente durante a avaliação dos modelos.
 
----
-
 # Etapa 4 — Divisão em treino, validação e teste
 
 Código:
@@ -506,17 +504,17 @@ A Etapa 4 dividiu as **10.000 pinturas** de `dataset_final.csv` em três conjunt
 Divisão **70% / 15% / 15%**:
 
 | Conjunto | Pinturas | Por macroclasse |
-|---|---|---|
+|---|---:|---:|
 | Treino | 7.000 | 1.750 |
 | Validação | 1.500 | 375 |
 | Teste | 1.500 | 375 |
 
 ## Método
 
-- Estratificação por **macroclasse** e por **estilo original**, de modo que Renaissance e Cubism preservem a proporção de seus subestilos em cada conjunto.
+- Estratificação por **macroclasse** e por **estilo original**, de modo que Renaissance e Cubism preservem aproximadamente a proporção de seus subestilos em cada conjunto.
 - Método dos maiores restos para garantir contagens exatas.
-- Divisão determinística, sem `pandas.sample()` e sem bibliotecas de split.
-- `SPLIT_SEED = 42`, independente da semente da Etapa 3.
+- Divisão determinística, sem `pandas.sample()` e sem bibliotecas específicas de split.
+- `SPLIT_SEED = 42`, definido como parâmetro próprio da Etapa 4, embora possua o mesmo valor numérico da semente utilizada na Etapa 3.
 - Cada pintura recebe uma chave SHA-256 calculada a partir da semente e do `Painting_ID`. As pinturas de cada estrato são ordenadas por essa chave e distribuídas entre os conjuntos.
 
 Composição por subestilo (treino / validação / teste):
@@ -529,31 +527,60 @@ Composição por subestilo (treino / validação / teste):
 - Cubism: 1.527 / 327 / 327;
 - Synthetic Cubism: 148 / 32 / 31.
 
-## Verificações automáticas (anti-vazamento)
+## Verificações automáticas contra vazamento
 
-O script interrompe a execução com erro se qualquer verificação falhar:
+O script interrompe a execução com erro se qualquer verificação falhar.
 
-- todos os `Painting_ID` são únicos;
-- nenhuma sobreposição de `Painting_ID` entre os conjuntos;
-- nenhum SHA-256 de pixels aparece em conjuntos diferentes;
-- a soma dos conjuntos é igual a 10.000;
-- as contagens por macroclasse e por conjunto são exatas;
-- refazer a divisão produz exatamente o mesmo resultado.
+São verificadas:
+
+- unicidade de `Painting_ID`;
+- unicidade de `Indice_Dataset`;
+- unicidade de `Hash_SHA256_Pixels`;
+- ausência de sobreposição de `Painting_ID` entre os conjuntos;
+- ausência de sobreposição de `Indice_Dataset` entre os conjuntos;
+- ausência do mesmo SHA-256 de pixels em conjuntos diferentes;
+- soma dos três conjuntos igual ao conjunto original de 10.000 pinturas;
+- contagens exatas por macroclasse e conjunto;
+- reprodutibilidade da divisão ao executar novamente o algoritmo com os mesmos parâmetros.
+
+A auditoria confirmou **zero sobreposição** entre treino, validação e teste pelos três identificadores utilizados.
 
 ## Distribuição de gênero, autoria e orientação
 
-- Gênero: diferença máxima entre conjuntos inferior a 1,1 p.p. no total. Dentro de cada macroclasse, a diferença máxima foi de 2,86 p.p. (Impressionism) a 4,38 p.p. (Cubism), compatível com amostras de 375 pinturas.
-- `Unknown Artist`: 51,49% no treino, 51,80% na validação e 53,13% no teste.
-- Artistas identificados variaram menos de 0,6 p.p. entre conjuntos.
-- Orientação vertical: 58,80% / 58,87% / 60,00%; horizontal: 41,00% / 40,93% / 39,73%.
+A distribuição de gênero não foi utilizada como critério adicional de estratificação, mas foi verificada após a divisão.
 
-A distribuição não foi artificialmente corrigida.
+Considerando as distribuições globais de gênero, a maior diferença entre os três conjuntos ficou abaixo de **1,1 ponto percentual**.
+
+Dentro de cada macroclasse, a maior diferença observada entre os splits variou de:
+
+- **2,86 p.p.** em Impressionism;
+- até **4,38 p.p.** em Cubism.
+
+Além disso, a comparação de cada split com a distribuição da respectiva macroclasse no conjunto completo apresentou maior desvio pontual de **3,47 p.p.**, em `Cubism / validation`, para `still_life`.
+
+Essas diferenças foram consideradas compatíveis com subconjuntos de apenas 375 pinturas por macroclasse em validação e teste, não justificando uma estratificação adicional por gênero.
+
+Em relação à autoria:
+
+- `Unknown Artist`: 51,49% no treino, 51,80% na validação e 53,13% no teste;
+- entre os artistas identificados, a maior diferença de participação entre conjuntos foi de aproximadamente 0,55 p.p.
+
+Em relação à orientação:
+
+- vertical: 58,80% / 58,87% / 60,00%;
+- horizontal: 41,00% / 40,93% / 39,73%;
+- quadrada: 0,20% / 0,20% / 0,27%.
+
+As distribuições não foram artificialmente corrigidas.
 
 ## Limitações
 
 - A divisão **não é agrupada por artista**, pois `Unknown Artist` representa mais da metade das obras e não pode ser tratado como um único autor. Obras de um mesmo artista identificado podem aparecer em conjuntos diferentes.
-- 3 rótulos de artista aparecem apenas em validação ou teste, e não no treino.
-- A possível dependência de características de autores específicos deverá ser considerada na análise de *shortcut learning*.
+- Três rótulos de artistas identificados aparecem em validação e/ou teste, mas não no treino:
+  - `ferdinand-hodler`;
+  - `konstantin-makovsky`;
+  - `theo-van-rysselberghe`.
+- A possível dependência de características de autores específicos deverá ser considerada posteriormente na análise de *shortcut learning*.
 
 ## Como reproduzir
 
@@ -563,162 +590,17 @@ Na raiz do projeto:
 python -m src.data.split --manifest data/metadata/dataset_final.csv --out data/metadata
 ```
 
-Os arquivos `train.csv`, `validation.csv` e `test.csv` são regravados com conteúdo idêntico.
-
----
-
-# Arquivos de metadados
-
-Os principais arquivos estão em:
+Com o mesmo `dataset_final.csv`, código e parâmetros, os arquivos:
 
 ```text
-data/metadata/
+data/metadata/train.csv
+data/metadata/validation.csv
+data/metadata/test.csv
 ```
 
-## `auditoria_integridade.csv`
+são gerados deterministicamente com o mesmo conteúdo.
 
-Diagnóstico técnico das 26.426 obras candidatas.
-
-## `candidatos_quase_duplicatas.csv`
-
-Pares identificados pelo pHash e respectivas classificações manuais.
-
-## `grupos_duplicatas_confirmadas.csv`
-
-Grupos consolidados de registros que representam a mesma obra.
-
-## `descartes_auditoria.csv`
-
-150 registros descartados durante a auditoria.
-
-## `dataset_final.csv`
-
-Manifesto definitivo das 10.000 pinturas selecionadas.
-
-## `train.csv`, `validation.csv` e `test.csv`
-
-Manifestos da divisão da Etapa 4, com 7.000, 1.500 e 1.500 pinturas, respectivamente. Possuem as mesmas colunas de `dataset_final.csv`.
-
-Estes são os arquivos que devem ser utilizados como entrada para as próximas etapas.
-
----
-
-# Estrutura atual do projeto
-
-```text
-tcc_wikiart/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── notebooks/
-│   ├── 01_analise_exploratoria.ipynb
-│   ├── 02_auditoria_dataset.ipynb
-│   └── 03_curadoria_dataset.ipynb
-│
-├── src/
-│   └── data/
-│       ├── labels.py
-│       └── split.py
-│
-├── data/
-│   └── metadata/
-│       ├── auditoria_integridade.csv
-│       ├── candidatos_quase_duplicatas.csv
-│       ├── grupos_duplicatas_confirmadas.csv
-│       ├── descartes_auditoria.csv
-│       ├── dataset_final.csv
-│       ├── train.csv
-│       ├── validation.csv
-│       └── test.csv
-│
-└── docs/
-    └── project_log.md
-```
-
-Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
-
----
-
-# Onde modificar cada parte
-
-## Definições de classes
-
-Alterações relacionadas às macroclasses devem ocorrer em:
-
-```text
-src/data/labels.py
-```
-
-Esse arquivo é a fonte central de definição dos rótulos.
-
----
-
-## Análise exploratória
-
-```text
-notebooks/01_analise_exploratoria.ipynb
-```
-
-Utilizado para:
-
-- análise geral do WikiArt;
-- gêneros;
-- artistas;
-- distribuição dos estilos;
-- investigação inicial de vieses.
-
----
-
-## Auditoria
-
-```text
-notebooks/02_auditoria_dataset.ipynb
-```
-
-Responsável por:
-
-- abertura das imagens;
-- dimensões;
-- resolução;
-- hashes;
-- duplicatas;
-- critérios de descarte.
-
----
-
-## Curadoria
-
-```text
-notebooks/03_curadoria_dataset.ipynb
-```
-
-Responsável por:
-
-- balanceamento;
-- seleção determinística;
-- composição proporcional dos subestilos;
-- criação do `Painting_ID`;
-- incorporação de artista e gênero;
-- geração de `dataset_final.csv`.
-
----
-
-## Divisão dos dados
-
-```text
-src/data/split.py
-```
-
-Responsável por:
-
-- divisão determinística em treino, validação e teste;
-- estratificação por macroclasse e estilo original;
-- verificações automáticas contra vazamento de dados;
-- geração de `train.csv`, `validation.csv` e `test.csv`.
-
-Os manifestos gerados estão congelados. Não altere proporções, semente ou critérios sem registrar a decisão em `docs/project_log.md` e avisar o grupo.
+Os três manifestos são considerados **congelados** para as próximas etapas. Alterações nas proporções, semente ou critérios de divisão devem ser tratadas como uma nova decisão experimental e registradas em `docs/project_log.md`.
 
 ---
 

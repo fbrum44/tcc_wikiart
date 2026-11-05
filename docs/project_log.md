@@ -301,23 +301,173 @@ passa a ser a fonte de verdade para as próximas etapas experimentais.
 
 ---
 
+## 2026-11-05 — Etapa 4: divisão em treino, validação e teste
+
+### Estratégia de divisão
+
+- A divisão foi realizada no nível da pintura original, antes da geração de patches.
+- O arquivo de entrada utilizado foi:
+  - `data/metadata/dataset_final.csv`
+- O conjunto final possui 10.000 pinturas.
+- Foi mantida a semente:
+  - `SPLIT_SEED = 42`
+- Foram definidas as proporções:
+  - treino: 70%;
+  - validação: 15%;
+  - teste: 15%.
+
+A divisão final contém:
+
+- `train.csv`: 7.000 pinturas;
+- `validation.csv`: 1.500 pinturas;
+- `test.csv`: 1.500 pinturas.
+
+### Estratificação
+
+A divisão foi estratificada por:
+
+- macroclasse final;
+- estilo original.
+
+Cada uma das quatro macroclasses permaneceu perfeitamente balanceada:
+
+| Macroclasse | Treino | Validação | Teste |
+|---|---:|---:|---:|
+| Renaissance | 1.750 | 375 | 375 |
+| Baroque | 1.750 | 375 | 375 |
+| Impressionism | 1.750 | 375 | 375 |
+| Cubism | 1.750 | 375 | 375 |
+
+A composição dos estilos originais de Renaissance e Cubism também foi preservada proporcionalmente.
+
+### Reprodutibilidade
+
+A divisão não utiliza `pandas.sample()` nem depende de estado interno de geradores pseudoaleatórios.
+
+Cada pintura recebe uma chave SHA-256 determinística calculada a partir de:
+
+- `SPLIT_SEED`;
+- `Painting_ID`.
+
+A ordenação por essa chave define a posição da pintura dentro de seu estrato.
+
+A execução repetida com os mesmos dados, parâmetros e código produz os mesmos três manifestos.
+
+### Verificações contra data leakage
+
+Foram implementadas verificações automáticas utilizando três identificadores independentes:
+
+- `Painting_ID`;
+- `Indice_Dataset`;
+- `Hash_SHA256_Pixels`.
+
+Resultados:
+
+- 0 sobreposições entre treino e validação;
+- 0 sobreposições entre treino e teste;
+- 0 sobreposições entre validação e teste;
+- 0 identificadores duplicados dentro dos subconjuntos;
+- 0 conteúdos SHA-256 presentes em mais de um split.
+
+A união dos três manifestos recompõe exatamente as 10.000 pinturas presentes em `dataset_final.csv`:
+
+- 0 pinturas ausentes;
+- 0 pinturas adicionais;
+- 0 alterações nos metadados originais.
+
+As verificações foram implementadas com exceções explícitas em vez de depender exclusivamente da instrução `assert`, evitando que as salvaguardas possam ser desativadas pela execução otimizada do Python.
+
+### Preservação da distribuição de gênero
+
+O gênero não foi utilizado como variável de estratificação direta.
+
+Após a divisão, sua distribuição foi auditada dentro de cada macroclasse e comparada com a distribuição da respectiva macroclasse no conjunto completo.
+
+Foram utilizadas duas medidas:
+
+- `TVD_pp`: distância de variação total, em pontos percentuais;
+- `max_diff_pp`: maior diferença absoluta observada em um único gênero.
+
+Resultados:
+
+| Macroclasse | Split | TVD (p.p.) | Maior diferença (p.p.) |
+|---|---|---:|---:|
+| Baroque | train | 1,26 | 0,82 |
+| Baroque | validation | 4,75 | 2,71 |
+| Baroque | test | 2,40 | 1,11 |
+| Cubism | train | 1,62 | 0,91 |
+| Cubism | validation | 6,44 | 3,47 |
+| Cubism | test | 4,23 | 1,49 |
+| Impressionism | train | 0,96 | 0,54 |
+| Impressionism | validation | 2,36 | 1,79 |
+| Impressionism | test | 2,75 | 2,32 |
+| Renaissance | train | 1,50 | 0,65 |
+| Renaissance | validation | 4,84 | 3,12 |
+| Renaissance | test | 2,65 | 1,69 |
+
+A maior diferença pontual observada foi de 3,47 pontos percentuais, em `Cubism / validation`, no gênero `still_life`.
+
+Considerando o tamanho de 375 pinturas por macroclasse nos conjuntos de validação e teste, as diferenças foram consideradas pequenas e compatíveis com o objetivo de preservar, na medida do possível, a distribuição temática original.
+
+Decidiu-se não introduzir uma segunda estratificação por gênero, pois os manifestos atuais já mantêm satisfatoriamente essa distribuição e uma estratificação excessivamente granular poderia criar estratos muito pequenos.
+
+### Artefatos da etapa
+
+Código:
+
+`src/data/split.py`
+
+Manifestos congelados:
+
+- `data/metadata/train.csv`
+- `data/metadata/validation.csv`
+- `data/metadata/test.csv`
+
+Esses três arquivos passam a ser a fonte de entrada para a geração dos patches.
+
+### Decisão metodológica
+
+Os manifestos da Etapa 4 são considerados congelados.
+
+Alterações futuras em:
+
+- proporções;
+- `SPLIT_SEED`;
+- critérios de estratificação;
+- ou composição dos três conjuntos
+
+devem ser tratadas como uma nova decisão experimental e registradas antes da repetição dos treinamentos.
+
+---
+
+## Estado atual do projeto
+
+Etapas concluídas:
+
+- [x] definição do escopo;
+- [x] análise exploratória;
+- [x] auditoria de integridade;
+- [x] construção do subconjunto final reproduzível;
+- [x] divisão em treino, validação e teste.
+
+---
+
 ## Próxima etapa
 
-### Etapa 4 — Divisão em treino, validação e teste
+### Etapa 5 — Geração dos patches
 
-Princípio já definido:
+A próxima etapa deverá gerar patches de 256×256 pixels a partir exclusivamente de:
 
-**a divisão deve ocorrer no nível da pintura original antes da geração de patches.**
+- `train.csv`;
+- `validation.csv`;
+- `test.csv`.
 
-Objetivos da próxima etapa:
+Princípios já definidos:
 
-- definir proporções de treino, validação e teste;
-- definir estratégia de estratificação;
-- utilizar uma divisão reproduzível;
-- garantir que cada `Painting_ID` pertença a apenas um subconjunto;
-- analisar a distribuição das macroclasses após o split;
-- analisar a distribuição de gêneros e artistas nos subconjuntos;
-- salvar manifestos separados para treino, validação e teste;
-- somente depois iniciar a geração dos patches de 256×256 pixels.
-
-Nenhum patch deverá ser gerado antes de a divisão das pinturas estar definitivamente congelada.
+- cada patch deverá permanecer no mesmo split da pintura de origem;
+- nenhum patch poderá atravessar os limites entre treino, validação e teste;
+- cada patch deverá manter associação com seu `Painting_ID`;
+- deverão ser registradas as coordenadas espaciais de origem;
+- a estratégia de stride e tratamento de bordas deverá ser definida explicitamente;
+- a geração deverá permitir reconstrução espacial posterior para aplicação de Grad-CAM;
+- técnicas de data augmentation deverão ser aplicadas somente ao conjunto de treino.

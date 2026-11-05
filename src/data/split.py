@@ -28,6 +28,7 @@ SPLIT_SEED = 42
 FRACTIONS = {"train": 0.70, "validation": 0.15, "test": 0.15}
 
 COL_ID = "Painting_ID"
+COL_INDEX = "Indice_Dataset"
 COL_CLASS = "Macro_Estilo"
 COL_STYLE = "Estilo"
 COL_GENRE = "Genero"
@@ -91,40 +92,228 @@ def make_split(df: pd.DataFrame, fractions: dict = FRACTIONS, seed: int = SPLIT_
     return df.drop(columns="_key")
 
 
-def validate(df: pd.DataFrame, fractions: dict = FRACTIONS) -> dict:
-    """Testes automáticos contra vazamento (data leakage). Levanta AssertionError."""
-    assert df["Split"].notna().all(), "Há pinturas sem conjunto"
-    assert df[COL_ID].is_unique, "Painting_ID repetido"
+def validate(
+    df: pd.DataFrame,
+    fractions: dict = FRACTIONS,
+    seed: int = SPLIT_SEED,
+) -> dict:
+    """
+    Executa verificações automáticas de integridade,
+    reprodutibilidade e data leakage.
+    """
 
-    parts = {s: set(df.loc[df.Split == s, COL_ID]) for s in fractions}
-    names = list(fractions)
-    for i, a in enumerate(names):
-        for b in names[i + 1:]:
-            assert not (parts[a] & parts[b]), f"Sobreposição de IDs entre {a} e {b}"
-    assert sum(len(p) for p in parts.values()) == len(df), "Soma dos splits != total"
+    colunas_obrigatorias = {
+        COL_ID,
+        COL_INDEX,
+        COL_CLASS,
+        COL_STYLE,
+        COL_GENRE,
+        COL_SHA,
+        "Split",
+    }
 
-    if COL_SHA in df.columns:                  # mesmo conteúdo em splits diferentes?
-        n_splits = df.groupby(COL_SHA)["Split"].nunique()
-        assert (n_splits == 1).all(), "Mesmo SHA-256 em conjuntos diferentes"
+    faltantes = colunas_obrigatorias - set(df.columns)
 
-    for cls, g in df.groupby(COL_CLASS):
-        esperado = split_counts(len(g), fractions)
-        real = g["Split"].value_counts().to_dict()
-        assert all(real.get(s, 0) == esperado[s] for s in fractions), \
-            f"Contagem por split incorreta em {cls}: {real} vs {esperado}"
+    if faltantes:
+        raise AssertionError(
+            f"Colunas obrigatórias ausentes: {sorted(faltantes)}"
+        )
 
-    # reprodutibilidade: refazer a divisão deve dar o mesmo resultado
-    again = make_split(df.drop(columns="Split"), fractions)
-    assert (again.set_index(COL_ID)["Split"] == df.set_index(COL_ID)["Split"]).all(), \
-        "Divisão não é determinística"
+    if not df["Split"].notna().all():
+        raise AssertionError(
+            "Há pinturas sem conjunto."
+        )
+
+    splits_invalidos = (
+        set(df["Split"].unique())
+        - set(fractions.keys())
+    )
+
+    if splits_invalidos:
+        raise AssertionError(
+            f"Splits inesperados: {sorted(splits_invalidos)}"
+        )
+
+    # Verificação por três identificadores independentes.
+    identificadores = [
+        COL_ID,
+        COL_INDEX,
+        COL_SHA,
+    ]
+
+    nomes_splits = list(fractions.keys())
+
+    for coluna in identificadores:
+
+        if not df[coluna].is_unique:
+            raise AssertionError(
+                f"{coluna} repetido no conjunto completo."
+            )
+
+        partes = {
+            split: set(
+                df.loc[
+                    df["Split"] == split,
+                    coluna
+                ]
+            )
+            for split in nomes_splits
+        }
+
+        for i, split_a in enumerate(nomes_splits):
+            for split_b in nomes_splits[i + 1:]:
+
+                sobreposicao = (
+                    partes[split_a]
+                    & partes[split_b]
+                )
+
+                if sobreposicao:
+                    raise AssertionError(
+                        f"Data leakage por {coluna}: "
+                        f"{split_a} e {split_b} compartilham "
+                        f"{len(sobreposicao)} registro(s)."
+                    )
+
+        total_splits = sum(
+            len(parte)
+            for parte in partes.values()
+        )
+
+        if total_splits != len(df):
+            raise AssertionError(
+                f"Soma dos splits por {coluna} "
+                "difere do total."
+            )
+
+    # Verifica as quantidades de cada macroclasse.
+    for macroclasse, grupo in df.groupby(COL_CLASS):
+
+        esperado = split_counts(
+            len(grupo),
+            fractions,
+        )
+
+        real = (
+            grupo["Split"]
+            .value_counts()
+            .to_dict()
+        )
+
+        correto = all(
+            real.get(split, 0) == esperado[split]
+            for split in fractions
+        )
+
+        if not correto:
+            raise AssertionError(
+                f"Contagem por split incorreta em "
+                f"{macroclasse}: {real} vs {esperado}"
+            )
+
+    # Teste de reprodutibilidade.
+    novamente = make_split(
+        df.drop(columns="Split"),
+        fractions=fractions,
+        seed=seed,
+    )
+
+    split_atual = (
+        df
+        .set_index(COL_ID)["Split"]
+        .sort_index()
+    )
+
+    split_recalculado = (
+        novamente
+        .set_index(COL_ID)["Split"]
+        .sort_index()
+    )
+
+    if not split_atual.equals(split_recalculado):
+        raise AssertionError(
+            "A divisão não é determinística."
+        )
+
     return {"ok": True}
 
 
-def distribution_report(df: pd.DataFrame, col: str, top: int = 8) -> pd.DataFrame:
-    """% de cada categoria de `col` por conjunto (para comparar gênero/artista)."""
-    tab = pd.crosstab(df[col], df["Split"], normalize="columns") * 100
-    tab["max_diff_pp"] = tab.max(axis=1) - tab.min(axis=1)
-    return tab.sort_values(tab.columns[0], ascending=False).head(top).round(2)
+def genre_distribution_report(
+    df: pd.DataFrame,
+) -> pd.DataFrame:
+    """
+    Compara a distribuição de gênero de cada split
+    com a distribuição da respectiva macroclasse
+    no conjunto completo.
+
+    TVD_pp:
+        distância de variação total em pontos percentuais.
+
+    max_diff_pp:
+        maior diferença absoluta observada em um
+        único gênero, em pontos percentuais.
+    """
+
+    resultados = []
+
+    for macroclasse, grupo_classe in df.groupby(
+        COL_CLASS,
+        sort=True,
+    ):
+
+        distribuicao_base = (
+            grupo_classe[COL_GENRE]
+            .value_counts(normalize=True)
+            .mul(100)
+        )
+
+        for split in FRACTIONS:
+
+            grupo_split = grupo_classe[
+                grupo_classe["Split"] == split
+            ]
+
+            distribuicao_split = (
+                grupo_split[COL_GENRE]
+                .value_counts(normalize=True)
+                .mul(100)
+            )
+
+            generos = (
+                distribuicao_base.index
+                .union(distribuicao_split.index)
+            )
+
+            base = distribuicao_base.reindex(
+                generos,
+                fill_value=0.0,
+            )
+
+            atual = distribuicao_split.reindex(
+                generos,
+                fill_value=0.0,
+            )
+
+            diferencas = (
+                atual - base
+            ).abs()
+
+            resultados.append({
+                COL_CLASS: macroclasse,
+                "Split": split,
+                "N": len(grupo_split),
+                "TVD_pp": diferencas.sum() / 2,
+                "max_diff_pp": diferencas.max(),
+                "Genero_maior_diferenca": diferencas.idxmax(),
+            })
+
+    return (
+        pd.DataFrame(resultados)
+        .round({
+            "TVD_pp": 2,
+            "max_diff_pp": 2,
+        })
+    )
 
 
 def main() -> None:
@@ -134,13 +323,29 @@ def main() -> None:
     args = ap.parse_args()
 
     df = pd.read_csv(args.manifest)
-    out = make_split(df)
-    validate(out)
+    out = make_split(
+    df,
+    fractions=FRACTIONS,
+    seed=SPLIT_SEED,
+    )
+    validate(
+    out,
+    fractions=FRACTIONS,
+    seed=SPLIT_SEED,
+    )
 
     out_dir = Path(args.out)
     for name in FRACTIONS:
         out[out.Split == name].drop(columns="Split").to_csv(out_dir / f"{name}.csv", index=False)
     print(out.groupby([COL_CLASS, "Split"]).size().unstack())
+    print("\nPreservação da distribuição de gênero:")
+
+    print(
+        genre_distribution_report(out)
+        .to_string(index=False)
+    )
+
+    print("\nValidações concluídas sem data leakage.")
 
 
 if __name__ == "__main__":
