@@ -937,8 +937,9 @@ O histórico cronológico das decisões metodológicas e dos principais resultad
 docs/project_log.md
 ```
 
-# Árvore do projeto
+## Árvore do projeto
 
+```text
 tcc_wikiart/
 │
 ├── README.md
@@ -974,5 +975,6 @@ tcc_wikiart/
 │
 └── docs/
     └── project_log.md
+```
 
-Esse arquivo deve ser atualizado sempre que uma decisão relevante alterar o desenho experimental do projeto.
+Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
