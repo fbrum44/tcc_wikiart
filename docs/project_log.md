@@ -454,20 +454,216 @@ Etapas concluídas:
 
 ## Próxima etapa
 
-### Etapa 5 — Geração dos patches
+## 2026-11-05 — Etapa 5: pipeline de patches
 
-A próxima etapa deverá gerar patches de 256×256 pixels a partir exclusivamente de:
+### Configuração espacial
 
-- `train.csv`;
-- `validation.csv`;
-- `test.csv`.
+Definidos:
 
-Princípios já definidos:
+- `PATCH_SIZE = 256`;
+- `STRIDE = 128`;
+- sobreposição nominal de 50%.
 
-- cada patch deverá permanecer no mesmo split da pintura de origem;
-- nenhum patch poderá atravessar os limites entre treino, validação e teste;
-- cada patch deverá manter associação com seu `Painting_ID`;
-- deverão ser registradas as coordenadas espaciais de origem;
-- a estratégia de stride e tratamento de bordas deverá ser definida explicitamente;
-- a geração deverá permitir reconstrução espacial posterior para aplicação de Grad-CAM;
-- técnicas de data augmentation deverão ser aplicadas somente ao conjunto de treino.
+Os patches são gerados diretamente sobre a resolução original da pintura.
+
+Não são utilizados:
+
+- resize da pintura;
+- padding;
+- descarte de regiões periféricas.
+
+### Política de bordas
+
+O último patch de cada eixo deve terminar exatamente na borda da pintura.
+
+Durante os testes foi identificado que simplesmente acrescentar um novo patch na borda poderia produzir regiões quase duplicadas quando o deslocamento restante fosse muito pequeno.
+
+Foi definido:
+
+`EDGE_REPOSITION_THRESHOLD = 64`
+
+Quando o deslocamento final é inferior a 64 pixels, a última posição regular é reposicionada para a borda.
+
+Caso contrário, uma nova posição é adicionada.
+
+Essa estratégia garante cobertura integral sem introduzir pixels artificiais e reduz redundância excessiva nas extremidades.
+
+### Coordenadas e identificação
+
+Cada patch registra:
+
+- `Patch_ID`;
+- `Painting_ID`;
+- `Indice_Dataset`;
+- split;
+- macroclasse;
+- estilo original;
+- `x0`;
+- `y0`;
+- `x1`;
+- `y1`.
+
+O `Patch_ID` é derivado deterministicamente do `Painting_ID` e das coordenadas iniciais.
+
+### Manifestos
+
+Criados:
+
+- `data/metadata/patches_train.csv.gz`;
+- `data/metadata/patches_validation.csv.gz`;
+- `data/metadata/patches_test.csv.gz`;
+- `data/metadata/patches_resumo.csv`.
+
+Quantidade final:
+
+| Split | Pinturas | Patches | Média por pintura |
+|---|---:|---:|---:|
+| train | 7.000 | 980.730 | 140,10 |
+| validation | 1.500 | 209.730 | 139,82 |
+| test | 1.500 | 209.030 | 139,35 |
+| **Total** | **10.000** | **1.399.490** | — |
+
+Os manifestos comprimidos ocupam aproximadamente 11 MB no total.
+
+### Distribuição por macroclasse
+
+Treino:
+
+- Baroque: 241.050;
+- Cubism: 239.100;
+- Impressionism: 241.650;
+- Renaissance: 258.930.
+
+Validação:
+
+- Baroque: 51.000;
+- Cubism: 51.150;
+- Impressionism: 52.620;
+- Renaissance: 54.960.
+
+Teste:
+
+- Baroque: 50.770;
+- Cubism: 51.560;
+- Impressionism: 51.060;
+- Renaissance: 55.640.
+
+Decidido não remover patches para equilibrar artificialmente essas quantidades.
+
+A quantidade diferente de patches é consequência das dimensões das pinturas.
+
+A estratégia de treinamento deverá evitar que pinturas maiores recebam peso excessivo apenas por produzirem mais patches.
+
+### Validação dos manifestos persistidos
+
+Os arquivos `.csv.gz` foram relidos após a gravação.
+
+Resultados:
+
+- `train`: 980.730 patches validados;
+- `validation`: 209.730 patches validados;
+- `test`: 209.030 patches validados.
+
+Foram verificadas:
+
+- unicidade de `Patch_ID`;
+- associação válida a `Painting_ID`;
+- split correto;
+- dimensão 256×256;
+- coordenadas válidas;
+- ausência de patches fora da imagem;
+- cobertura desde `x=0` e `y=0`;
+- cobertura até a borda direita e inferior;
+- presença de patches para todas as pinturas.
+
+Nenhuma inconsistência foi encontrada.
+
+### Extração com OpenCV
+
+Implementada extração das regiões com OpenCV/NumPy.
+
+Foram testados patches reais de uma pintura do WikiArt.
+
+Confirmado que os recortes:
+
+- pertenciam ao mesmo `Painting_ID`;
+- pertenciam ao mesmo `Indice_Dataset`;
+- correspondiam visualmente às posições registradas;
+- apresentavam dimensão 256×256.
+
+### Reconstrução
+
+Foi testada a reconstrução integral de uma pintura a partir de seus patches.
+
+Nas áreas sobrepostas foi utilizada soma seguida de divisão pelo número de coberturas.
+
+Resultado:
+
+- `Reconstrução idêntica: True`;
+- `Maior diferença de pixel: 0`;
+- `Pixels diferentes: 0`.
+
+A reconstrução foi pixel a pixel idêntica à pintura original.
+
+Concluído que as coordenadas e a política de sobreposição permitem reconstrução espacial posterior dos mapas Grad-CAM.
+
+A validação não afirma que o Grad-CAM será semanticamente correto; ela comprova que a infraestrutura geométrica para reconstruí-lo está correta.
+
+### Data augmentation
+
+Criado:
+
+`src/data/augmentations.py`
+
+Augmentation definido somente para treino:
+
+- flip horizontal: probabilidade de 50%;
+- rotação: probabilidade de 50%;
+- ângulo: entre -10° e +10°;
+- bordas de rotação: `cv2.BORDER_REFLECT_101`.
+
+Não utilizados:
+
+- flip vertical;
+- alterações de cor;
+- saturação;
+- blur;
+- ruído;
+- crop aleatório;
+- rotações extremas.
+
+Validação e teste retornam cópias pixel a pixel inalteradas.
+
+Os testes automáticos de augmentation foram concluídos com sucesso.
+
+Augmentation será executado dinamicamente durante treinamento e não produzirá arquivos permanentes.
+
+### Decisões metodológicas
+
+- todos os patches válidos são mantidos nos manifestos;
+- patches vizinhos podem possuir 50% de sobreposição;
+- os patches não devem ser interpretados como observações estatisticamente independentes;
+- a unidade principal de separação experimental continua sendo a pintura;
+- augmentation não altera os manifestos;
+- validation e test nunca recebem augmentation;
+- eventual balanceamento deverá ocorrer durante a amostragem de treino, e não pela exclusão de patches nesta etapa.
+
+### Código
+
+- `src/data/patches.py`;
+- `src/data/augmentations.py`.
+
+---
+
+
+## Próxima etapa
+
+### Etapa 6 — preparação da entrada e normalização
+
+Objetivos:
+
+- Definir normalização compatível com os pesos pré-treinados.
+- Implementar rotações e espelhamentos.
+- Evitar alterações cromáticas agressivas.
+- Criar loaders de treino, validação e teste.
+- Validar visualmente amostras depois das transformações.

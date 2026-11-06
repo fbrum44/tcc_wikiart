@@ -616,26 +616,155 @@ Antes de modificar critérios experimentais, consulte esse arquivo.
 
 ---
 
-# Próxima etapa — geração dos patches
+# Etapa 5 — Pipeline de patches
 
-A próxima etapa será a geração dos patches de `256×256` a partir das pinturas dos três manifestos.
+A Etapa 5 implementou a geração determinística da grade de patches utilizada pelos modelos.
 
-Princípios já definidos:
+Código:
 
-- os patches são gerados a partir de `train.csv`, `validation.csv` e `test.csv`;
-- todo patch herda o conjunto da pintura de origem;
-- os manifestos da divisão estão congelados e não devem ser alterados.
+```text id="ds118j"
+src/data/patches.py
+src/data/augmentations.py
+```
 
-A próxima etapa deverá definir:
+## Configuração
 
-- stride;
-- tratamento das bordas;
-- registro da posição `x/y` de cada patch;
-- associação de cada patch à pintura original (`Painting_ID`);
-- garantia de reconstrução posterior da pintura e dos mapas de calor;
-- aplicação de *data augmentation* apenas no treino.
+Foram definidas as seguintes regras:
+
+- patch: **256×256 pixels**;
+- stride: **128 pixels**;
+- sobreposição nominal: **50%**;
+- nenhum resize da pintura;
+- nenhum padding;
+- nenhuma região periférica descartada;
+- registro das coordenadas `x0`, `y0`, `x1` e `y1`;
+- associação de todos os patches ao `Painting_ID` de origem.
+
+Nas bordas, o último patch é ajustado para terminar exatamente no limite da pintura.
+
+Quando esse ajuste exigiria deslocamento inferior a 64 pixels, o último patch regular é reposicionado em vez de adicionar um patch quase duplicado.
+
+## Quantidade de patches
+
+Foram gerados:
+
+| Conjunto | Pinturas | Patches |
+|---|---:|---:|
+| Treino | 7.000 | 980.730 |
+| Validação | 1.500 | 209.730 |
+| Teste | 1.500 | 209.030 |
+| **Total** | **10.000** | **1.399.490** |
+
+Os manifestos são:
+
+```text id="9hodl9"
+data/metadata/patches_train.csv.gz
+data/metadata/patches_validation.csv.gz
+data/metadata/patches_test.csv.gz
+data/metadata/patches_resumo.csv
+```
+
+Cada patch registra:
+
+- `Patch_ID`;
+- `Painting_ID`;
+- `Indice_Dataset`;
+- split;
+- macroclasse;
+- estilo original;
+- `x0`;
+- `y0`;
+- `x1`;
+- `y1`.
+
+## Validação
+
+Os três manifestos foram relidos após a gravação e passaram por verificações automáticas.
+
+Foram confirmados:
+
+- `Patch_ID` único;
+- associação válida à pintura original;
+- pertencimento ao split correto;
+- dimensão exata de 256×256;
+- ausência de coordenadas inválidas;
+- ausência de patches ultrapassando a pintura;
+- cobertura integral das bordas;
+- presença de patches para todas as 10.000 pinturas.
+
+Resultados:
+
+```text id="22bdeo"
+train:      980.730 patches validados
+validation: 209.730 patches validados
+test:       209.030 patches validados
+```
+
+## Reconstrução
+
+Foi realizada uma reconstrução completa de uma pintura utilizando todos os seus patches e respectivas coordenadas.
+
+Resultado:
+
+```text id="fk1g5p"
+Reconstrução idêntica: True
+Maior diferença de pixel: 0
+Pixels diferentes: 0
+```
+
+Isso confirma que a geometria dos patches permite reconstrução espacial integral.
+
+A mesma estratégia será utilizada posteriormente para posicionar e combinar mapas Grad-CAM sobre a pintura original.
+
+## Quantidade de patches por classe
+
+A quantidade de pinturas permanece balanceada, mas classes com imagens maiores produzem mais patches.
+
+No treino:
+
+```text id="je8lvw"
+Baroque         241.050
+Cubism          239.100
+Impressionism   241.650
+Renaissance     258.930
+```
+
+Os patches não foram descartados para balancear artificialmente essas quantidades.
+
+Esse efeito será tratado posteriormente pela estratégia de amostragem no treinamento.
+
+## Data augmentation
+
+O augmentation é aplicado dinamicamente **somente ao conjunto de treino**.
+
+Transformações atuais:
+
+- flip horizontal com probabilidade de 50%;
+- rotação entre -10° e +10° com probabilidade de 50%;
+- `BORDER_REFLECT_101` durante a rotação.
+
+Não são aplicadas alterações de cor, saturação, blur, ruído, flip vertical ou rotações extremas.
+
+Validação e teste permanecem pixel a pixel inalterados.
+
+As imagens aumentadas não são armazenadas em disco.
 
 ---
+
+# Próxima etapa — preparação da entrada e normalização
+
+A próxima etapa será responsável por preparar os patches para os modelos pré-treinados.
+
+Deverão ser definidos:
+
+- conversão para tensor;
+- normalização;
+- médias e desvios compatíveis com os pesos pré-treinados;
+- integração entre extração, augmentation e normalização;
+- Dataset/DataLoader;
+- estratégia de amostragem de patches;
+- pipeline específico para ResNet;
+- pipeline específico para Vision Transformer.
 
 # Etapas posteriores
 
@@ -718,7 +847,11 @@ Atualmente:
         ↓
 python -m src.data.split   (Etapa 4)
         ↓
-próxima etapa: geração dos patches
+python -m src.data.patches        (Etapa 5)
+        ↓
+python -m src.data.augmentations  (teste da Etapa 5)
+        ↓
+próxima etapa: preparação da entrada e normalização
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -803,5 +936,43 @@ O histórico cronológico das decisões metodológicas e dos principais resultad
 ```text
 docs/project_log.md
 ```
+
+# Árvore do projeto
+
+tcc_wikiart/
+│
+├── README.md
+├── requirements.txt
+├── .gitignore
+│
+├── notebooks/
+│   ├── 01_analise_exploratoria.ipynb
+│   ├── 02_auditoria_dataset.ipynb
+│   └── 03_curadoria_dataset.ipynb
+│
+├── src/
+│   └── data/
+│       ├── labels.py
+│       ├── split.py
+│       ├── patches.py
+│       └── augmentations.py
+│
+├── data/
+│   └── metadata/
+│       ├── auditoria_integridade.csv
+│       ├── candidatos_quase_duplicatas.csv
+│       ├── grupos_duplicatas_confirmadas.csv
+│       ├── descartes_auditoria.csv
+│       ├── dataset_final.csv
+│       ├── train.csv
+│       ├── validation.csv
+│       ├── test.csv
+│       ├── patches_train.csv.gz
+│       ├── patches_validation.csv.gz
+│       ├── patches_test.csv.gz
+│       └── patches_resumo.csv
+│
+└── docs/
+    └── project_log.md
 
 Esse arquivo deve ser atualizado sempre que uma decisão relevante alterar o desenho experimental do projeto.
