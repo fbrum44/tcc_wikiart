@@ -9,9 +9,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+
+
 import numpy as np
 import pandas as pd
 
+from src.data.labels import CLASSES_FINAIS
 from src.data.normalization import denormalize_patch, normalize_patch, IMAGENET_MEAN, IMAGENET_STD
 from src.data.patch_dataset import (
     CLASS_NAMES, PaintingGroupedSampler, PatchDataset, build_loaders, load_patch_manifest,
@@ -236,6 +239,143 @@ def test_build_loaders_rejeita_parametros_invalidos():
                 )
             except ValueError:
                 pass
+
+def test_loaders_geram_batches_validos():
+    import torch
+
+    with tempfile.TemporaryDirectory() as d:
+
+        for nome in (
+            "train",
+            "validation",
+            "test",
+        ):
+            df = make_manifest(
+                IMAGES,
+                nome,
+            )
+
+            df.to_csv(
+                Path(d)
+                / f"patches_{nome}.csv.gz",
+                index=False,
+            )
+
+        loaders = build_loaders(
+            d,
+            SOURCE,
+            batch_size=8,
+            patches_per_painting=2,
+            num_workers=0,
+            seed=42,
+        )
+
+        for nome in (
+            "train",
+            "validation",
+            "test",
+        ):
+            batch = next(
+                iter(loaders[nome])
+            )
+
+            assert isinstance(
+                batch["image"],
+                torch.Tensor,
+            )
+
+            assert (
+                batch["image"].ndim == 4
+            )
+
+            assert (
+                batch["image"].shape[1:]
+                == (3, 256, 256)
+            )
+
+            assert (
+                batch["image"].dtype
+                == torch.float32
+            )
+
+            assert (
+                batch["label"].ndim == 1
+            )
+
+            assert (
+                len(batch["label"])
+                == len(batch["image"])
+            )
+
+            assert (
+                len(batch["painting_id"])
+                == len(batch["image"])
+            )
+
+def test_loader_treino_reprodutivel():
+    import torch
+
+    with tempfile.TemporaryDirectory() as d:
+
+        for nome in (
+            "train",
+            "validation",
+            "test",
+        ):
+            df = make_manifest(
+                IMAGES,
+                nome,
+            )
+
+            df.to_csv(
+                Path(d)
+                / f"patches_{nome}.csv.gz",
+                index=False,
+            )
+
+        loaders_a = build_loaders(
+            d,
+            SOURCE,
+            batch_size=8,
+            patches_per_painting=2,
+            num_workers=0,
+            seed=42,
+        )
+
+        batch_a = next(
+            iter(loaders_a["train"])
+        )
+
+        loaders_b = build_loaders(
+            d,
+            SOURCE,
+            batch_size=8,
+            patches_per_painting=2,
+            num_workers=0,
+            seed=42,
+        )
+
+        batch_b = next(
+            iter(loaders_b["train"])
+        )
+
+        assert torch.equal(
+            batch_a["label"],
+            batch_b["label"],
+        )
+
+        assert torch.equal(
+            batch_a["image"],
+            batch_b["image"],
+        )
+
+        assert (
+            batch_a["patch_id"]
+            == batch_b["patch_id"]
+        )
+
+def test_classes_usam_fonte_central():
+    assert list(CLASS_NAMES) == CLASSES_FINAIS
 
 if __name__ == "__main__":
     testes = [v for k, v in sorted(globals().items()) if k.startswith("test_")]

@@ -33,8 +33,14 @@ except ImportError:  # pragma: no cover
     Dataset = object
 
 PATCH_SIZE = 256
-CLASS_NAMES = ("Baroque", "Cubism", "Impressionism", "Renaissance")  # ordem alfabética fixa
-CLASS_TO_IDX = {name: i for i, name in enumerate(CLASS_NAMES)}
+from .labels import CLASSES_FINAIS
+
+CLASS_NAMES = tuple(CLASSES_FINAIS)
+
+CLASS_TO_IDX = {
+    name: i
+    for i, name in enumerate(CLASS_NAMES)
+}
 
 REQUIRED_COLUMNS = [
     "Patch_ID", "Painting_ID", "Indice_Dataset", "Split",
@@ -88,7 +94,7 @@ def augment_treino(patch: np.ndarray) -> np.ndarray:
     entropia do sistema, então os workers do DataLoader não repetem sorteios.
     """
     from .augmentations import aplicar_augmentation
-    return aplicar_augmentation(patch, "train")
+    return aplicar_augmentation(patch, "train", rng=np.random,)
 
 
 # --------------------------------------------------------------------------- dataset
@@ -222,6 +228,12 @@ def build_loaders(
     """
     from torch.utils.data import DataLoader
 
+    import torch
+
+    # Necessário também quando num_workers=0,
+    # pois nesse caso _seed_worker() não é executado.
+    np.random.seed(seed)
+
     if not use_augmentation:
         augment = None
     elif augment is None:
@@ -238,12 +250,22 @@ def build_loaders(
     manifest_dir = Path(manifest_dir)
     common = dict(num_workers=num_workers, worker_init_fn=_seed_worker,
                   persistent_workers=num_workers > 0)
+
+    generator_train = torch.Generator()
+    generator_train.manual_seed(seed)
+
+    generator_validation = torch.Generator()
+    generator_validation.manual_seed(seed + 1)
+
+    generator_test = torch.Generator()
+    generator_test.manual_seed(seed + 2)
+
     loaders = {}
 
     train_df = load_patch_manifest(manifest_dir / "patches_train.csv.gz")
     train_ds = PatchDataset(train_df, image_source, is_train=True, augment=augment, mean=mean, std=std)
     sampler = PaintingGroupedSampler(train_ds.painting_id, patches_per_painting, seed)
-    loaders["train"] = DataLoader(train_ds, batch_size=batch_size, sampler=sampler, **common)
+    loaders["train"] = DataLoader(train_ds, batch_size=batch_size, sampler=sampler, generator=generator_train,**common)
 
     for name in ("validation", "test"):
         df = load_patch_manifest(manifest_dir / f"patches_{name}.csv.gz")

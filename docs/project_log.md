@@ -656,14 +656,207 @@ Augmentation será executado dinamicamente durante treinamento e não produzirá
 ---
 
 
+## 2026-11-06 — Etapa 6: pipeline de entrada e normalização
+
+### Objetivo
+
+Implementado o pipeline responsável por transformar os patches definidos na Etapa 5 em entradas utilizáveis pelos modelos de aprendizado profundo.
+
+Foram adicionados:
+
+- `src/data/normalization.py`;
+- `src/data/patch_dataset.py`;
+- `src/data/visual_check.py`;
+- `tests/test_input_pipeline.py`.
+
+### Normalização
+
+Implementada conversão:
+
+```text
+uint8 RGB HWC
+        ↓
+escala 0–1
+        ↓
+normalização por média/desvio
+        ↓
+float32 CHW
+        ↓
+torch.Tensor
+```
+
+O preset padrão utiliza:
+
+```text
+mean = (0.485, 0.456, 0.406)
+std  = (0.229, 0.224, 0.225)
+```
+
+Esses valores correspondem ao preset convencional do ImageNet.
+
+A normalização permanece configurável e deverá ser confirmada contra os pesos pré-treinados específicos escolhidos para cada arquitetura.
+
+### Fonte central das classes
+
+Foi identificado durante a auditoria da etapa que `patch_dataset.py` possuía uma ordem própria de classes diferente da definida em `src/data/labels.py`.
+
+A duplicação foi removida.
+
+`patch_dataset.py` passou a utilizar diretamente:
+
+```text
+CLASSES_FINAIS
+```
+
+de:
+
+```text
+src/data/labels.py
+```
+
+Assim, índices de classes possuem uma única fonte de verdade no projeto.
+
+### Dataset
+
+Implementado `PatchDataset`.
+
+Cada item:
+
+1. identifica a pintura pelo `Indice_Dataset`;
+2. recupera a imagem original do WikiArt;
+3. extrai o patch utilizando as coordenadas do manifesto;
+4. aplica augmentation caso pertença ao treino;
+5. normaliza a imagem;
+6. converte o resultado para tensor.
+
+Os patches continuam sendo gerados dinamicamente e não são armazenados individualmente em disco.
+
+Cada item mantém também:
+
+- `Patch_ID`;
+- `Painting_ID`;
+- classe;
+- coordenadas espaciais.
+
+### Augmentation
+
+O augmentation da Etapa 5 foi integrado ao Dataset.
+
+Permanece definido:
+
+- flip horizontal com probabilidade de 50%;
+- rotação entre -10° e +10° com probabilidade de 50%;
+- nenhuma alteração cromática agressiva;
+- nenhum augmentation em validation ou test.
+
+Durante a auditoria foi identificado que o uso de `np.random.default_rng()` sem seed dentro da função de augmentation poderia escapar do controle das sementes dos DataLoaders.
+
+O pipeline foi corrigido para utilizar o estado pseudoaleatório inicializado pelos workers.
+
+A geração das transformações passa, portanto, a ser controlável pelas seeds do experimento.
+
+### DataLoaders
+
+Implementados DataLoaders para:
+
+- treino;
+- validação;
+- teste.
+
+Validation e test utilizam todos os seus patches e não recebem augmentation.
+
+Foi implementado `PaintingGroupedSampler` para o treino.
+
+A motivação é evitar que pinturas maiores recebam maior peso no treinamento apenas por produzirem mais patches.
+
+O sampler seleciona a mesma quantidade de patches por pintura em cada época.
+
+O parâmetro:
+
+```text
+patches_per_painting
+```
+
+é configurável.
+
+O valor padrão atual é 8, mas a escolha definitiva desse hiperparâmetro será tratada durante a Etapa 7.
+
+### Reprodutibilidade
+
+Foram adicionados controles explícitos de seed para:
+
+- sampler;
+- geradores dos DataLoaders;
+- workers;
+- NumPy;
+- augmentation.
+
+Foi implementado teste verificando que duas construções equivalentes do loader, utilizando a mesma seed, produzem o mesmo primeiro batch de treino.
+
+### Testes automatizados
+
+A suíte:
+
+```text
+tests/test_input_pipeline.py
+```
+
+foi ampliada e executada localmente.
+
+Resultado final:
+
+```text
+16 testes passaram
+```
+
+As verificações cobrem:
+
+- normalização;
+- desnormalização;
+- formato dos patches;
+- correspondência com manifesto;
+- classes;
+- augmentation;
+- proteção de validation/test;
+- sampler;
+- seeds;
+- manifestos;
+- parâmetros inválidos;
+- DataLoaders;
+- batches reais;
+- validação visual.
+
+### Validação visual real
+
+Executado:
+
+```bash
+python -m src.data.visual_check
+```
+
+Foram inspecionadas amostras reais após todas as transformações.
+
+Resultados numéricos:
+
+```text
+validation: maior diferença de pixel = 0
+test:       maior diferença de pixel = 0
+```
+
+Validation e test permaneceram pixel a pixel idênticos aos recortes originais após normalização e desnormalização.
+
+No conjunto de treino foram observadas apenas transformações esperadas, incluindo espelhamento horizontal em algumas amostras.
+
+Não foram identificadas alterações cromáticas inesperadas, deformações ou bordas artificiais relevantes.
+
+**Etapa 6 concluída e validada.**
+
+---
+
 ## Próxima etapa
 
-### Etapa 6 — preparação da entrada e normalização
+### Etapa 7 — ResNet
 
-Objetivos:
+A próxima etapa será responsável pela implementação e treinamento do primeiro modelo de classificação utilizando Transfer Learning com uma arquitetura da família ResNet.
 
-- Definir normalização compatível com os pesos pré-treinados.
-- Implementar rotações e espelhamentos.
-- Evitar alterações cromáticas agressivas.
-- Criar loaders de treino, validação e teste.
-- Validar visualmente amostras depois das transformações.
+As decisões específicas de arquitetura, pesos pré-treinados, fine-tuning, hiperparâmetros e estratégia definitiva de amostragem serão registradas durante essa etapa.

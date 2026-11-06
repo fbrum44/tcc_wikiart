@@ -751,20 +751,234 @@ As imagens aumentadas não são armazenadas em disco.
 
 ---
 
-# Próxima etapa — preparação da entrada e normalização
+# Etapa 6 — Pipeline de entrada e normalização
 
-A próxima etapa será responsável por preparar os patches para os modelos pré-treinados.
+A Etapa 6 implementou o pipeline responsável por transformar os patches da Etapa 5 em entradas utilizáveis pelos modelos de aprendizado profundo.
 
-Deverão ser definidos:
+Código principal:
 
-- conversão para tensor;
-- normalização;
-- médias e desvios compatíveis com os pesos pré-treinados;
-- integração entre extração, augmentation e normalização;
-- Dataset/DataLoader;
-- estratégia de amostragem de patches;
-- pipeline específico para ResNet;
-- pipeline específico para Vision Transformer.
+```text
+src/data/normalization.py
+src/data/patch_dataset.py
+src/data/visual_check.py
+tests/test_input_pipeline.py
+```
+
+## Normalização
+
+Os patches são originalmente representados como arrays RGB `uint8` no formato:
+
+```text
+(H, W, C) = (256, 256, 3)
+```
+
+O pipeline:
+
+1. converte os valores de `0–255` para `0–1`;
+2. aplica média e desvio padrão configuráveis;
+3. reorganiza a imagem para o formato `CHW`;
+4. converte o resultado para `float32`;
+5. opcionalmente converte o array para `torch.Tensor`.
+
+O preset padrão utiliza os valores tradicionais do ImageNet:
+
+```text
+mean = (0.485, 0.456, 0.406)
+std  = (0.229, 0.224, 0.225)
+```
+
+A normalização permanece configurável, pois sua compatibilidade deverá ser confirmada com os pesos pré-treinados específicos escolhidos nas etapas de implementação dos modelos.
+
+## Dataset de patches
+
+Foi implementado `PatchDataset`, responsável por:
+
+```text
+manifesto de patches
+        ↓
+Indice_Dataset
+        ↓
+carregamento da pintura WikiArt
+        ↓
+recorte pelas coordenadas x/y
+        ↓
+augmentation, somente no treino
+        ↓
+normalização
+        ↓
+CHW float32
+        ↓
+torch.Tensor
+```
+
+Os patches não são armazenados individualmente em disco.
+
+A imagem original é recuperada a partir do WikiArt e o patch é extraído dinamicamente utilizando as coordenadas registradas na Etapa 5.
+
+Cada item mantém informações necessárias para rastreabilidade posterior:
+
+- `label`;
+- `Patch_ID`;
+- `Painting_ID`;
+- `x0`;
+- `y0`.
+
+## Classes
+
+A ordem oficial das classes continua centralizada em:
+
+```text
+src/data/labels.py
+```
+
+`patch_dataset.py` utiliza diretamente `CLASSES_FINAIS`, evitando definições independentes de índices de classe em diferentes partes do projeto.
+
+## Data augmentation
+
+As transformações implementadas na Etapa 5 foram integradas ao pipeline real de treino.
+
+Somente o conjunto de treino pode receber augmentation:
+
+- flip horizontal com probabilidade de 50%;
+- rotação entre -10° e +10° com probabilidade de 50%.
+
+Validação e teste não recebem augmentation.
+
+O pipeline também foi ajustado para que o gerador pseudoaleatório utilizado pelo augmentation seja controlado pelas sementes do processo de treinamento, aumentando a reprodutibilidade entre execuções.
+
+Não são aplicadas alterações cromáticas agressivas.
+
+## DataLoaders
+
+Foram implementados DataLoaders para:
+
+```text
+train
+validation
+test
+```
+
+Validação e teste utilizam todos os seus patches em ordem determinística e sem augmentation.
+
+Para o treino foi implementado `PaintingGroupedSampler`.
+
+Como pinturas maiores produzem mais patches, o sampler permite selecionar a mesma quantidade de patches por pintura em cada época, evitando que uma pintura tenha maior peso apenas por possuir dimensões maiores.
+
+O número de patches por pintura é configurável.
+
+O valor padrão atual é:
+
+```text
+patches_per_painting = 8
+```
+
+Esse valor ainda não é considerado um hiperparâmetro experimental definitivo e poderá ser revisto durante a Etapa 7.
+
+## Reprodutibilidade
+
+A geração dos batches utiliza sementes explícitas.
+
+O pipeline controla:
+
+- sorteio das pinturas;
+- sorteio dos patches por pintura;
+- seeds dos workers do DataLoader;
+- operações aleatórias do augmentation.
+
+Isso permite repetir uma execução com a mesma configuração experimental e obter o mesmo comportamento pseudoaleatório inicial.
+
+## Testes automatizados
+
+Foi criada:
+
+```text
+tests/test_input_pipeline.py
+```
+
+A suíte final contém **16 testes**, todos concluídos com sucesso.
+
+Entre as verificações estão:
+
+- normalização e desnormalização;
+- valores conhecidos da normalização;
+- correspondência entre patch e manifesto;
+- ausência de augmentation em validation/test;
+- funcionamento do augmentation real;
+- rejeição de patches inválidos;
+- balanceamento do sampler por pintura;
+- reprodutibilidade do sampler;
+- leitura dos manifestos comprimidos;
+- unicidade dos identificadores;
+- rejeição de macroclasses inválidas;
+- uso da fonte central de classes;
+- validação de parâmetros dos DataLoaders;
+- geração de batches reais no formato esperado;
+- reprodutibilidade dos batches de treino;
+- geração das imagens de validação visual.
+
+Resultado:
+
+```text
+16 testes passaram
+```
+
+## Validação visual
+
+A inspeção final foi executada com:
+
+```bash
+python -m src.data.visual_check
+```
+
+Foram gerados arquivos temporários em:
+
+```text
+outputs/visual_check/
+```
+
+Esses arquivos são ignorados pelo Git.
+
+Resultados observados:
+
+```text
+validation: maior diferença de pixel = 0
+test:       maior diferença de pixel = 0
+```
+
+As amostras de validation e test foram visualmente idênticas aos patches originais.
+
+No treino foram observadas apenas transformações esperadas do augmentation, incluindo espelhamento horizontal em algumas amostras.
+
+Não foram observadas:
+
+- alterações cromáticas inesperadas;
+- deformações;
+- bordas pretas;
+- mudanças de dimensão;
+- transformações em validation/test.
+
+A Etapa 6 foi considerada validada.
+
+---
+
+# Próxima etapa — ResNet
+
+A próxima etapa será a **Etapa 7 — implementação e treinamento da ResNet**.
+
+Nessa fase serão definidos, entre outros pontos:
+
+- arquitetura ResNet utilizada;
+- pesos pré-treinados;
+- adaptação da camada de classificação para quatro classes;
+- política de congelamento e fine-tuning;
+- função de perda;
+- otimizador;
+- taxa de aprendizado;
+- batch size;
+- quantidade de patches por pintura utilizada durante treinamento;
+- número de épocas;
+- critérios de seleção do melhor checkpoint;
+- métricas acompanhadas durante treinamento e validação.
 
 # Etapas posteriores
 
@@ -851,7 +1065,11 @@ python -m src.data.patches        (Etapa 5)
         ↓
 python -m src.data.augmentations  (teste da Etapa 5)
         ↓
-próxima etapa: preparação da entrada e normalização
+python tests/test_input_pipeline.py
+        ↓
+python -m src.data.visual_check   (Etapa 6)
+        ↓
+próxima etapa: implementação e treinamento da ResNet
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -956,7 +1174,13 @@ tcc_wikiart/
 │       ├── labels.py
 │       ├── split.py
 │       ├── patches.py
-│       └── augmentations.py
+│       ├── augmentations.py
+│       ├── normalization.py
+│       ├── patch_dataset.py
+│       └── visual_check.py
+│
+├── tests/
+│   └── test_input_pipeline.py
 │
 ├── data/
 │   └── metadata/
