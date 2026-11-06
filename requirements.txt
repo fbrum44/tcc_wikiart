@@ -6,3 +6,6 @@ pillow
 jupyter
 ipykernel
 opencv-python
+# Pipeline de imagens e testes
+torch
+pytest

@@ -830,7 +830,7 @@ Entre as bibliotecas atualmente utilizadas estão:
 - `jupyter`
 - `ipykernel`
 
-As dependências específicas de treinamento serão adicionadas quando os modelos forem implementados.
+O projeto também utiliza `torch` (PyTorch, para tensores e DataLoaders) e `pytest` (testes automatizados).
 
 ---
 

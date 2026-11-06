@@ -33,3 +33,5 @@ models/
 # Sistema operacional
 .DS_Store
 Thumbs.db
+# Generated visual inspection results
+outputs/visual_check/
