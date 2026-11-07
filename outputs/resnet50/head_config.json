@@ -1,0 +1,39 @@
+{
+  "seed": 42,
+  "epochs": 1,
+  "batch_size": 32,
+  "train_patches_per_painting": 2,
+  "val_patches_per_painting": 2,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "num_workers": 0,
+  "architecture": "resnet50",
+  "weights": "IMAGENET1K_V2",
+  "input_size": 256,
+  "classes": [
+    "Renaissance",
+    "Baroque",
+    "Impressionism",
+    "Cubism"
+  ],
+  "normalization_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "normalization_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "weights_enum": "ResNet50_Weights.IMAGENET1K_V2",
+  "python_version": "3.12.7",
+  "torch_version": "2.15.0+cpu",
+  "torchvision_version": "0.29.2+cpu",
+  "cuda_available": false,
+  "device": "cpu",
+  "gpu": null,
+  "validation_strategy": "fixed_patches_per_painting",
+  "checkpoint_metric": "validation_loss",
+  "phase": "classifier_head_only"
+}
