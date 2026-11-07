@@ -853,10 +853,405 @@ Não foram identificadas alterações cromáticas inesperadas, deformações ou 
 
 ---
 
-## Próxima etapa
+## 2026-11-07 — Etapa 7: treinamento e fine-tuning da ResNet-50
 
-### Etapa 7 — ResNet
+### Objetivo
 
-A próxima etapa será responsável pela implementação e treinamento do primeiro modelo de classificação utilizando Transfer Learning com uma arquitetura da família ResNet.
+Foi implementado e treinado o primeiro modelo principal de classificação do projeto utilizando Transfer Learning com uma arquitetura convolucional da família ResNet.
 
-As decisões específicas de arquitetura, pesos pré-treinados, fine-tuning, hiperparâmetros e estratégia definitiva de amostragem serão registradas durante essa etapa.
+A arquitetura selecionada foi a **ResNet-50**, adaptada para classificar as quatro macroclasses oficiais:
+
+- Renaissance;
+- Baroque;
+- Impressionism;
+- Cubism.
+
+O conjunto de teste permaneceu intocado durante toda esta etapa.
+
+### Arquitetura e pesos pré-treinados
+
+Foi criada:
+
+`src/models/resnet.py`
+
+A arquitetura utiliza:
+
+```text
+ResNet-50
+ResNet50_Weights.IMAGENET1K_V2
+```
+
+A camada classificadora original foi substituída por:
+
+```text
+Linear(2048, 4)
+```
+
+A ordem das quatro classes continua centralizada em:
+
+```text
+src/data/labels.py
+```
+
+A entrada do modelo permanece em:
+
+```text
+256 × 256 pixels
+```
+
+Não foi aplicado redimensionamento para 224×224, pois a ResNet utiliza pooling adaptativo e aceita os patches de 256×256 diretamente.
+
+A normalização da Etapa 6 foi validada contra a normalização esperada pelos pesos `IMAGENET1K_V2`.
+
+Parâmetros:
+
+```text
+Parâmetros totais: 23.516.228
+Treináveis durante head-only: 8.196
+Treináveis durante fine-tuning: 23.516.228
+```
+
+### Estratégia de treinamento
+
+O treinamento foi dividido em duas fases:
+
+```text
+Fase 1 — treinamento apenas da cabeça classificadora
+Fase 2 — fine-tuning completo da ResNet-50
+```
+
+Essa estratégia permite inicialmente utilizar o backbone pré-treinado como extrator fixo de características e, posteriormente, adaptar as representações internas à tarefa específica de classificação de movimentos artísticos.
+
+### Ambiente de execução
+
+O treinamento oficial foi executado no **Google Colab** com:
+
+```text
+GPU: Tesla T4
+CUDA: habilitado
+batch size: 32
+num_workers: 2
+seed: 42
+```
+
+O dataset WikiArt é carregado do Hugging Face e mantido no cache temporário da VM:
+
+```text
+/content/hf_cache
+```
+
+Esse cache não é persistente entre VMs do Colab.
+
+Os checkpoints são armazenados no Google Drive para não depender do armazenamento temporário da VM.
+
+Foi posteriormente definida uma pasta compartilhada para o grupo:
+
+```text
+TCC_WikiArt_Compartilhado/
+├── models/
+└── outputs/
+    └── resnet50/
+```
+
+No Colab, o diretório local:
+
+```text
+models/
+```
+
+é associado à pasta compartilhada do Google Drive.
+
+Os checkpoints não são versionados no GitHub devido ao tamanho dos arquivos.
+
+### Amostragem de treino e validação
+
+O valor definitivo utilizado durante a Etapa 7 foi:
+
+```text
+patches_per_painting = 8
+```
+
+No treino, o `PaintingGroupedSampler` seleciona oito patches de cada pintura por época.
+
+Com 7.000 pinturas:
+
+```text
+56.000 patches de treino por época
+```
+
+Para validação foi implementado `FixedPaintingSampler`.
+
+Esse sampler seleciona deterministicamente oito patches por pintura e mantém exatamente o mesmo subconjunto durante todas as épocas.
+
+Com 1.500 pinturas:
+
+```text
+12.000 patches de validação por época
+```
+
+A estratégia evita que pinturas maiores recebam maior peso apenas por produzirem mais patches.
+
+Os 209.730 patches completos de validação permanecem disponíveis para avaliações posteriores.
+
+### BatchNorm durante o treinamento da cabeça
+
+Durante a primeira fase, congelar apenas `requires_grad` não seria suficiente para impedir alterações nas estatísticas internas das camadas BatchNorm.
+
+Foi implementada uma política explícita:
+
+```text
+backbone em eval()
+fc em train()
+```
+
+Assim:
+
+- os pesos do backbone permanecem congelados;
+- as estatísticas de BatchNorm permanecem congeladas;
+- somente a camada `fc` recebe atualizações.
+
+### Treinamento da cabeça classificadora
+
+Código:
+
+```text
+src/training/train_resnet.py
+src/training/train_resnet_head.py
+```
+
+Configuração oficial:
+
+```text
+epochs: 3
+batch size: 32
+patches por pintura no treino: 8
+patches por pintura na validação: 8
+optimizer: AdamW
+learning rate: 1e-3
+weight decay: 1e-4
+seed: 42
+```
+
+Resultados:
+
+| Época | Train loss | Train accuracy | Validation loss | Validation accuracy |
+|---:|---:|---:|---:|---:|
+| 1 | 0,8489 | 64,77% | 0,7996 | 67,63% |
+| 2 | 0,7558 | 68,91% | 0,7601 | 69,63% |
+| 3 | 0,7361 | 70,15% | 0,7550 | 69,93% |
+
+O melhor checkpoint foi obtido na terceira época:
+
+```text
+Validation loss: 0,755048
+Validation accuracy: 69,93%
+```
+
+Checkpoint:
+
+```text
+models/resnet50_head_best.pt
+```
+
+### Fine-tuning
+
+Código:
+
+```text
+src/training/finetune_resnet.py
+```
+
+O fine-tuning parte obrigatoriamente do melhor checkpoint da cabeça classificadora.
+
+Todos os parâmetros da ResNet foram liberados para treinamento.
+
+Foram utilizados learning rates diferenciais:
+
+```text
+backbone: 1e-5
+fc:       1e-4
+```
+
+Configuração:
+
+```text
+epochs: 3
+batch size: 32
+optimizer: AdamW
+weight decay: 1e-4
+patches por pintura no treino: 8
+patches por pintura na validação: 8
+seed: 42
+```
+
+Durante o fine-tuning, as estatísticas das camadas BatchNorm permaneceram congeladas.
+
+Os parâmetros affine `weight` e `bias` das BatchNorm permaneceram treináveis, enquanto `running_mean` e `running_var` não foram atualizados.
+
+Resultados:
+
+| Fine-tuning | Época geral | Train loss | Train accuracy | Validation loss | Validation accuracy |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 4 | 0,6983 | 71,36% | 0,7221 | 71,34% |
+| 2 | 5 | 0,6460 | 73,68% | 0,6816 | 72,32% |
+| 3 | 6 | 0,6122 | 75,24% | 0,6789 | 72,43% |
+
+O melhor resultado foi obtido na terceira época de fine-tuning:
+
+```text
+Train loss: 0,612235
+Train accuracy: 75,24%
+Validation loss: 0,678914
+Validation accuracy: 72,43%
+```
+
+Checkpoint:
+
+```text
+models/resnet50_finetune_best.pt
+```
+
+### Comparação entre as fases
+
+Melhor resultado com apenas a cabeça:
+
+```text
+Validation loss: 0,7550
+Validation accuracy: 69,93%
+```
+
+Melhor resultado após fine-tuning:
+
+```text
+Validation loss: 0,6789
+Validation accuracy: 72,43%
+```
+
+O fine-tuning produziu:
+
+```text
++2,49 pontos percentuais de validation accuracy
+aproximadamente -10,1% de validation loss
+```
+
+A terceira época ainda apresentou melhora, porém com ganho significativamente menor que o observado entre as duas primeiras épocas do fine-tuning.
+
+Decidiu-se encerrar o treinamento nesse ponto em vez de prolongá-lo apenas devido a pequenas variações adicionais.
+
+Não foram observados sinais fortes de sobreajuste ao final das seis épocas.
+
+### Curvas de treinamento
+
+Os históricos das duas fases foram consolidados em seis épocas:
+
+```text
+1–3: treinamento da cabeça
+4–6: fine-tuning
+```
+
+Foram gerados:
+
+```text
+outputs/resnet50/resnet_history.csv
+outputs/resnet50/resnet_loss.png
+outputs/resnet50/resnet_accuracy.png
+```
+
+As curvas apresentam queda contínua da loss de treino e validação e aumento progressivo das respectivas accuracies.
+
+### Artefatos versionados
+
+Resultados pequenos e reproduzíveis:
+
+```text
+outputs/resnet50/head_config.json
+outputs/resnet50/head_history.csv
+outputs/resnet50/finetune_config.json
+outputs/resnet50/finetune_history.csv
+outputs/resnet50/resnet_history.csv
+outputs/resnet50/resnet_loss.png
+outputs/resnet50/resnet_accuracy.png
+```
+
+Checkpoints `.pt` permanecem fora do GitHub.
+
+### Notebook de execução no Google Colab
+
+Foi criado:
+
+```text
+notebooks/04_treinamento_resnet_colab.ipynb
+```
+
+O notebook funciona como roteiro operacional da Etapa 7 e permite:
+
+- verificar GPU e CUDA;
+- clonar o repositório;
+- instalar dependências necessárias;
+- preparar o cache do WikiArt;
+- montar o Google Drive compartilhado;
+- localizar os checkpoints;
+- verificar os manifestos;
+- executar smoke tests;
+- reproduzir o treinamento da cabeça;
+- reproduzir o fine-tuning;
+- recuperar métricas dos checkpoints;
+- gerar as curvas oficiais;
+- realizar backup dos resultados.
+
+As etapas demoradas permanecem protegidas por flags `RUN_*` para evitar execução acidental.
+
+### Reprodutibilidade e limitações
+
+A configuração experimental registra:
+
+- seed;
+- versões de Python;
+- PyTorch;
+- TorchVision;
+- dispositivo;
+- GPU;
+- hiperparâmetros;
+- estratégia de validação;
+- normalização;
+- classes;
+- checkpoint de origem.
+
+As métricas obtidas nesta etapa ainda são métricas **no nível de patches**.
+
+Não devem ser interpretadas como desempenho final no nível da pintura.
+
+Ainda não foram calculados nesta etapa:
+
+- precision;
+- recall;
+- F1-score;
+- matriz de confusão;
+- métricas por macroclasse;
+- agregação de previsões por pintura;
+- desempenho no conjunto de teste.
+
+O conjunto de teste permaneceu completamente reservado.
+
+**Etapa 7 concluída.**
+
+---
+
+## Estado atual do projeto
+
+Etapas concluídas:
+
+- [x] definição do escopo;
+- [x] análise exploratória;
+- [x] auditoria de integridade;
+- [x] construção do subconjunto final reproduzível;
+- [x] divisão em treino, validação e teste;
+- [x] pipeline de patches;
+- [x] pipeline de entrada e normalização;
+- [x] treinamento e fine-tuning da ResNet-50.
+
+Próxima etapa:
+
+### Etapa 8 — Vision Transformer
+
+A próxima etapa implementará o segundo modelo principal do projeto, utilizando uma arquitetura Vision Transformer sob condições experimentais comparáveis às utilizadas na ResNet-50.

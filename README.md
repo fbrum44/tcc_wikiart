@@ -961,37 +961,228 @@ A Etapa 6 foi considerada validada.
 
 ---
 
-# Próxima etapa — ResNet
+# Estado atual do projeto
 
-A próxima etapa será a **Etapa 7 — implementação e treinamento da ResNet**.
+Estão concluídas:
 
-Nessa fase serão definidos, entre outros pontos:
+- **Etapa 1 — Análise Exploratória**
+- **Etapa 2 — Auditoria de Integridade**
+- **Etapa 3 — Construção do Subconjunto Final Reproduzível**
+- **Etapa 4 — Divisão em treino, validação e teste**
+- **Etapa 5 — Pipeline de patches**
+- **Etapa 6 — Pipeline de entrada e normalização**
+- **Etapa 7 — Treinamento e fine-tuning da ResNet-50**
 
-- arquitetura ResNet utilizada;
-- pesos pré-treinados;
-- adaptação da camada de classificação para quatro classes;
-- política de congelamento e fine-tuning;
-- função de perda;
-- otimizador;
-- taxa de aprendizado;
-- batch size;
-- quantidade de patches por pintura utilizada durante treinamento;
-- número de épocas;
-- critérios de seleção do melhor checkpoint;
-- métricas acompanhadas durante treinamento e validação.
+A próxima fase é:
+
+**Etapa 8 — Vision Transformer (ViT)**
+
+O conjunto experimental permanece definido por:
+
+```text
+data/metadata/dataset_final.csv
+```
+
+e pelos splits congelados:
+
+```text
+data/metadata/train.csv
+data/metadata/validation.csv
+data/metadata/test.csv
+```
+
+Os modelos utilizam os manifestos de patches:
+
+```text
+data/metadata/patches_train.csv.gz
+data/metadata/patches_validation.csv.gz
+data/metadata/patches_test.csv.gz
+```
+
+O conjunto de teste permanece reservado para a etapa posterior de avaliação quantitativa final.
+
+---
+
+# Etapa 7 — ResNet-50
+
+A primeira arquitetura principal do projeto foi implementada utilizando **ResNet-50** com pesos pré-treinados:
+
+```text
+ResNet50_Weights.IMAGENET1K_V2
+```
+
+Código principal:
+
+```text
+src/models/resnet.py
+src/training/train_resnet.py
+src/training/train_resnet_head.py
+src/training/finetune_resnet.py
+```
+
+A camada classificadora original foi substituída por uma camada com quatro saídas correspondentes às macroclasses oficiais.
+
+Os patches são fornecidos diretamente em resolução:
+
+```text
+256 × 256
+```
+
+e utilizam a normalização compatível com os pesos ImageNet escolhidos.
+
+## Estratégia de treinamento
+
+O treinamento foi dividido em:
+
+```text
+3 épocas — cabeça classificadora
+3 épocas — fine-tuning completo
+```
+
+Configuração principal:
+
+```text
+seed: 42
+batch size: 32
+patches por pintura: 8
+optimizer: AdamW
+weight decay: 1e-4
+```
+
+Na fase da cabeça:
+
+```text
+learning rate: 1e-3
+```
+
+No fine-tuning:
+
+```text
+backbone learning rate: 1e-5
+fc learning rate:       1e-4
+```
+
+As estatísticas de BatchNorm permaneceram congeladas durante o fine-tuning.
+
+## Resultados
+
+Melhor resultado da cabeça classificadora:
+
+```text
+Validation loss: 0,7550
+Validation accuracy: 69,93%
+```
+
+Melhor resultado após fine-tuning:
+
+```text
+Validation loss: 0,6789
+Validation accuracy: 72,43%
+```
+
+O fine-tuning aumentou a accuracy de validação em aproximadamente:
+
+```text
++2,49 pontos percentuais
+```
+
+O melhor checkpoint da arquitetura é:
+
+```text
+models/resnet50_finetune_best.pt
+```
+
+Os checkpoints não são armazenados no GitHub.
+
+Resultados pequenos e reproduzíveis são armazenados em:
+
+```text
+outputs/resnet50/
+```
+
+incluindo históricos, configurações e curvas de treinamento.
+
+As métricas atuais são calculadas no nível de **patches**. A avaliação final no nível da pintura e o conjunto de teste serão tratados posteriormente.
+
+---
+
+# Execução da ResNet no Google Colab
+
+Foi criado um notebook específico para reproduzir e operar a Etapa 7:
+
+```text
+notebooks/04_treinamento_resnet_colab.ipynb
+```
+
+O treinamento oficial foi realizado no Google Colab utilizando GPU **Tesla T4**.
+
+O notebook organiza:
+
+```text
+GPU / CUDA
+    ↓
+clone do GitHub
+    ↓
+dependências
+    ↓
+cache do WikiArt
+    ↓
+Google Drive compartilhado
+    ↓
+checkpoints
+    ↓
+smoke tests opcionais
+    ↓
+treinamento da cabeça
+    ↓
+fine-tuning
+    ↓
+curvas e resultados
+```
+
+O WikiArt é mantido temporariamente em:
+
+```text
+/content/hf_cache
+```
+
+Como a VM do Colab é temporária, esse cache precisa ser reconstruído em uma nova VM.
+
+Os checkpoints do grupo ficam em uma pasta compartilhada do Google Drive:
+
+```text
+TCC_WikiArt_Compartilhado/
+├── models/
+└── outputs/
+    └── resnet50/
+```
+
+Cada integrante adiciona um atalho dessa pasta diretamente em **Meu Drive**, permitindo que o notebook utilize o caminho comum:
+
+```text
+/content/drive/MyDrive/TCC_WikiArt_Compartilhado
+```
+
+Os arquivos `.pt` permanecem no Drive e não são versionados no GitHub.
+
+---
+
+# Próxima etapa — Vision Transformer
+
+A próxima etapa será a **Etapa 8 — Vision Transformer (ViT)**.
+
+O objetivo será implementar e treinar o segundo modelo principal do experimento sob condições comparáveis às utilizadas na ResNet-50.
+
 
 # Etapas posteriores
 
-Após a geração dos patches:
+Treinamento Vision Transformer
+- Escolher arquitetura pré-treinada compatível.
+- Utilizar os mesmos dados e splits.
+- Manter condições experimentais comparáveis.
+- Treinar/fine-tuning.
+- Comparar com a ResNet.
 
-1. definição das transformações e normalização;
-2. treinamento da ResNet;
-3. treinamento do Vision Transformer;
-4. avaliação quantitativa;
-5. agregação das previsões no nível da pintura;
-6. análise de *shortcut learning*;
-7. Grad-CAM;
-8. demonstração final.
 
 ---
 
@@ -1069,7 +1260,13 @@ python tests/test_input_pipeline.py
         ↓
 python -m src.data.visual_check   (Etapa 6)
         ↓
-próxima etapa: implementação e treinamento da ResNet
+04_treinamento_resnet_colab.ipynb
+        ↓
+src.training.train_resnet_head
+        ↓
+src.training.finetune_resnet
+        ↓
+próxima etapa: Vision Transformer
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -1077,6 +1274,8 @@ A execução completa das etapas anteriores não é necessariamente obrigatória
 Por exemplo, se `train.csv`, `validation.csv` e `test.csv` já estiverem disponíveis e validados, a próxima fase poderá utilizá-los diretamente.
 
 Isso evita repetir operações demoradas de auditoria e reconstrução da curadoria.
+
+Para a Etapa 7, o notebook do Google Colab é o roteiro recomendado. Os scripts continuam sendo a implementação reutilizável e podem ser executados diretamente quando necessário.
 
 ---
 
@@ -1097,6 +1296,8 @@ O repositório armazena artefatos necessários para reproduzir os experimentos, 
 - métricas.
 
 Os notebooks possuem validações automáticas para detectar alterações inesperadas na estrutura utilizada do WikiArt.
+
+Os checkpoints treinados não são versionados devido ao tamanho. Eles são preservados em Google Drive compartilhado entre os integrantes. Configurações, históricos de treinamento e curvas permanecem no repositório. O cache local do WikiArt no Google Colab é temporário e deve ser reconstruído quando uma nova VM é criada.
 
 ---
 
@@ -1158,47 +1359,41 @@ docs/project_log.md
 ## Árvore do projeto
 
 ```text
-tcc_wikiart/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── notebooks/
-│   ├── 01_analise_exploratoria.ipynb
-│   ├── 02_auditoria_dataset.ipynb
-│   └── 03_curadoria_dataset.ipynb
-│
-├── src/
-│   └── data/
-│       ├── labels.py
-│       ├── split.py
-│       ├── patches.py
-│       ├── augmentations.py
-│       ├── normalization.py
-│       ├── patch_dataset.py
-│       └── visual_check.py
-│
-├── tests/
-│   └── test_input_pipeline.py
-│
+notebooks/
+├── 01_analise_exploratoria.ipynb
+├── 02_auditoria_dataset.ipynb
+├── 03_curadoria_dataset.ipynb
+└── 04_treinamento_resnet_colab.ipynb
+
+src/
 ├── data/
-│   └── metadata/
-│       ├── auditoria_integridade.csv
-│       ├── candidatos_quase_duplicatas.csv
-│       ├── grupos_duplicatas_confirmadas.csv
-│       ├── descartes_auditoria.csv
-│       ├── dataset_final.csv
-│       ├── train.csv
-│       ├── validation.csv
-│       ├── test.csv
-│       ├── patches_train.csv.gz
-│       ├── patches_validation.csv.gz
-│       ├── patches_test.csv.gz
-│       └── patches_resumo.csv
+│   ├── labels.py
+│   ├── split.py
+│   ├── patches.py
+│   ├── augmentations.py
+│   ├── normalization.py
+│   ├── patch_dataset.py
+│   └── visual_check.py
 │
-└── docs/
-    └── project_log.md
+├── models/
+│   ├── __init__.py
+│   └── resnet.py
+│
+└── training/
+    ├── __init__.py
+    ├── train_resnet.py
+    ├── train_resnet_head.py
+    └── finetune_resnet.py
+
+outputs/
+└── resnet50/
+    ├── head_config.json
+    ├── head_history.csv
+    ├── finetune_config.json
+    ├── finetune_history.csv
+    ├── resnet_history.csv
+    ├── resnet_loss.png
+    └── resnet_accuracy.png
 ```
 
 Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
