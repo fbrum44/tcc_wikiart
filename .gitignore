@@ -25,7 +25,7 @@ data/images/
 data/cache/
 
 # Modelos treinados
-/models/
+/models
 *.pt
 *.pth
 *.ckpt
