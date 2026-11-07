@@ -226,7 +226,7 @@ def treinar_epoca(
 
         if (
             batch_idx == 1
-            or batch_idx % 250 == 0
+            or batch_idx % 25 == 0
             or batch_idx == total_batches
         ):
             print(
