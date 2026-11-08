@@ -284,73 +284,159 @@ Artefato principal:
 
 ---
 
-## 2026-11-04 — Etapa 4: divisão em treino, validação e teste
+## Estado atual do projeto
 
-### Proporções e princípio
+Etapas concluídas:
 
-- Definida a divisão 70% / 15% / 15%.
-- A divisão ocorre no nível da pintura original, antes da geração de patches.
-- Cada `Painting_ID` pertence a exatamente um subconjunto.
+- [x] definição do escopo;
+- [x] análise exploratória;
+- [x] auditoria de integridade;
+- [x] construção do subconjunto final reproduzível.
 
-Resultado:
+O arquivo:
 
-- Treino: 7.000 pinturas (1.750 por macroclasse);
-- Validação: 1.500 pinturas (375 por macroclasse);
-- Teste: 1.500 pinturas (375 por macroclasse).
+`data/metadata/dataset_final.csv`
 
-### Método e reprodutibilidade
+passa a ser a fonte de verdade para as próximas etapas experimentais.
 
-- Definida `SPLIT_SEED = 42`, independente da semente da Etapa 3.
-- A divisão não utiliza `pandas.sample()` nem bibliotecas de split.
-- Cada pintura recebe uma chave SHA-256 determinística construída a partir da semente e do `Painting_ID`.
-- A estratificação ocorre por macroclasse e por estilo original.
-- Utilizado o método dos maiores restos para garantir contagens exatas por macroclasse e subestilo.
-- Renaissance e Cubism preservam, em cada subconjunto, a proporção dos estilos originais.
+---
 
-Composição por subestilo (treino / validação / teste):
+## 2026-11-05 — Etapa 4: divisão em treino, validação e teste
 
-- Early Renaissance: 371 / 79 / 80;
-- High Renaissance: 357 / 77 / 76;
-- Mannerism / Late Renaissance: 342 / 73 / 73;
-- Northern Renaissance: 680 / 146 / 146;
-- Analytical Cubism: 75 / 16 / 17;
-- Cubism: 1.527 / 327 / 327;
-- Synthetic Cubism: 148 / 32 / 31.
+### Estratégia de divisão
 
-### Verificações automáticas
+- A divisão foi realizada no nível da pintura original, antes da geração de patches.
+- O arquivo de entrada utilizado foi:
+  - `data/metadata/dataset_final.csv`
+- O conjunto final possui 10.000 pinturas.
+- Foi mantida a semente:
+  - `SPLIT_SEED = 42`
+- Foram definidas as proporções:
+  - treino: 70%;
+  - validação: 15%;
+  - teste: 15%.
 
-- Todos os `Painting_ID` são únicos e cada pintura possui um único subconjunto.
-- Nenhuma sobreposição de `Painting_ID` entre treino, validação e teste.
-- Nenhum SHA-256 de pixels aparece em subconjuntos diferentes.
-- A soma dos subconjuntos é igual a 10.000.
-- As contagens por macroclasse e por subconjunto são exatas.
-- Refazer a divisão a partir do manifesto produz exatamente o mesmo resultado.
+A divisão final contém:
 
-### Distribuição de gênero, autoria e orientação
+- `train.csv`: 7.000 pinturas;
+- `validation.csv`: 1.500 pinturas;
+- `test.csv`: 1.500 pinturas.
 
-- Gênero: diferença máxima entre subconjuntos inferior a 1,1 p.p. no conjunto total.
-- Dentro de cada macroclasse, a diferença máxima de gênero foi de 2,86 p.p. (Impressionism) a 4,38 p.p. (Cubism), compatível com amostras de 375 pinturas.
-- `Unknown Artist`: 51,49% no treino, 51,80% na validação e 53,13% no teste.
-- Artistas identificados variaram menos de 0,6 p.p. entre subconjuntos (ex.: Rembrandt 4,21% / 4,53% / 4,40%).
-- Orientação vertical: 58,80% / 58,87% / 60,00%; horizontal: 41,00% / 40,93% / 39,73%.
-- A distribuição não foi artificialmente corrigida.
+### Estratificação
 
-### Limitações registradas
+A divisão foi estratificada por:
 
-- A divisão não é agrupada por artista, pois `Unknown Artist` representa mais da metade das obras e não pode ser tratado como um único autor.
-- Obras de um mesmo artista identificado podem aparecer em subconjuntos diferentes.
-- 3 rótulos de artista aparecem apenas em validação ou teste, e não no treino.
-- A possível dependência de características de autores específicos deverá ser considerada na análise de *shortcut learning*.
+- macroclasse final;
+- estilo original.
+
+Cada uma das quatro macroclasses permaneceu perfeitamente balanceada:
+
+| Macroclasse | Treino | Validação | Teste |
+|---|---:|---:|---:|
+| Renaissance | 1.750 | 375 | 375 |
+| Baroque | 1.750 | 375 | 375 |
+| Impressionism | 1.750 | 375 | 375 |
+| Cubism | 1.750 | 375 | 375 |
+
+A composição dos estilos originais de Renaissance e Cubism também foi preservada proporcionalmente.
+
+### Reprodutibilidade
+
+A divisão não utiliza `pandas.sample()` nem depende de estado interno de geradores pseudoaleatórios.
+
+Cada pintura recebe uma chave SHA-256 determinística calculada a partir de:
+
+- `SPLIT_SEED`;
+- `Painting_ID`.
+
+A ordenação por essa chave define a posição da pintura dentro de seu estrato.
+
+A execução repetida com os mesmos dados, parâmetros e código produz os mesmos três manifestos.
+
+### Verificações contra data leakage
+
+Foram implementadas verificações automáticas utilizando três identificadores independentes:
+
+- `Painting_ID`;
+- `Indice_Dataset`;
+- `Hash_SHA256_Pixels`.
+
+Resultados:
+
+- 0 sobreposições entre treino e validação;
+- 0 sobreposições entre treino e teste;
+- 0 sobreposições entre validação e teste;
+- 0 identificadores duplicados dentro dos subconjuntos;
+- 0 conteúdos SHA-256 presentes em mais de um split.
+
+A união dos três manifestos recompõe exatamente as 10.000 pinturas presentes em `dataset_final.csv`:
+
+- 0 pinturas ausentes;
+- 0 pinturas adicionais;
+- 0 alterações nos metadados originais.
+
+As verificações foram implementadas com exceções explícitas em vez de depender exclusivamente da instrução `assert`, evitando que as salvaguardas possam ser desativadas pela execução otimizada do Python.
+
+### Preservação da distribuição de gênero
+
+O gênero não foi utilizado como variável de estratificação direta.
+
+Após a divisão, sua distribuição foi auditada dentro de cada macroclasse e comparada com a distribuição da respectiva macroclasse no conjunto completo.
+
+Foram utilizadas duas medidas:
+
+- `TVD_pp`: distância de variação total, em pontos percentuais;
+- `max_diff_pp`: maior diferença absoluta observada em um único gênero.
+
+Resultados:
+
+| Macroclasse | Split | TVD (p.p.) | Maior diferença (p.p.) |
+|---|---|---:|---:|
+| Baroque | train | 1,26 | 0,82 |
+| Baroque | validation | 4,75 | 2,71 |
+| Baroque | test | 2,40 | 1,11 |
+| Cubism | train | 1,62 | 0,91 |
+| Cubism | validation | 6,44 | 3,47 |
+| Cubism | test | 4,23 | 1,49 |
+| Impressionism | train | 0,96 | 0,54 |
+| Impressionism | validation | 2,36 | 1,79 |
+| Impressionism | test | 2,75 | 2,32 |
+| Renaissance | train | 1,50 | 0,65 |
+| Renaissance | validation | 4,84 | 3,12 |
+| Renaissance | test | 2,65 | 1,69 |
+
+A maior diferença pontual observada foi de 3,47 pontos percentuais, em `Cubism / validation`, no gênero `still_life`.
+
+Considerando o tamanho de 375 pinturas por macroclasse nos conjuntos de validação e teste, as diferenças foram consideradas pequenas e compatíveis com o objetivo de preservar, na medida do possível, a distribuição temática original.
+
+Decidiu-se não introduzir uma segunda estratificação por gênero, pois os manifestos atuais já mantêm satisfatoriamente essa distribuição e uma estratificação excessivamente granular poderia criar estratos muito pequenos.
+
+### Artefatos da etapa
 
 Código:
 
 `src/data/split.py`
 
-Artefatos principais:
+Manifestos congelados:
 
 - `data/metadata/train.csv`
 - `data/metadata/validation.csv`
 - `data/metadata/test.csv`
+
+Esses três arquivos passam a ser a fonte de entrada para a geração dos patches.
+
+### Decisão metodológica
+
+Os manifestos da Etapa 4 são considerados congelados.
+
+Alterações futuras em:
+
+- proporções;
+- `SPLIT_SEED`;
+- critérios de estratificação;
+- ou composição dos três conjuntos
+
+devem ser tratadas como uma nova decisão experimental e registradas antes da repetição dos treinamentos.
 
 ---
 
@@ -364,28 +450,808 @@ Etapas concluídas:
 - [x] construção do subconjunto final reproduzível;
 - [x] divisão em treino, validação e teste.
 
-O arquivo:
-
-`data/metadata/dataset_final.csv`
-
-é a fonte de verdade do conjunto experimental, e os manifestos `train.csv`, `validation.csv` e `test.csv` estão congelados.
-
 ---
 
 ## Próxima etapa
 
-### Etapa 5 — Geração dos patches de 256×256
+## 2026-11-05 — Etapa 5: pipeline de patches
 
-Princípios já definidos:
+### Configuração espacial
 
-- os patches são gerados a partir dos manifestos `train.csv`, `validation.csv` e `test.csv`;
-- os três manifestos estão congelados e não devem ser alterados;
-- todo patch herda o subconjunto da pintura de origem.
+Definidos:
 
-Objetivos da próxima etapa:
+- `PATCH_SIZE = 256`;
+- `STRIDE = 128`;
+- sobreposição nominal de 50%.
 
-- definir stride e tratamento das bordas;
-- registrar a posição `x/y` de cada patch;
-- associar cada patch à pintura original (`Painting_ID`);
-- garantir a reconstrução posterior da pintura e dos mapas de calor;
-- aplicar *data augmentation* apenas no treino.
+Os patches são gerados diretamente sobre a resolução original da pintura.
+
+Não são utilizados:
+
+- resize da pintura;
+- padding;
+- descarte de regiões periféricas.
+
+### Política de bordas
+
+O último patch de cada eixo deve terminar exatamente na borda da pintura.
+
+Durante os testes foi identificado que simplesmente acrescentar um novo patch na borda poderia produzir regiões quase duplicadas quando o deslocamento restante fosse muito pequeno.
+
+Foi definido:
+
+`EDGE_REPOSITION_THRESHOLD = 64`
+
+Quando o deslocamento final é inferior a 64 pixels, a última posição regular é reposicionada para a borda.
+
+Caso contrário, uma nova posição é adicionada.
+
+Essa estratégia garante cobertura integral sem introduzir pixels artificiais e reduz redundância excessiva nas extremidades.
+
+### Coordenadas e identificação
+
+Cada patch registra:
+
+- `Patch_ID`;
+- `Painting_ID`;
+- `Indice_Dataset`;
+- split;
+- macroclasse;
+- estilo original;
+- `x0`;
+- `y0`;
+- `x1`;
+- `y1`.
+
+O `Patch_ID` é derivado deterministicamente do `Painting_ID` e das coordenadas iniciais.
+
+### Manifestos
+
+Criados:
+
+- `data/metadata/patches_train.csv.gz`;
+- `data/metadata/patches_validation.csv.gz`;
+- `data/metadata/patches_test.csv.gz`;
+- `data/metadata/patches_resumo.csv`.
+
+Quantidade final:
+
+| Split | Pinturas | Patches | Média por pintura |
+|---|---:|---:|---:|
+| train | 7.000 | 980.730 | 140,10 |
+| validation | 1.500 | 209.730 | 139,82 |
+| test | 1.500 | 209.030 | 139,35 |
+| **Total** | **10.000** | **1.399.490** | — |
+
+Os manifestos comprimidos ocupam aproximadamente 11 MB no total.
+
+### Distribuição por macroclasse
+
+Treino:
+
+- Baroque: 241.050;
+- Cubism: 239.100;
+- Impressionism: 241.650;
+- Renaissance: 258.930.
+
+Validação:
+
+- Baroque: 51.000;
+- Cubism: 51.150;
+- Impressionism: 52.620;
+- Renaissance: 54.960.
+
+Teste:
+
+- Baroque: 50.770;
+- Cubism: 51.560;
+- Impressionism: 51.060;
+- Renaissance: 55.640.
+
+Decidido não remover patches para equilibrar artificialmente essas quantidades.
+
+A quantidade diferente de patches é consequência das dimensões das pinturas.
+
+A estratégia de treinamento deverá evitar que pinturas maiores recebam peso excessivo apenas por produzirem mais patches.
+
+### Validação dos manifestos persistidos
+
+Os arquivos `.csv.gz` foram relidos após a gravação.
+
+Resultados:
+
+- `train`: 980.730 patches validados;
+- `validation`: 209.730 patches validados;
+- `test`: 209.030 patches validados.
+
+Foram verificadas:
+
+- unicidade de `Patch_ID`;
+- associação válida a `Painting_ID`;
+- split correto;
+- dimensão 256×256;
+- coordenadas válidas;
+- ausência de patches fora da imagem;
+- cobertura desde `x=0` e `y=0`;
+- cobertura até a borda direita e inferior;
+- presença de patches para todas as pinturas.
+
+Nenhuma inconsistência foi encontrada.
+
+### Extração com OpenCV
+
+Implementada extração das regiões com OpenCV/NumPy.
+
+Foram testados patches reais de uma pintura do WikiArt.
+
+Confirmado que os recortes:
+
+- pertenciam ao mesmo `Painting_ID`;
+- pertenciam ao mesmo `Indice_Dataset`;
+- correspondiam visualmente às posições registradas;
+- apresentavam dimensão 256×256.
+
+### Reconstrução
+
+Foi testada a reconstrução integral de uma pintura a partir de seus patches.
+
+Nas áreas sobrepostas foi utilizada soma seguida de divisão pelo número de coberturas.
+
+Resultado:
+
+- `Reconstrução idêntica: True`;
+- `Maior diferença de pixel: 0`;
+- `Pixels diferentes: 0`.
+
+A reconstrução foi pixel a pixel idêntica à pintura original.
+
+Concluído que as coordenadas e a política de sobreposição permitem reconstrução espacial posterior dos mapas Grad-CAM.
+
+A validação não afirma que o Grad-CAM será semanticamente correto; ela comprova que a infraestrutura geométrica para reconstruí-lo está correta.
+
+### Data augmentation
+
+Criado:
+
+`src/data/augmentations.py`
+
+Augmentation definido somente para treino:
+
+- flip horizontal: probabilidade de 50%;
+- rotação: probabilidade de 50%;
+- ângulo: entre -10° e +10°;
+- bordas de rotação: `cv2.BORDER_REFLECT_101`.
+
+Não utilizados:
+
+- flip vertical;
+- alterações de cor;
+- saturação;
+- blur;
+- ruído;
+- crop aleatório;
+- rotações extremas.
+
+Validação e teste retornam cópias pixel a pixel inalteradas.
+
+Os testes automáticos de augmentation foram concluídos com sucesso.
+
+Augmentation será executado dinamicamente durante treinamento e não produzirá arquivos permanentes.
+
+### Decisões metodológicas
+
+- todos os patches válidos são mantidos nos manifestos;
+- patches vizinhos podem possuir 50% de sobreposição;
+- os patches não devem ser interpretados como observações estatisticamente independentes;
+- a unidade principal de separação experimental continua sendo a pintura;
+- augmentation não altera os manifestos;
+- validation e test nunca recebem augmentation;
+- eventual balanceamento deverá ocorrer durante a amostragem de treino, e não pela exclusão de patches nesta etapa.
+
+### Código
+
+- `src/data/patches.py`;
+- `src/data/augmentations.py`.
+
+---
+
+
+## 2026-11-06 — Etapa 6: pipeline de entrada e normalização
+
+### Objetivo
+
+Implementado o pipeline responsável por transformar os patches definidos na Etapa 5 em entradas utilizáveis pelos modelos de aprendizado profundo.
+
+Foram adicionados:
+
+- `src/data/normalization.py`;
+- `src/data/patch_dataset.py`;
+- `src/data/visual_check.py`;
+- `tests/test_input_pipeline.py`.
+
+### Normalização
+
+Implementada conversão:
+
+```text
+uint8 RGB HWC
+        ↓
+escala 0–1
+        ↓
+normalização por média/desvio
+        ↓
+float32 CHW
+        ↓
+torch.Tensor
+```
+
+O preset padrão utiliza:
+
+```text
+mean = (0.485, 0.456, 0.406)
+std  = (0.229, 0.224, 0.225)
+```
+
+Esses valores correspondem ao preset convencional do ImageNet.
+
+A normalização permanece configurável e deverá ser confirmada contra os pesos pré-treinados específicos escolhidos para cada arquitetura.
+
+### Fonte central das classes
+
+Foi identificado durante a auditoria da etapa que `patch_dataset.py` possuía uma ordem própria de classes diferente da definida em `src/data/labels.py`.
+
+A duplicação foi removida.
+
+`patch_dataset.py` passou a utilizar diretamente:
+
+```text
+CLASSES_FINAIS
+```
+
+de:
+
+```text
+src/data/labels.py
+```
+
+Assim, índices de classes possuem uma única fonte de verdade no projeto.
+
+### Dataset
+
+Implementado `PatchDataset`.
+
+Cada item:
+
+1. identifica a pintura pelo `Indice_Dataset`;
+2. recupera a imagem original do WikiArt;
+3. extrai o patch utilizando as coordenadas do manifesto;
+4. aplica augmentation caso pertença ao treino;
+5. normaliza a imagem;
+6. converte o resultado para tensor.
+
+Os patches continuam sendo gerados dinamicamente e não são armazenados individualmente em disco.
+
+Cada item mantém também:
+
+- `Patch_ID`;
+- `Painting_ID`;
+- classe;
+- coordenadas espaciais.
+
+### Augmentation
+
+O augmentation da Etapa 5 foi integrado ao Dataset.
+
+Permanece definido:
+
+- flip horizontal com probabilidade de 50%;
+- rotação entre -10° e +10° com probabilidade de 50%;
+- nenhuma alteração cromática agressiva;
+- nenhum augmentation em validation ou test.
+
+Durante a auditoria foi identificado que o uso de `np.random.default_rng()` sem seed dentro da função de augmentation poderia escapar do controle das sementes dos DataLoaders.
+
+O pipeline foi corrigido para utilizar o estado pseudoaleatório inicializado pelos workers.
+
+A geração das transformações passa, portanto, a ser controlável pelas seeds do experimento.
+
+### DataLoaders
+
+Implementados DataLoaders para:
+
+- treino;
+- validação;
+- teste.
+
+Validation e test utilizam todos os seus patches e não recebem augmentation.
+
+Foi implementado `PaintingGroupedSampler` para o treino.
+
+A motivação é evitar que pinturas maiores recebam maior peso no treinamento apenas por produzirem mais patches.
+
+O sampler seleciona a mesma quantidade de patches por pintura em cada época.
+
+O parâmetro:
+
+```text
+patches_per_painting
+```
+
+é configurável.
+
+O valor padrão atual é 8, mas a escolha definitiva desse hiperparâmetro será tratada durante a Etapa 7.
+
+### Reprodutibilidade
+
+Foram adicionados controles explícitos de seed para:
+
+- sampler;
+- geradores dos DataLoaders;
+- workers;
+- NumPy;
+- augmentation.
+
+Foi implementado teste verificando que duas construções equivalentes do loader, utilizando a mesma seed, produzem o mesmo primeiro batch de treino.
+
+### Testes automatizados
+
+A suíte:
+
+```text
+tests/test_input_pipeline.py
+```
+
+foi ampliada e executada localmente.
+
+Resultado final:
+
+```text
+16 testes passaram
+```
+
+As verificações cobrem:
+
+- normalização;
+- desnormalização;
+- formato dos patches;
+- correspondência com manifesto;
+- classes;
+- augmentation;
+- proteção de validation/test;
+- sampler;
+- seeds;
+- manifestos;
+- parâmetros inválidos;
+- DataLoaders;
+- batches reais;
+- validação visual.
+
+### Validação visual real
+
+Executado:
+
+```bash
+python -m src.data.visual_check
+```
+
+Foram inspecionadas amostras reais após todas as transformações.
+
+Resultados numéricos:
+
+```text
+validation: maior diferença de pixel = 0
+test:       maior diferença de pixel = 0
+```
+
+Validation e test permaneceram pixel a pixel idênticos aos recortes originais após normalização e desnormalização.
+
+No conjunto de treino foram observadas apenas transformações esperadas, incluindo espelhamento horizontal em algumas amostras.
+
+Não foram identificadas alterações cromáticas inesperadas, deformações ou bordas artificiais relevantes.
+
+**Etapa 6 concluída e validada.**
+
+---
+
+## 2026-11-07 — Etapa 7: treinamento e fine-tuning da ResNet-50
+
+### Objetivo
+
+Foi implementado e treinado o primeiro modelo principal de classificação do projeto utilizando Transfer Learning com uma arquitetura convolucional da família ResNet.
+
+A arquitetura selecionada foi a **ResNet-50**, adaptada para classificar as quatro macroclasses oficiais:
+
+- Renaissance;
+- Baroque;
+- Impressionism;
+- Cubism.
+
+O conjunto de teste permaneceu intocado durante toda esta etapa.
+
+### Arquitetura e pesos pré-treinados
+
+Foi criada:
+
+`src/models/resnet.py`
+
+A arquitetura utiliza:
+
+```text
+ResNet-50
+ResNet50_Weights.IMAGENET1K_V2
+```
+
+A camada classificadora original foi substituída por:
+
+```text
+Linear(2048, 4)
+```
+
+A ordem das quatro classes continua centralizada em:
+
+```text
+src/data/labels.py
+```
+
+A entrada do modelo permanece em:
+
+```text
+256 × 256 pixels
+```
+
+Não foi aplicado redimensionamento para 224×224, pois a ResNet utiliza pooling adaptativo e aceita os patches de 256×256 diretamente.
+
+A normalização da Etapa 6 foi validada contra a normalização esperada pelos pesos `IMAGENET1K_V2`.
+
+Parâmetros:
+
+```text
+Parâmetros totais: 23.516.228
+Treináveis durante head-only: 8.196
+Treináveis durante fine-tuning: 23.516.228
+```
+
+### Estratégia de treinamento
+
+O treinamento foi dividido em duas fases:
+
+```text
+Fase 1 — treinamento apenas da cabeça classificadora
+Fase 2 — fine-tuning completo da ResNet-50
+```
+
+Essa estratégia permite inicialmente utilizar o backbone pré-treinado como extrator fixo de características e, posteriormente, adaptar as representações internas à tarefa específica de classificação de movimentos artísticos.
+
+### Ambiente de execução
+
+O treinamento oficial foi executado no **Google Colab** com:
+
+```text
+GPU: Tesla T4
+CUDA: habilitado
+batch size: 32
+num_workers: 2
+seed: 42
+```
+
+O dataset WikiArt é carregado do Hugging Face e mantido no cache temporário da VM:
+
+```text
+/content/hf_cache
+```
+
+Esse cache não é persistente entre VMs do Colab.
+
+Os checkpoints são armazenados no Google Drive para não depender do armazenamento temporário da VM.
+
+Foi posteriormente definida uma pasta compartilhada para o grupo:
+
+```text
+TCC_WikiArt_Compartilhado/
+├── models/
+└── outputs/
+    └── resnet50/
+```
+
+No Colab, o diretório local:
+
+```text
+models/
+```
+
+é associado à pasta compartilhada do Google Drive.
+
+Os checkpoints não são versionados no GitHub devido ao tamanho dos arquivos.
+
+### Amostragem de treino e validação
+
+O valor definitivo utilizado durante a Etapa 7 foi:
+
+```text
+patches_per_painting = 8
+```
+
+No treino, o `PaintingGroupedSampler` seleciona oito patches de cada pintura por época.
+
+Com 7.000 pinturas:
+
+```text
+56.000 patches de treino por época
+```
+
+Para validação foi implementado `FixedPaintingSampler`.
+
+Esse sampler seleciona deterministicamente oito patches por pintura e mantém exatamente o mesmo subconjunto durante todas as épocas.
+
+Com 1.500 pinturas:
+
+```text
+12.000 patches de validação por época
+```
+
+A estratégia evita que pinturas maiores recebam maior peso apenas por produzirem mais patches.
+
+Os 209.730 patches completos de validação permanecem disponíveis para avaliações posteriores.
+
+### BatchNorm durante o treinamento da cabeça
+
+Durante a primeira fase, congelar apenas `requires_grad` não seria suficiente para impedir alterações nas estatísticas internas das camadas BatchNorm.
+
+Foi implementada uma política explícita:
+
+```text
+backbone em eval()
+fc em train()
+```
+
+Assim:
+
+- os pesos do backbone permanecem congelados;
+- as estatísticas de BatchNorm permanecem congeladas;
+- somente a camada `fc` recebe atualizações.
+
+### Treinamento da cabeça classificadora
+
+Código:
+
+```text
+src/training/train_resnet.py
+src/training/train_resnet_head.py
+```
+
+Configuração oficial:
+
+```text
+epochs: 3
+batch size: 32
+patches por pintura no treino: 8
+patches por pintura na validação: 8
+optimizer: AdamW
+learning rate: 1e-3
+weight decay: 1e-4
+seed: 42
+```
+
+Resultados:
+
+| Época | Train loss | Train accuracy | Validation loss | Validation accuracy |
+|---:|---:|---:|---:|---:|
+| 1 | 0,8489 | 64,77% | 0,7996 | 67,63% |
+| 2 | 0,7558 | 68,91% | 0,7601 | 69,63% |
+| 3 | 0,7361 | 70,15% | 0,7550 | 69,93% |
+
+O melhor checkpoint foi obtido na terceira época:
+
+```text
+Validation loss: 0,755048
+Validation accuracy: 69,93%
+```
+
+Checkpoint:
+
+```text
+models/resnet50_head_best.pt
+```
+
+### Fine-tuning
+
+Código:
+
+```text
+src/training/finetune_resnet.py
+```
+
+O fine-tuning parte obrigatoriamente do melhor checkpoint da cabeça classificadora.
+
+Todos os parâmetros da ResNet foram liberados para treinamento.
+
+Foram utilizados learning rates diferenciais:
+
+```text
+backbone: 1e-5
+fc:       1e-4
+```
+
+Configuração:
+
+```text
+epochs: 3
+batch size: 32
+optimizer: AdamW
+weight decay: 1e-4
+patches por pintura no treino: 8
+patches por pintura na validação: 8
+seed: 42
+```
+
+Durante o fine-tuning, as estatísticas das camadas BatchNorm permaneceram congeladas.
+
+Os parâmetros affine `weight` e `bias` das BatchNorm permaneceram treináveis, enquanto `running_mean` e `running_var` não foram atualizados.
+
+Resultados:
+
+| Fine-tuning | Época geral | Train loss | Train accuracy | Validation loss | Validation accuracy |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 4 | 0,6983 | 71,36% | 0,7221 | 71,34% |
+| 2 | 5 | 0,6460 | 73,68% | 0,6816 | 72,32% |
+| 3 | 6 | 0,6122 | 75,24% | 0,6789 | 72,43% |
+
+O melhor resultado foi obtido na terceira época de fine-tuning:
+
+```text
+Train loss: 0,612235
+Train accuracy: 75,24%
+Validation loss: 0,678914
+Validation accuracy: 72,43%
+```
+
+Checkpoint:
+
+```text
+models/resnet50_finetune_best.pt
+```
+
+### Comparação entre as fases
+
+Melhor resultado com apenas a cabeça:
+
+```text
+Validation loss: 0,7550
+Validation accuracy: 69,93%
+```
+
+Melhor resultado após fine-tuning:
+
+```text
+Validation loss: 0,6789
+Validation accuracy: 72,43%
+```
+
+O fine-tuning produziu:
+
+```text
++2,49 pontos percentuais de validation accuracy
+aproximadamente -10,1% de validation loss
+```
+
+A terceira época ainda apresentou melhora, porém com ganho significativamente menor que o observado entre as duas primeiras épocas do fine-tuning.
+
+Decidiu-se encerrar o treinamento nesse ponto em vez de prolongá-lo apenas devido a pequenas variações adicionais.
+
+Não foram observados sinais fortes de sobreajuste ao final das seis épocas.
+
+### Curvas de treinamento
+
+Os históricos das duas fases foram consolidados em seis épocas:
+
+```text
+1–3: treinamento da cabeça
+4–6: fine-tuning
+```
+
+Foram gerados:
+
+```text
+outputs/resnet50/resnet_history.csv
+outputs/resnet50/resnet_loss.png
+outputs/resnet50/resnet_accuracy.png
+```
+
+As curvas apresentam queda contínua da loss de treino e validação e aumento progressivo das respectivas accuracies.
+
+### Artefatos versionados
+
+Resultados pequenos e reproduzíveis:
+
+```text
+outputs/resnet50/head_config.json
+outputs/resnet50/head_history.csv
+outputs/resnet50/finetune_config.json
+outputs/resnet50/finetune_history.csv
+outputs/resnet50/resnet_history.csv
+outputs/resnet50/resnet_loss.png
+outputs/resnet50/resnet_accuracy.png
+```
+
+Checkpoints `.pt` permanecem fora do GitHub.
+
+### Notebook de execução no Google Colab
+
+Foi criado:
+
+```text
+notebooks/04_treinamento_resnet_colab.ipynb
+```
+
+O notebook funciona como roteiro operacional da Etapa 7 e permite:
+
+- verificar GPU e CUDA;
+- clonar o repositório;
+- instalar dependências necessárias;
+- preparar o cache do WikiArt;
+- montar o Google Drive compartilhado;
+- localizar os checkpoints;
+- verificar os manifestos;
+- executar smoke tests;
+- reproduzir o treinamento da cabeça;
+- reproduzir o fine-tuning;
+- recuperar métricas dos checkpoints;
+- gerar as curvas oficiais;
+- realizar backup dos resultados.
+
+As etapas demoradas permanecem protegidas por flags `RUN_*` para evitar execução acidental.
+
+### Reprodutibilidade e limitações
+
+A configuração experimental registra:
+
+- seed;
+- versões de Python;
+- PyTorch;
+- TorchVision;
+- dispositivo;
+- GPU;
+- hiperparâmetros;
+- estratégia de validação;
+- normalização;
+- classes;
+- checkpoint de origem.
+
+As métricas obtidas nesta etapa ainda são métricas **no nível de patches**.
+
+Não devem ser interpretadas como desempenho final no nível da pintura.
+
+Ainda não foram calculados nesta etapa:
+
+- precision;
+- recall;
+- F1-score;
+- matriz de confusão;
+- métricas por macroclasse;
+- agregação de previsões por pintura;
+- desempenho no conjunto de teste.
+
+O conjunto de teste permaneceu completamente reservado.
+
+**Etapa 7 concluída.**
+
+---
+
+## Estado atual do projeto
+
+Etapas concluídas:
+
+- [x] definição do escopo;
+- [x] análise exploratória;
+- [x] auditoria de integridade;
+- [x] construção do subconjunto final reproduzível;
+- [x] divisão em treino, validação e teste;
+- [x] pipeline de patches;
+- [x] pipeline de entrada e normalização;
+- [x] treinamento e fine-tuning da ResNet-50.
+
+Próxima etapa:
+
+### Etapa 8 — Vision Transformer
+
+A próxima etapa implementará o segundo modelo principal do projeto, utilizando uma arquitetura Vision Transformer sob condições experimentais comparáveis às utilizadas na ResNet-50.
