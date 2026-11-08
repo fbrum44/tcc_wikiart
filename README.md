@@ -119,10 +119,14 @@ Estão concluídas:
 - **Etapa 2 — Auditoria de Integridade**
 - **Etapa 3 — Construção do Subconjunto Final Reproduzível**
 - **Etapa 4 — Divisão em treino, validação e teste**
+- **Etapa 5 — Pipeline de patches**
+- **Etapa 6 — Pipeline de entrada e normalização**
+- **Etapa 7 — Treinamento e fine-tuning da ResNet-50**
+- **Etapa 8 — Treinamento e fine-tuning do Vision Transformer (ViT-B/16)**
 
 A próxima fase é:
 
-**Etapa 5 — Geração dos patches de 256×256**
+**Avaliação quantitativa**
 
 O arquivo:
 
@@ -972,10 +976,11 @@ Estão concluídas:
 - **Etapa 5 — Pipeline de patches**
 - **Etapa 6 — Pipeline de entrada e normalização**
 - **Etapa 7 — Treinamento e fine-tuning da ResNet-50**
+- **Etapa 8 — Treinamento e fine-tuning do Vision Transformer (ViT-B/16)**
 
 A próxima fase é:
 
-**Etapa 8 — Vision Transformer (ViT)**
+**Avaliação quantitativa**
 
 O conjunto experimental permanece definido por:
 
@@ -1154,7 +1159,8 @@ Os checkpoints do grupo ficam em uma pasta compartilhada do Google Drive:
 TCC_WikiArt_Compartilhado/
 ├── models/
 └── outputs/
-    └── resnet50/
+    ├── resnet50/
+    └── vit/
 ```
 
 Cada integrante adiciona um atalho dessa pasta diretamente em **Meu Drive**, permitindo que o notebook utilize o caminho comum:
@@ -1167,22 +1173,116 @@ Os arquivos `.pt` permanecem no Drive e não são versionados no GitHub.
 
 ---
 
-# Próxima etapa — Vision Transformer
+# Etapa 8 — Vision Transformer (ViT-B/16)
 
-A próxima etapa será a **Etapa 8 — Vision Transformer (ViT)**.
+O segundo modelo principal do projeto foi implementado com Transfer Learning, sob as mesmas condições experimentais da ResNet-50, para permitir uma comparação direta entre as arquiteturas.
 
-O objetivo será implementar e treinar o segundo modelo principal do experimento sob condições comparáveis às utilizadas na ResNet-50.
+Código principal:
 
+```text
+src/models/vit.py
+src/training/train_vit_head.py
+src/training/finetune_vit.py
+```
 
-# Etapas posteriores
+## Modelo
 
-Treinamento Vision Transformer
-- Escolher arquitetura pré-treinada compatível.
-- Utilizar os mesmos dados e splits.
-- Manter condições experimentais comparáveis.
-- Treinar/fine-tuning.
-- Comparar com a ResNet.
+Foi utilizado o ViT-B/16 da biblioteca `timm`, com pesos pré-treinados no ImageNet-21k e ajustados no ImageNet-1k:
 
+```text
+vit_base_patch16_224.augreg_in21k_ft_in1k
+```
+
+A cabeça classificadora foi substituída por uma camada com quatro saídas, correspondentes às macroclasses oficiais.
+
+A entrada permanece em `256 × 256`: o modelo é criado com `img_size=256`, e o `timm` interpola o embedding de posição. Não há redimensionamento nem recorte.
+
+A normalização esperada pelos pesos é `mean = std = (0.5, 0.5, 0.5)`, e não a do ImageNet usada na ResNet. O pipeline utiliza o preset `half` de `src/data/normalization.py`, e `validar_normalizacao()` confere o preset contra o checkpoint.
+
+## Condições comparáveis à ResNet-50
+
+```text
+seed: 42
+batch size: 32
+patches por pintura (treino e validação): 8
+optimizer: AdamW
+weight decay: 1e-4
+cabeça: 3 épocas, learning rate 1e-3
+fine-tuning: 3 épocas, backbone 1e-5, cabeça 1e-4
+critério de checkpoint: menor validation loss
+```
+
+Os scripts do ViT reutilizam o laço de treino, a validação, o amostrador fixo de validação e a gravação de histórico e de checkpoint da ResNet, de modo que as duas arquiteturas são avaliadas exatamente nos mesmos 12.000 patches de validação.
+
+O ViT não possui BatchNorm. Na fase da cabeça, o backbone permanece em `eval()` e apenas a cabeça em `train()`.
+
+## Resultados
+
+Melhor resultado da cabeça classificadora (época 1):
+
+```text
+Validation loss: 0,8235
+Validation accuracy: 70,48%
+```
+
+Na cabeça, a loss de validação do ViT oscilou (0,82 → 0,97 → 0,85), e o fine-tuning partiu do checkpoint da época 1, escolhido pelo critério definido.
+
+Melhor resultado após fine-tuning (época 3 do fine-tuning):
+
+```text
+Validation loss: 0,5317
+Validation accuracy: 78,52%
+```
+
+## Comparação com a ResNet-50
+
+Métricas no nível de patches, no conjunto de validação:
+
+| Modelo | Validation loss | Validation accuracy |
+|---|---:|---:|
+| ResNet-50 | 0,6789 | 72,43% |
+| ViT-B/16 | 0,5317 | 78,52% |
+
+Nas condições testadas, o ViT-B/16 obteve acurácia de validação 6,1 pontos percentuais superior à da ResNet-50. Com apenas a cabeça, os dois ficaram próximos de 70%; a diferença surge no fine-tuning.
+
+Limitações desta comparação:
+
+- cada modelo foi treinado uma vez, com uma única seed;
+- as métricas são no nível de patches, na validação, e não representam o desempenho final no nível da pintura;
+- o conjunto de teste permanece reservado e não foi utilizado;
+- a comparação não explica por que o ViT acerta mais, o que depende da análise de interpretabilidade.
+
+Os resultados pequenos e reproduzíveis estão em:
+
+```text
+outputs/vit/
+```
+
+incluindo históricos, configurações, curvas e a comparação com a ResNet. Os checkpoints (`models/vit_head_best.pt` e `models/vit_finetune_best.pt`) permanecem no Google Drive compartilhado e não são versionados.
+
+---
+
+# Execução do ViT no Google Colab
+
+O treinamento do ViT é operado pelo notebook:
+
+```text
+notebooks/05_treinamento_vit_colab.ipynb
+```
+
+Ele segue a mesma estrutura do notebook da ResNet (GPU, clone do GitHub, dependências, cache do WikiArt, Google Drive compartilhado, treinamento da cabeça, fine-tuning, curvas e backup) e acrescenta uma seção final de comparação com a ResNet-50.
+
+O treinamento oficial foi realizado em GPU **Tesla T4**. A primeira época do fine-tuning levou cerca de 52 minutos.
+
+Observação: o script de fine-tuning registra `overall_epoch` como a época do melhor checkpoint da cabeça somada à época do fine-tuning. Como o melhor checkpoint da cabeça do ViT foi o da época 1, esses valores se sobrepõem às épocas da cabeça. As curvas consolidadas usam uma linha do tempo própria (`epoch_timeline`: cabeça nas épocas 1–3 e fine-tuning nas 4–6).
+
+---
+
+# Próxima etapa — Avaliação quantitativa
+
+A próxima etapa avaliará os modelos no conjunto de teste, com métricas no nível do patch e da pintura (acurácia, precision, recall, F1-score e matriz de confusão por macroclasse).
+
+O conjunto de teste só deve ser utilizado depois que os modelos e as decisões experimentais estiverem definidos.
 
 ---
 
@@ -1235,7 +1335,7 @@ Entre as bibliotecas atualmente utilizadas estão:
 - `jupyter`
 - `ipykernel`
 
-O projeto também utiliza `torch` (PyTorch, para tensores e DataLoaders) e `pytest` (testes automatizados).
+O projeto também utiliza `torch` (PyTorch, para tensores e DataLoaders), `timm` (Vision Transformer, Etapa 8) e `pytest` (testes automatizados).
 
 ---
 
@@ -1266,7 +1366,13 @@ src.training.train_resnet_head
         ↓
 src.training.finetune_resnet
         ↓
-próxima etapa: Vision Transformer
+05_treinamento_vit_colab.ipynb
+        ↓
+src.training.train_vit_head
+        ↓
+src.training.finetune_vit
+        ↓
+próxima etapa: avaliação quantitativa
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -1275,7 +1381,7 @@ Por exemplo, se `train.csv`, `validation.csv` e `test.csv` já estiverem dispon�
 
 Isso evita repetir operações demoradas de auditoria e reconstrução da curadoria.
 
-Para a Etapa 7, o notebook do Google Colab é o roteiro recomendado. Os scripts continuam sendo a implementação reutilizável e podem ser executados diretamente quando necessário.
+Para as Etapas 7 e 8, os notebooks do Google Colab (04 e 05) são os roteiros recomendados. Os scripts continuam sendo a implementação reutilizável e podem ser executados diretamente quando necessário.
 
 ---
 
@@ -1363,7 +1469,8 @@ notebooks/
 ├── 01_analise_exploratoria.ipynb
 ├── 02_auditoria_dataset.ipynb
 ├── 03_curadoria_dataset.ipynb
-└── 04_treinamento_resnet_colab.ipynb
+├── 04_treinamento_resnet_colab.ipynb
+└── 05_treinamento_vit_colab.ipynb
 
 src/
 ├── data/
@@ -1377,23 +1484,36 @@ src/
 │
 ├── models/
 │   ├── __init__.py
-│   └── resnet.py
+│   ├── resnet.py
+│   └── vit.py
 │
 └── training/
     ├── __init__.py
     ├── train_resnet.py
     ├── train_resnet_head.py
-    └── finetune_resnet.py
+    ├── finetune_resnet.py
+    ├── train_vit_head.py
+    └── finetune_vit.py
 
 outputs/
-└── resnet50/
+├── resnet50/
+│   ├── head_config.json
+│   ├── head_history.csv
+│   ├── finetune_config.json
+│   ├── finetune_history.csv
+│   ├── resnet_history.csv
+│   ├── resnet_loss.png
+│   └── resnet_accuracy.png
+└── vit/
     ├── head_config.json
     ├── head_history.csv
     ├── finetune_config.json
     ├── finetune_history.csv
-    ├── resnet_history.csv
-    ├── resnet_loss.png
-    └── resnet_accuracy.png
+    ├── vit_history.csv
+    ├── vit_loss.png
+    ├── vit_accuracy.png
+    ├── comparacao_resnet_vit.png
+    └── comparacao_resnet_vit.csv
 ```
 
 Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
