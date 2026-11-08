@@ -1,0 +1,39 @@
+{
+  "seed": 42,
+  "epochs": 3,
+  "batch_size": 32,
+  "train_patches_per_painting": 8,
+  "val_patches_per_painting": 8,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "num_workers": 2,
+  "architecture": "vit_base_patch16",
+  "weights": "augreg_in21k_ft_in1k",
+  "timm_model": "vit_base_patch16_224.augreg_in21k_ft_in1k",
+  "input_size": 256,
+  "classes": [
+    "Renaissance",
+    "Baroque",
+    "Impressionism",
+    "Cubism"
+  ],
+  "normalization_mean": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "normalization_std": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "python_version": "3.13.16",
+  "torch_version": "2.14.1+cu130",
+  "timm_version": "1.0.31",
+  "cuda_available": true,
+  "device": "cuda",
+  "gpu": "Tesla T4",
+  "validation_strategy": "fixed_patches_per_painting",
+  "checkpoint_metric": "validation_loss",
+  "phase": "classifier_head_only"
+}

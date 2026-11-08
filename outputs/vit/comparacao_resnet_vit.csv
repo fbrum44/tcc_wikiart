@@ -1,0 +1,3 @@
+modelo,fase,epoca_linha_do_tempo,val_loss,val_accuracy
+ResNet-50,finetune,6,0.6789139492064714,0.72425
+ViT-B/16,finetune,6,0.5316513583436608,0.7851666666666667
