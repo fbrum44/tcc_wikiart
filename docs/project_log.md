@@ -1237,6 +1237,204 @@ O conjunto de teste permaneceu completamente reservado.
 
 ---
 
+## 2026-11-08 — Etapa 8: treinamento e fine-tuning do Vision Transformer (ViT-B/16)
+
+### Objetivo
+
+Foi implementado e treinado o segundo modelo principal do projeto, uma arquitetura Vision Transformer com Transfer Learning, sob as mesmas condições experimentais da ResNet-50 da Etapa 7, para permitir uma comparação direta entre as duas arquiteturas.
+
+O conjunto de teste permaneceu intocado durante toda esta etapa.
+
+### Arquitetura e pesos pré-treinados
+
+Foi criado:
+
+`src/models/vit.py`
+
+A arquitetura utiliza o ViT-B/16 da biblioteca `timm`:
+
+```text
+vit_base_patch16_224.augreg_in21k_ft_in1k
+```
+
+Pesos pré-treinados no ImageNet-21k e ajustados no ImageNet-1k (AugReg).
+
+A cabeça classificadora original foi substituída por:
+
+```text
+Linear(768, 4)
+```
+
+A ordem das quatro classes continua centralizada em `src/data/labels.py`.
+
+**Entrada.** O modelo foi criado com `img_size=256`. Assim, o ViT recebe diretamente os mesmos patches 256×256 da ResNet, sem redimensionar para 224×224 e sem recorte. O `timm` interpola o embedding de posição de 14×14 para 16×16 posições (256 tokens de patch mais o token de classe).
+
+**Normalização.** Os pesos escolhidos esperam média e desvio `0,5/0,5`, e não os valores do ImageNet usados na ResNet. Foi utilizado o preset `half` de `src/data/normalization.py` (`HALF_MEAN`, `HALF_STD`), e `validar_normalizacao()` compara o preset com a configuração do checkpoint.
+
+Com o backbone congelado, apenas os 3.076 parâmetros da cabeça (`768 × 4 + 4`) são treináveis.
+
+### Condições experimentais comparáveis à ResNet-50
+
+Foram mantidos, sem alteração:
+
+```text
+seed: 42
+batch size: 32
+patches por pintura no treino: 8
+patches por pintura na validação: 8 (mesma validação fixa da ResNet)
+optimizer: AdamW
+weight decay: 1e-4
+critério de checkpoint: menor validation loss
+sem precisão mista
+```
+
+Os scripts do ViT reutilizam os componentes genéricos da ResNet (`criar_loader_validacao_fixo`, `treinar_epoca`, `validar_epoca`, gravação de histórico e de checkpoint), de modo que o laço de treino e a validação são os mesmos nos dois modelos. A validação usa o mesmo subconjunto fixo de 12.000 patches.
+
+O ViT não possui BatchNorm. Na fase da cabeça, o backbone foi mantido em `eval()` e apenas a cabeça em `train()`, política equivalente à usada na ResNet. No fine-tuning, a política de congelar estatísticas de BatchNorm não se aplica.
+
+### Ambiente de execução
+
+O treinamento foi executado no Google Colab, com GPU Tesla T4, no notebook:
+
+`notebooks/05_treinamento_vit_colab.ipynb`
+
+A primeira época do fine-tuning levou cerca de 52 minutos. Antes do treinamento oficial, o smoke test do fine-tuning (5 batches de treino e 3 de validação) confirmou que a T4 comporta o modelo completo com batch 32.
+
+### Treinamento da cabeça classificadora
+
+Código: `src/training/train_vit_head.py`
+
+Configuração: 3 épocas, learning rate `1e-3`.
+
+| Época | Train loss | Train accuracy | Validation loss | Validation accuracy |
+|---:|---:|---:|---:|---:|
+| 1 | 0,8698 | 67,74% | 0,8235 | 70,48% |
+| 2 | 0,8106 | 70,55% | 0,9703 | 66,67% |
+| 3 | 0,8072 | 70,77% | 0,8533 | 69,78% |
+
+A loss de treino diminuiu a cada época, mas a loss de validação piorou depois da primeira. Pelo critério definido (menor validation loss), o melhor checkpoint da cabeça foi o da **época 1**:
+
+```text
+Validation loss: 0,8235
+Validation accuracy: 70,48%
+```
+
+Checkpoint: `models/vit_head_best.pt`
+
+Essa instabilidade não ocorreu na ResNet, cuja loss de validação diminuiu nas três épocas. Uma explicação possível é que o learning rate de `1e-3` seja alto para o ViT, mas essa hipótese não foi testada. Os hiperparâmetros foram mantidos para preservar a comparabilidade.
+
+### Fine-tuning
+
+Código: `src/training/finetune_vit.py`
+
+O fine-tuning parte do melhor checkpoint da cabeça (época 1). Todos os parâmetros foram liberados, com learning rates diferenciais:
+
+```text
+backbone: 1e-5
+cabeça:   1e-4
+```
+
+Configuração: 3 épocas.
+
+| Fine-tuning | Train loss | Train accuracy | Validation loss | Validation accuracy |
+|---:|---:|---:|---:|---:|
+| 1 | 0,6432 | 74,19% | 0,6365 | 75,27% |
+| 2 | 0,5287 | 78,52% | 0,5757 | 76,81% |
+| 3 | 0,4732 | 80,83% | 0,5317 | 78,52% |
+
+O melhor resultado foi obtido na terceira época de fine-tuning:
+
+```text
+Validation loss: 0,5317
+Validation accuracy: 78,52%
+```
+
+Checkpoint: `models/vit_finetune_best.pt`
+
+O fine-tuning produziu, em relação à cabeça (época 1):
+
+```text
++8,03 pontos percentuais de validation accuracy
+aproximadamente -35,4% de validation loss
+```
+
+Ao final, o script verificou que os pesos do backbone (embedding de patches) e da cabeça foram atualizados.
+
+A loss de validação ainda diminuía na última época, e o melhor checkpoint foi o último. O treinamento foi encerrado em 3 épocas para manter o mesmo orçamento de treino da ResNet.
+
+### Comparação com a ResNet-50 (validação, em patches)
+
+| Modelo | Melhor época | Validation loss | Validation accuracy |
+|---|---:|---:|---:|
+| ResNet-50 | 6 | 0,6789 | 72,43% |
+| ViT-B/16 | 6 | 0,5317 | 78,52% |
+
+Diferença:
+
+```text
+loss: -0,147 (aproximadamente -21,7%)
+accuracy: +6,09 pontos percentuais a favor do ViT
+```
+
+Com apenas a cabeça, os dois modelos ficaram próximos de 70% de acurácia (ResNet 69,93%; ViT 70,48%). A vantagem do ViT surge no fine-tuning: ganho de cerca de 8 p.p. contra 2,49 p.p. da ResNet. Ao final, a ResNet estabilizou (validation loss 0,6816 → 0,6789 nas duas últimas épocas), enquanto a do ViT ainda caía.
+
+Essas diferenças foram medidas em condições comparáveis, mas devem ser interpretadas com cautela (ver limitações).
+
+### Curvas e consolidação do histórico
+
+Foram gerados:
+
+```text
+outputs/vit/vit_history.csv
+outputs/vit/vit_loss.png
+outputs/vit/vit_accuracy.png
+outputs/vit/comparacao_resnet_vit.png
+outputs/vit/comparacao_resnet_vit.csv
+```
+
+**Nota sobre a numeração de épocas.** O script de fine-tuning calcula `overall_epoch` como a época do melhor checkpoint da cabeça somada à época do fine-tuning. Como o melhor checkpoint da cabeça foi o da época 1, os valores registrados em `finetune_history.csv` e no checkpoint são 2, 3 e 4, e coincidiriam com as épocas 2 e 3 da cabeça. A primeira versão da consolidação usou essa coluna e gerou curvas com sobreposição. Ela foi corrigida com uma linha do tempo própria (`epoch_timeline`): cabeça nas épocas 1–3 e fine-tuning nas épocas 4–6, com as duas fases desenhadas como segmentos separados e uma nota informando que o fine-tuning parte do checkpoint da época 1. Os arquivos `head_history.csv` e `finetune_history.csv` e os checkpoints não foram alterados.
+
+### Artefatos versionados
+
+Código:
+
+```text
+src/models/vit.py
+src/training/train_vit_head.py
+src/training/finetune_vit.py
+notebooks/05_treinamento_vit_colab.ipynb
+```
+
+Resultados pequenos e reproduzíveis:
+
+```text
+outputs/vit/head_config.json
+outputs/vit/head_history.csv
+outputs/vit/finetune_config.json
+outputs/vit/finetune_history.csv
+outputs/vit/vit_history.csv
+outputs/vit/vit_loss.png
+outputs/vit/vit_accuracy.png
+outputs/vit/comparacao_resnet_vit.png
+outputs/vit/comparacao_resnet_vit.csv
+```
+
+Checkpoints `.pt` (`models/vit_head_best.pt` e `models/vit_finetune_best.pt`) permanecem no Google Drive compartilhado, fora do GitHub.
+
+### Limitações
+
+- Cada modelo foi treinado uma única vez, com uma única seed. Não foi estimada a variabilidade entre execuções.
+- As métricas são **no nível de patches**, na validação. Não representam desempenho final no nível da pintura.
+- A época de cada modelo foi escolhida pela loss de validação, o que torna os valores de validação levemente otimistas. A estimativa final e independente depende do conjunto de teste.
+- A cabeça do ViT apresentou validação instável, e o fine-tuning partiu de um checkpoint da cabeça menos treinado que o da ResNet.
+- O ViT ainda melhorava ao final do fine-tuning; o número de épocas foi fixado para manter a comparabilidade.
+- A comparação mostra qual modelo acertou mais, mas não explica o motivo. Essa explicação depende da análise de interpretabilidade (Grad-CAM) e da investigação de *shortcut learning*.
+- Ainda não foram calculados: precision, recall, F1-score, matriz de confusão, métricas por macroclasse, agregação das previsões por pintura e desempenho no conjunto de teste.
+
+**Etapa 8 concluída.**
+
+---
+
 ## Estado atual do projeto
 
 Etapas concluídas:
@@ -1248,10 +1446,11 @@ Etapas concluídas:
 - [x] divisão em treino, validação e teste;
 - [x] pipeline de patches;
 - [x] pipeline de entrada e normalização;
-- [x] treinamento e fine-tuning da ResNet-50.
+- [x] treinamento e fine-tuning da ResNet-50;
+- [x] treinamento e fine-tuning do ViT-B/16.
 
 Próxima etapa:
 
-### Etapa 8 — Vision Transformer
+### Avaliação quantitativa
 
-A próxima etapa implementará o segundo modelo principal do projeto, utilizando uma arquitetura Vision Transformer sob condições experimentais comparáveis às utilizadas na ResNet-50.
+A próxima etapa avaliará os dois modelos no conjunto de teste, com métricas no nível do patch e da pintura (acurácia, precision, recall, F1-score e matriz de confusão por macroclasse). O conjunto de teste só deve ser utilizado depois que os modelos e as decisões experimentais estiverem definidos.
