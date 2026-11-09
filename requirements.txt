@@ -6,6 +6,7 @@ pillow
 jupyter
 ipykernel
 opencv-python
+scikit-learn
 # Pipeline de imagens e testes
 torch
 pytest
