@@ -5,8 +5,13 @@ from pathlib import Path
 
 import pandas as pd
 
+
 from src.data.labels import CLASSES_FINAIS
 
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+)
 
 REQUIRED_METADATA_COLUMNS = {
     "Painting_ID",
@@ -237,6 +242,121 @@ def preparar_base_teste(
 
     return base
 
+def calcular_desempenho_por_genero(
+    base: pd.DataFrame,
+    *,
+    model_name: str,
+    pred_column: str,
+) -> pd.DataFrame:
+
+    registros = []
+
+    for genero, grupo in base.groupby(
+        "Genero",
+        sort=True,
+    ):
+        y_true = grupo[
+            "Macro_Estilo"
+        ]
+
+        y_pred = grupo[
+            pred_column
+        ]
+
+        classes_presentes = sorted(
+            y_true.unique()
+        )
+
+        registros.append(
+            {
+                "model": model_name,
+                "Genero": genero,
+                "n": len(grupo),
+                "n_classes_present":
+                    len(classes_presentes),
+                "accuracy":
+                    accuracy_score(
+                        y_true,
+                        y_pred,
+                    ),
+                "macro_f1_present_classes":
+                    f1_score(
+                        y_true,
+                        y_pred,
+                        labels=classes_presentes,
+                        average="macro",
+                        zero_division=0,
+                    ),
+            }
+        )
+
+    return pd.DataFrame(
+        registros
+    ).sort_values(
+        [
+            "n",
+            "Genero",
+        ],
+        ascending=[
+            False,
+            True,
+        ],
+    )
+
+
+def calcular_desempenho_classe_genero(
+    base: pd.DataFrame,
+    *,
+    model_name: str,
+    pred_column: str,
+) -> pd.DataFrame:
+
+    registros = []
+
+    for (
+        classe,
+        genero,
+    ), grupo in base.groupby(
+        [
+            "Macro_Estilo",
+            "Genero",
+        ],
+        sort=True,
+    ):
+
+        corretos = (
+            grupo[pred_column]
+            == grupo["Macro_Estilo"]
+        )
+
+        registros.append(
+            {
+                "model": model_name,
+                "Macro_Estilo": classe,
+                "Genero": genero,
+                "n": len(grupo),
+                "correct": int(
+                    corretos.sum()
+                ),
+                "recall_within_genre":
+                    float(
+                        corretos.mean()
+                    ),
+            }
+        )
+
+    return pd.DataFrame(
+        registros
+    ).sort_values(
+        [
+            "Macro_Estilo",
+            "n",
+        ],
+        ascending=[
+            True,
+            False,
+        ],
+    )
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -324,12 +444,63 @@ def main() -> None:
         vit_df,
     )
 
-    distribuicao_train = (
-        criar_distribuicao_genero(
-            train_df,
-            "train",
+    desempenho_genero_resnet = (
+    calcular_desempenho_por_genero(
+        base_teste,
+        model_name="ResNet-50",
+        pred_column="pred_mean_resnet50",
+    )
+)
+
+    desempenho_genero_vit = (
+        calcular_desempenho_por_genero(
+            base_teste,
+            model_name="ViT-B/16",
+            pred_column="pred_mean_vit_b16",
         )
     )
+
+    desempenho_genero = pd.concat(
+        [
+            desempenho_genero_resnet,
+            desempenho_genero_vit,
+        ],
+        ignore_index=True,
+    )
+
+
+    classe_genero_resnet = (
+        calcular_desempenho_classe_genero(
+            base_teste,
+            model_name="ResNet-50",
+            pred_column="pred_mean_resnet50",
+        )
+    )
+
+    classe_genero_vit = (
+        calcular_desempenho_classe_genero(
+            base_teste,
+            model_name="ViT-B/16",
+            pred_column="pred_mean_vit_b16",
+        )
+    )
+
+    desempenho_classe_genero = (
+            pd.concat(
+                [
+                    classe_genero_resnet,
+                    classe_genero_vit,
+                ],
+                ignore_index=True,
+            )
+    )
+
+    distribuicao_train = (
+            criar_distribuicao_genero(
+                train_df,
+                "train",
+            )
+        )
 
     distribuicao_test = (
         criar_distribuicao_genero(
@@ -433,6 +604,45 @@ def main() -> None:
         output_dir,
     )
 
+    desempenho_genero.to_csv(
+    output_dir
+    / "performance_by_genre.csv",
+    index=False,
+)
+
+    desempenho_classe_genero.to_csv(
+        output_dir
+        / "performance_by_class_genre.csv",
+        index=False,
+    )
+
+    print()
+    print(
+    "=== Desempenho por gênero ==="
+    )
+
+for modelo in [
+    "ResNet-50",
+    "ViT-B/16",
+]:
+    print()
+    print(modelo)
+
+    tabela = desempenho_genero[
+        desempenho_genero["model"]
+        == modelo
+    ].copy()
+
+    tabela["accuracy"] *= 100
+    tabela[
+        "macro_f1_present_classes"
+    ] *= 100
+
+    print(
+        tabela.round(2).to_string(
+            index=False
+        )
+    )
 
 if __name__ == "__main__":
     main()
