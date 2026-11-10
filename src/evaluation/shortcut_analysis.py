@@ -605,10 +605,10 @@ def main() -> None:
     )
 
     desempenho_genero.to_csv(
-    output_dir
-    / "performance_by_genre.csv",
-    index=False,
-)
+        output_dir
+        / "performance_by_genre.csv",
+        index=False,
+    )
 
     desempenho_classe_genero.to_csv(
         output_dir
@@ -618,31 +618,32 @@ def main() -> None:
 
     print()
     print(
-    "=== Desempenho por gênero ==="
+        "=== Desempenho por gênero ==="
     )
 
-for modelo in [
-    "ResNet-50",
-    "ViT-B/16",
-]:
-    print()
-    print(modelo)
+    for modelo in [
+        "ResNet-50",
+        "ViT-B/16",
+    ]:
+        print()
+        print(modelo)
 
-    tabela = desempenho_genero[
-        desempenho_genero["model"]
-        == modelo
-    ].copy()
+        tabela = desempenho_genero[
+            desempenho_genero["model"]
+            == modelo
+        ].copy()
 
-    tabela["accuracy"] *= 100
-    tabela[
-        "macro_f1_present_classes"
-    ] *= 100
+        tabela["accuracy"] *= 100
+        tabela[
+            "macro_f1_present_classes"
+        ] *= 100
 
-    print(
-        tabela.round(2).to_string(
-            index=False
+        print(
+            tabela.round(2).to_string(
+                index=False
+            )
         )
-    )
+
 
 if __name__ == "__main__":
     main()
