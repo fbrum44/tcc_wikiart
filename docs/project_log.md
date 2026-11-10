@@ -1435,6 +1435,346 @@ Checkpoints `.pt` (`models/vit_head_best.pt` e `models/vit_finetune_best.pt`) pe
 
 ---
 
+## 2026-11-09 — Etapa 9: avaliação quantitativa final
+
+### Objetivo
+
+Foi realizada a primeira avaliação dos modelos no conjunto de teste, mantido completamente reservado durante as etapas de desenvolvimento, treinamento, fine-tuning e seleção dos melhores checkpoints.
+
+Os checkpoints avaliados foram:
+
+```text
+models/resnet50_finetune_best.pt
+models/vit_finetune_best.pt
+```
+
+Após a abertura do conjunto de teste, nenhum treinamento adicional, alteração de hiperparâmetros ou seleção de novo checkpoint foi realizada.
+
+### Conjunto de teste
+
+O conjunto contém:
+
+```text
+1.500 pinturas
+375 pinturas por macroclasse
+209.030 patches
+```
+
+Todos os patches foram utilizados sem augmentation.
+
+Foi verificado antes da agregação que:
+
+```text
+patches: 209.030
+pinturas: 1.500
+pinturas com mais de um rótulo real: 0
+```
+
+### Implementação
+
+Foram criados:
+
+```text
+src/evaluation/evaluate_model.py
+src/evaluation/aggregate_painting.py
+src/evaluation/compare_models.py
+```
+
+Também foi criado:
+
+```text
+notebooks/06_avaliacao_quantitativa_colab.ipynb
+```
+
+O pipeline de avaliação registra, para cada patch:
+
+- `Patch_ID`;
+- `Painting_ID`;
+- classe real;
+- classe predita;
+- probabilidades das quatro macroclasses.
+
+Isso permite reproduzir todas as agregações posteriores sem executar novamente os modelos.
+
+### Validação do pipeline antes da abertura do teste
+
+Foram executados smoke tests utilizando exclusivamente três batches do conjunto de validação.
+
+Ambos os modelos carregaram corretamente os checkpoints, realizaram inferência em GPU, produziram probabilidades e geraram métricas e matrizes de confusão.
+
+Foi adicionada uma proteção explícita para impedir avaliações parciais no conjunto de teste.
+
+### Avaliação por patch
+
+#### ResNet-50
+
+```text
+Accuracy:        69,99%
+Macro-Precision: 69,78%
+Macro-Recall:    70,19%
+Macro-F1:        69,46%
+Loss:            0,7320
+```
+
+#### ViT-B/16
+
+```text
+Accuracy:        76,83%
+Macro-Precision: 76,65%
+Macro-Recall:    76,95%
+Macro-F1:        76,56%
+Loss:            0,5673
+```
+
+No nível dos patches, o ViT apresentou vantagem aproximada de:
+
+```text
+Accuracy: +6,84 p.p.
+Macro-F1: +7,10 p.p.
+```
+
+### Agregação por pintura
+
+Foram utilizadas duas estratégias:
+
+```text
+1. votação majoritária;
+2. média das probabilidades.
+```
+
+Na votação majoritária, empates são resolvidos pela maior probabilidade média entre as classes empatadas.
+
+Essa regra foi definida antes da avaliação oficial do teste.
+
+Empates observados:
+
+```text
+ResNet-50: 4
+ViT-B/16: 2
+```
+
+em 1.500 pinturas.
+
+Foi realizada uma auditoria independente das agregações.
+
+Resultados:
+
+```text
+Predição por média reproduzível: True
+Predição por maioria reproduzível: True
+```
+
+### Resultados por pintura — ResNet-50
+
+Votação majoritária:
+
+```text
+Accuracy:        81,33%
+Macro-Precision: 81,20%
+Macro-Recall:    81,33%
+Macro-F1:        80,98%
+```
+
+Média das probabilidades:
+
+```text
+Accuracy:        81,67%
+Macro-Precision: 81,55%
+Macro-Recall:    81,67%
+Macro-F1:        81,28%
+```
+
+A passagem de patch para pintura, utilizando média das probabilidades, produziu:
+
+```text
+69,99% → 81,67%
++11,68 pontos percentuais de accuracy
+```
+
+### Resultados por pintura — ViT-B/16
+
+Votação majoritária:
+
+```text
+Accuracy:        87,47%
+Macro-Precision: 87,37%
+Macro-Recall:    87,47%
+Macro-F1:        87,33%
+```
+
+Média das probabilidades:
+
+```text
+Accuracy:        88,13%
+Macro-Precision: 88,07%
+Macro-Recall:    88,13%
+Macro-F1:        88,01%
+```
+
+A passagem de patch para pintura, utilizando média das probabilidades, produziu:
+
+```text
+76,83% → 88,13%
++11,31 pontos percentuais de accuracy
+```
+
+### Comparação final
+
+Melhor configuração:
+
+| Modelo | Accuracy | Macro-F1 |
+|---|---:|---:|
+| ResNet-50 | 81,67% | 81,28% |
+| ViT-B/16 | **88,13%** | **88,01%** |
+
+Diferença a favor do ViT:
+
+```text
+Accuracy: +6,47 p.p.
+Macro-F1: +6,73 p.p.
+```
+
+O ViT manteve no conjunto independente de teste a vantagem observada anteriormente na validação.
+
+### Métricas por classe
+
+Utilizando média das probabilidades:
+
+| Modelo | Classe | Precision | Recall | F1 |
+|---|---|---:|---:|---:|
+| ResNet-50 | Renaissance | 77,52% | 71,73% | 74,52% |
+| ResNet-50 | Baroque | 81,13% | 68,80% | 74,46% |
+| ResNet-50 | Impressionism | 86,41% | 89,87% | 88,10% |
+| ResNet-50 | Cubism | 81,12% | 96,27% | 88,05% |
+| ViT-B/16 | Renaissance | 82,57% | 82,13% | 82,35% |
+| ViT-B/16 | Baroque | 85,63% | 79,47% | 82,43% |
+| ViT-B/16 | Impressionism | 93,99% | 91,73% | 92,85% |
+| ViT-B/16 | Cubism | 90,07% | 99,20% | 94,42% |
+
+Os dois modelos apresentaram o mesmo padrão geral:
+
+```text
+maior dificuldade:
+Renaissance e Baroque
+
+maior separabilidade:
+Impressionism e Cubism
+```
+
+### Matrizes de confusão
+
+A principal confusão ocorreu entre Renaissance e Baroque.
+
+ResNet-50:
+
+```text
+Renaissance → Baroque: 13,60%
+Baroque → Renaissance: 19,47%
+```
+
+ViT-B/16:
+
+```text
+Renaissance → Baroque: 11,73%
+Baroque → Renaissance: 16,27%
+```
+
+A recorrência do mesmo padrão nas duas arquiteturas sugere uma fronteira particularmente difícil entre essas duas macroclasses.
+
+A análise exploratória havia identificado presença relevante de conteúdo figurativo e religioso em Renaissance e Baroque, o que fornece uma hipótese plausível para essa dificuldade. Entretanto, as matrizes de confusão não permitem determinar causalmente quais características visuais sustentaram as decisões.
+
+Essa hipótese será investigada na etapa de interpretabilidade.
+
+### Cubism
+
+O maior recall foi observado para Cubism.
+
+No ViT:
+
+```text
+Recall: 99,20%
+```
+
+Das 375 pinturas cubistas:
+
+```text
+372 → Cubism
+3   → Impressionism
+0   → Renaissance
+0   → Baroque
+```
+
+Apesar do recall muito elevado, a precision de 90,07% mostra que algumas pinturas pertencentes a outras classes ainda foram classificadas como Cubism.
+
+### Curvas de convergência
+
+Os históricos das Etapas 7 e 8 foram reutilizados na comparação.
+
+A ResNet apresentou tendência de estabilização da validation loss ao final do fine-tuning:
+
+```text
+0,7221 → 0,6816 → 0,6789
+```
+
+O ViT ainda apresentava redução mais pronunciada:
+
+```text
+0,6365 → 0,5757 → 0,5317
+```
+
+Mesmo com o treinamento encerrado no mesmo orçamento experimental, a vantagem do ViT permaneceu no conjunto de teste.
+
+### Considerações metodológicas
+
+A comparação deve ser interpretada como comparação entre os pipelines de Transfer Learning adotados.
+
+Os modelos diferem também em:
+
+- quantidade de parâmetros;
+- arquitetura;
+- histórico de pré-treinamento.
+
+O ViT utiliza pesos pré-treinados no ImageNet-21k e posteriormente ajustados no ImageNet-1k, enquanto a ResNet utiliza `IMAGENET1K_V2`.
+
+Portanto, os resultados não isolam causalmente apenas o efeito da arquitetura Transformer.
+
+Os patches de uma mesma pintura também apresentam sobreposição espacial e não devem ser tratados como observações estatisticamente independentes.
+
+### Artefatos
+
+Código:
+
+```text
+src/evaluation/evaluate_model.py
+src/evaluation/aggregate_painting.py
+src/evaluation/compare_models.py
+notebooks/06_avaliacao_quantitativa_colab.ipynb
+```
+
+Resultados:
+
+```text
+outputs/evaluation/
+```
+
+incluindo:
+
+- predições completas por patch;
+- predições agregadas por pintura;
+- métricas globais;
+- métricas por macroclasse;
+- matrizes de confusão;
+- comparação consolidada ResNet × ViT;
+- gráfico de accuracy e macro-F1;
+- gráfico de F1 por classe;
+- curva comparativa de validation loss.
+
+Os resultados também foram preservados no Google Drive compartilhado do grupo.
+
+**Etapa 9 concluída.**
+
+---
+
 ## Estado atual do projeto
 
 Etapas concluídas:
@@ -1447,10 +1787,17 @@ Etapas concluídas:
 - [x] pipeline de patches;
 - [x] pipeline de entrada e normalização;
 - [x] treinamento e fine-tuning da ResNet-50;
-- [x] treinamento e fine-tuning do ViT-B/16.
+- [x] treinamento e fine-tuning do ViT-B/16;
+- [x] avaliação quantitativa no conjunto de teste.
 
-Próxima etapa:
+### Próxima etapa — interpretabilidade
 
-### Avaliação quantitativa
+A próxima etapa investigará as regiões das pinturas que influenciam as decisões dos modelos, com foco em:
 
-A próxima etapa avaliará os dois modelos no conjunto de teste, com métricas no nível do patch e da pintura (acurácia, precision, recall, F1-score e matriz de confusão por macroclasse). O conjunto de teste só deve ser utilizado depois que os modelos e as decisões experimentais estiverem definidos.
+- mapas de ativação;
+- análise de acertos e erros;
+- diferenças entre Renaissance e Baroque;
+- comportamento em Impressionism e Cubism;
+- investigação de possíveis padrões de *shortcut learning*.
+
+Os mapas de ativação serão interpretados como evidência de regiões influentes para a predição, e não como prova de compreensão semântica por parte dos modelos.

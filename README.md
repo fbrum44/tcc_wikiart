@@ -1278,11 +1278,211 @@ Observação: o script de fine-tuning registra `overall_epoch` como a época do 
 
 ---
 
-# Próxima etapa — Avaliação quantitativa
+# Etapa 9 — Avaliação quantitativa
 
-A próxima etapa avaliará os modelos no conjunto de teste, com métricas no nível do patch e da pintura (acurácia, precision, recall, F1-score e matriz de confusão por macroclasse).
+O conjunto experimental permanece definido por:
 
-O conjunto de teste só deve ser utilizado depois que os modelos e as decisões experimentais estiverem definidos.
+```text
+data/metadata/dataset_final.csv
+```
+
+e pelos splits congelados:
+
+```text
+data/metadata/train.csv
+data/metadata/validation.csv
+data/metadata/test.csv
+```
+
+O conjunto de teste, mantido reservado durante todo o desenvolvimento e treinamento, foi utilizado pela primeira vez na Etapa 9 para a avaliação quantitativa final.
+
+A próxima fase do projeto é a **análise de interpretabilidade**, incluindo geração de mapas de ativação e investigação de possíveis padrões de *shortcut learning*.
+
+---
+
+
+A avaliação quantitativa final foi realizada com os melhores checkpoints definidos previamente pela menor loss de validação:
+
+```text
+ResNet-50:
+models/resnet50_finetune_best.pt
+
+ViT-B/16:
+models/vit_finetune_best.pt
+```
+
+Após a abertura do conjunto de teste, nenhum treinamento adicional ou alteração de hiperparâmetros foi realizado.
+
+O teste contém:
+
+```text
+1.500 pinturas
+375 pinturas por macroclasse
+209.030 patches
+```
+
+Todos os patches foram avaliados sem augmentation.
+
+## Implementação
+
+Foram criados:
+
+```text
+src/evaluation/evaluate_model.py
+src/evaluation/aggregate_painting.py
+src/evaluation/compare_models.py
+```
+
+O notebook operacional da etapa é:
+
+```text
+notebooks/06_avaliacao_quantitativa_colab.ipynb
+```
+
+A avaliação foi realizada em três níveis:
+
+```text
+patch individual
+        ↓
+pintura por votação majoritária
+        ↓
+pintura por média das probabilidades
+```
+
+Na votação majoritária, um empate é resolvido utilizando a maior probabilidade média entre as classes empatadas. Essa regra foi definida antes da avaliação oficial do conjunto de teste.
+
+## Resultados no nível de patches
+
+| Modelo | Accuracy | Macro-Precision | Macro-Recall | Macro-F1 | Loss |
+|---|---:|---:|---:|---:|---:|
+| ResNet-50 | 69,99% | 69,78% | 70,19% | 69,46% | 0,7320 |
+| ViT-B/16 | 76,83% | 76,65% | 76,95% | 76,56% | 0,5673 |
+
+O ViT apresentou vantagem de aproximadamente 6,84 pontos percentuais de accuracy e 7,10 pontos percentuais de macro-F1 em relação à ResNet no nível de patches.
+
+## Resultados no nível da pintura
+
+| Modelo | Agregação | Accuracy | Macro-Precision | Macro-Recall | Macro-F1 |
+|---|---|---:|---:|---:|---:|
+| ResNet-50 | Votação majoritária | 81,33% | 81,20% | 81,33% | 80,98% |
+| ResNet-50 | Média das probabilidades | **81,67%** | **81,55%** | **81,67%** | **81,28%** |
+| ViT-B/16 | Votação majoritária | 87,47% | 87,37% | 87,47% | 87,33% |
+| ViT-B/16 | Média das probabilidades | **88,13%** | **88,07%** | **88,13%** | **88,01%** |
+
+A agregação por pintura aumentou substancialmente o desempenho dos dois modelos.
+
+Com média das probabilidades:
+
+```text
+ResNet-50:
+69,99% por patch → 81,67% por pintura
+ganho: +11,68 p.p.
+
+ViT-B/16:
+76,83% por patch → 88,13% por pintura
+ganho: +11,31 p.p.
+```
+
+Na melhor configuração de cada modelo, o ViT apresentou vantagem de:
+
+```text
+Accuracy: +6,47 pontos percentuais
+Macro-F1: +6,73 pontos percentuais
+```
+
+## Métricas por macroclasse
+
+Resultados utilizando classificação por pintura e média das probabilidades:
+
+| Modelo | Classe | Precision | Recall | F1-score |
+|---|---|---:|---:|---:|
+| ResNet-50 | Renaissance | 77,52% | 71,73% | 74,52% |
+| ResNet-50 | Baroque | 81,13% | 68,80% | 74,46% |
+| ResNet-50 | Impressionism | 86,41% | 89,87% | 88,10% |
+| ResNet-50 | Cubism | 81,12% | 96,27% | 88,05% |
+| ViT-B/16 | Renaissance | 82,57% | 82,13% | 82,35% |
+| ViT-B/16 | Baroque | 85,63% | 79,47% | 82,43% |
+| ViT-B/16 | Impressionism | 93,99% | 91,73% | 92,85% |
+| ViT-B/16 | Cubism | 90,07% | 99,20% | 94,42% |
+
+Os dois modelos apresentaram estrutura de dificuldade semelhante:
+
+```text
+maior dificuldade:
+Renaissance / Baroque
+
+maior separabilidade:
+Impressionism / Cubism
+```
+
+A principal confusão ocorreu entre Renaissance e Baroque.
+
+Na ResNet:
+
+```text
+Renaissance → Baroque: 13,60%
+Baroque → Renaissance: 19,47%
+```
+
+No ViT:
+
+```text
+Renaissance → Baroque: 11,73%
+Baroque → Renaissance: 16,27%
+```
+
+O Cubismo apresentou o maior recall, especialmente no ViT:
+
+```text
+Cubism — ViT-B/16
+Recall: 99,20%
+
+372 de 375 pinturas cubistas classificadas corretamente
+```
+
+A possível relação desses erros com conteúdo visual, gênero da pintura ou outras correlações do dataset será investigada posteriormente com técnicas de interpretabilidade.
+
+## Artefatos
+
+Os resultados da avaliação são armazenados em:
+
+```text
+outputs/evaluation/
+```
+
+incluindo:
+
+```text
+predições por patch
+predições agregadas por pintura
+métricas globais
+métricas por classe
+matrizes de confusão
+comparações ResNet × ViT
+curvas comparativas
+```
+
+As predições completas também foram preservadas para permitir novas análises sem necessidade de executar novamente os modelos.
+
+A avaliação confirma o **ViT-B/16 com agregação pela média das probabilidades** como a configuração de melhor desempenho entre as alternativas avaliadas.
+
+A comparação deve ser interpretada como uma comparação entre os pipelines de Transfer Learning adotados: ResNet e ViT diferem também em capacidade e histórico de pré-treinamento, portanto os resultados não isolam causalmente apenas o efeito da arquitetura.
+
+---
+
+# Próxima etapa — Interpretabilidade
+
+A próxima etapa investigará quais regiões das pinturas influenciam as decisões dos modelos.
+
+Serão utilizadas técnicas de interpretabilidade para:
+
+- gerar mapas de ativação;
+- analisar exemplos de acertos e erros;
+- investigar a distinção entre Renaissance e Baroque;
+- examinar os padrões associados ao elevado desempenho em Cubism e Impressionism;
+- buscar evidências de *shortcut learning* relacionadas a gênero da pintura, composição, autoria ou outras correlações do dataset.
+
+Os mapas de ativação deverão ser interpretados como regiões influentes para a decisão do modelo, e não como prova de compreensão semântica ou histórico-artística.
 
 ---
 
@@ -1334,6 +1534,7 @@ Entre as bibliotecas atualmente utilizadas estão:
 - `opencv-python`
 - `jupyter`
 - `ipykernel`
+- `scikit-learn`
 
 O projeto também utiliza `torch` (PyTorch, para tensores e DataLoaders), `timm` (Vision Transformer, Etapa 8) e `pytest` (testes automatizados).
 
@@ -1372,7 +1573,15 @@ src.training.train_vit_head
         ↓
 src.training.finetune_vit
         ↓
-próxima etapa: avaliação quantitativa
+06_avaliacao_quantitativa_colab.ipynb
+        ↓
+src.evaluation.evaluate_model
+        ↓
+src.evaluation.aggregate_painting
+        ↓
+src.evaluation.compare_models
+        ↓
+próxima etapa: interpretabilidade
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -1470,7 +1679,8 @@ notebooks/
 ├── 02_auditoria_dataset.ipynb
 ├── 03_curadoria_dataset.ipynb
 ├── 04_treinamento_resnet_colab.ipynb
-└── 05_treinamento_vit_colab.ipynb
+├── 05_treinamento_vit_colab.ipynb
+└── 06_avaliacao_quantitativa_colab.ipynb
 
 src/
 ├── data/
@@ -1488,12 +1698,17 @@ src/
 │   └── vit.py
 │
 └── training/
+│    ├── __init__.py
+│    ├── train_resnet.py
+│    ├── train_resnet_head.py
+│    ├── finetune_resnet.py
+│    ├── train_vit_head.py
+│    └── finetune_vit.py
+└── evaluation/
     ├── __init__.py
-    ├── train_resnet.py
-    ├── train_resnet_head.py
-    ├── finetune_resnet.py
-    ├── train_vit_head.py
-    └── finetune_vit.py
+    ├── evaluate_model.py
+    ├── aggregate_painting.py
+    └── compare_models.py
 
 outputs/
 ├── resnet50/
@@ -1505,15 +1720,23 @@ outputs/
 │   ├── resnet_loss.png
 │   └── resnet_accuracy.png
 └── vit/
-    ├── head_config.json
-    ├── head_history.csv
-    ├── finetune_config.json
-    ├── finetune_history.csv
-    ├── vit_history.csv
-    ├── vit_loss.png
-    ├── vit_accuracy.png
-    ├── comparacao_resnet_vit.png
-    └── comparacao_resnet_vit.csv
+│    ├── head_config.json
+│    ├── head_history.csv
+│    ├── finetune_config.json
+│    ├── finetune_history.csv
+│    ├── vit_history.csv
+│    ├── vit_loss.png
+│    ├── vit_accuracy.png
+│    ├── comparacao_resnet_vit.png
+│    └── comparacao_resnet_vit.csv
+└── evaluation/
+    ├── resnet50/
+    ├── vit_b16/
+    ├── comparison_summary.csv
+    ├── comparison_by_class.csv
+    ├── comparison_accuracy_macro_f1.png
+    ├── comparison_f1_by_class.png
+    └── comparison_validation_loss.png    
 ```
 
 Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
