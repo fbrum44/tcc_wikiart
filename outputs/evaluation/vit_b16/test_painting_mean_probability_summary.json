@@ -1,0 +1,11 @@
+{
+  "accuracy": 0.8813333333333333,
+  "macro_precision": 0.8806690517825848,
+  "macro_recall": 0.8813333333333333,
+  "macro_f1": 0.8801274743163763,
+  "n_samples": 1500,
+  "model": "vit_b16",
+  "split": "test",
+  "level": "painting",
+  "aggregation": "mean_probability"
+}

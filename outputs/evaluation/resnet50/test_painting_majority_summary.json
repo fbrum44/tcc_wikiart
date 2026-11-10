@@ -1,0 +1,11 @@
+{
+  "accuracy": 0.8133333333333334,
+  "macro_precision": 0.8119730093841746,
+  "macro_recall": 0.8133333333333335,
+  "macro_f1": 0.8097537597424392,
+  "n_samples": 1500,
+  "model": "resnet50",
+  "split": "test",
+  "level": "painting",
+  "aggregation": "majority"
+}

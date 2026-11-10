@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.6998708319379994,
+  "macro_precision": 0.6977893676804879,
+  "macro_recall": 0.7018781494702324,
+  "macro_f1": 0.6945739650083647,
+  "n_samples": 209030,
+  "loss": 0.7319505294425369,
+  "model": "resnet50",
+  "split": "test"
+}

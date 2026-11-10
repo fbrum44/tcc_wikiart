@@ -1,0 +1,5 @@
+class,precision,recall,f1,support
+Renaissance,0.0,0.0,0.0,0
+Baroque,1.0,1.0,1.0,96
+Impressionism,0.0,0.0,0.0,0
+Cubism,0.0,0.0,0.0,0
