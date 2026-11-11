@@ -1,0 +1,223 @@
+model,true_class,predicted_class,Genero,n_source_genre,n_confusions,confusion_rate,pair_errors_total,share_of_pair_errors
+ResNet-50,Renaissance,Baroque,Unknown Genre,54,11,0.2037037037037037,51,0.21568627450980393
+ResNet-50,Renaissance,Baroque,genre_painting,9,4,0.4444444444444444,51,0.0784313725490196
+ResNet-50,Renaissance,Baroque,illustration,3,0,0.0,51,0.0
+ResNet-50,Renaissance,Baroque,landscape,3,1,0.3333333333333333,51,0.0196078431372549
+ResNet-50,Renaissance,Baroque,nude_painting,3,1,0.3333333333333333,51,0.0196078431372549
+ResNet-50,Renaissance,Baroque,portrait,68,24,0.35294117647058826,51,0.47058823529411764
+ResNet-50,Renaissance,Baroque,religious_painting,213,9,0.04225352112676056,51,0.17647058823529413
+ResNet-50,Renaissance,Baroque,sketch_and_study,22,1,0.045454545454545456,51,0.0196078431372549
+ResNet-50,Renaissance,Impressionism,Unknown Genre,54,2,0.037037037037037035,22,0.09090909090909091
+ResNet-50,Renaissance,Impressionism,genre_painting,9,0,0.0,22,0.0
+ResNet-50,Renaissance,Impressionism,illustration,3,0,0.0,22,0.0
+ResNet-50,Renaissance,Impressionism,landscape,3,0,0.0,22,0.0
+ResNet-50,Renaissance,Impressionism,nude_painting,3,0,0.0,22,0.0
+ResNet-50,Renaissance,Impressionism,portrait,68,3,0.04411764705882353,22,0.13636363636363635
+ResNet-50,Renaissance,Impressionism,religious_painting,213,17,0.07981220657276995,22,0.7727272727272727
+ResNet-50,Renaissance,Impressionism,sketch_and_study,22,0,0.0,22,0.0
+ResNet-50,Renaissance,Cubism,Unknown Genre,54,5,0.09259259259259259,33,0.15151515151515152
+ResNet-50,Renaissance,Cubism,genre_painting,9,1,0.1111111111111111,33,0.030303030303030304
+ResNet-50,Renaissance,Cubism,illustration,3,1,0.3333333333333333,33,0.030303030303030304
+ResNet-50,Renaissance,Cubism,landscape,3,0,0.0,33,0.0
+ResNet-50,Renaissance,Cubism,nude_painting,3,0,0.0,33,0.0
+ResNet-50,Renaissance,Cubism,portrait,68,9,0.1323529411764706,33,0.2727272727272727
+ResNet-50,Renaissance,Cubism,religious_painting,213,13,0.06103286384976526,33,0.3939393939393939
+ResNet-50,Renaissance,Cubism,sketch_and_study,22,4,0.18181818181818182,33,0.12121212121212122
+ResNet-50,Baroque,Renaissance,Unknown Genre,80,22,0.275,73,0.3013698630136986
+ResNet-50,Baroque,Renaissance,cityscape,6,3,0.5,73,0.0410958904109589
+ResNet-50,Baroque,Renaissance,genre_painting,64,6,0.09375,73,0.0821917808219178
+ResNet-50,Baroque,Renaissance,illustration,2,2,1.0,73,0.0273972602739726
+ResNet-50,Baroque,Renaissance,landscape,11,2,0.18181818181818182,73,0.0273972602739726
+ResNet-50,Baroque,Renaissance,nude_painting,3,1,0.3333333333333333,73,0.0136986301369863
+ResNet-50,Baroque,Renaissance,portrait,84,10,0.11904761904761904,73,0.136986301369863
+ResNet-50,Baroque,Renaissance,religious_painting,94,22,0.23404255319148937,73,0.3013698630136986
+ResNet-50,Baroque,Renaissance,sketch_and_study,18,3,0.16666666666666666,73,0.0410958904109589
+ResNet-50,Baroque,Renaissance,still_life,13,2,0.15384615384615385,73,0.0273972602739726
+ResNet-50,Baroque,Impressionism,Unknown Genre,80,5,0.0625,20,0.25
+ResNet-50,Baroque,Impressionism,cityscape,6,0,0.0,20,0.0
+ResNet-50,Baroque,Impressionism,genre_painting,64,5,0.078125,20,0.25
+ResNet-50,Baroque,Impressionism,illustration,2,0,0.0,20,0.0
+ResNet-50,Baroque,Impressionism,landscape,11,2,0.18181818181818182,20,0.1
+ResNet-50,Baroque,Impressionism,nude_painting,3,0,0.0,20,0.0
+ResNet-50,Baroque,Impressionism,portrait,84,3,0.03571428571428571,20,0.15
+ResNet-50,Baroque,Impressionism,religious_painting,94,2,0.02127659574468085,20,0.1
+ResNet-50,Baroque,Impressionism,sketch_and_study,18,2,0.1111111111111111,20,0.1
+ResNet-50,Baroque,Impressionism,still_life,13,1,0.07692307692307693,20,0.05
+ResNet-50,Baroque,Cubism,Unknown Genre,80,3,0.0375,24,0.125
+ResNet-50,Baroque,Cubism,cityscape,6,0,0.0,24,0.0
+ResNet-50,Baroque,Cubism,genre_painting,64,5,0.078125,24,0.20833333333333334
+ResNet-50,Baroque,Cubism,illustration,2,0,0.0,24,0.0
+ResNet-50,Baroque,Cubism,landscape,11,0,0.0,24,0.0
+ResNet-50,Baroque,Cubism,nude_painting,3,2,0.6666666666666666,24,0.08333333333333333
+ResNet-50,Baroque,Cubism,portrait,84,3,0.03571428571428571,24,0.125
+ResNet-50,Baroque,Cubism,religious_painting,94,5,0.05319148936170213,24,0.20833333333333334
+ResNet-50,Baroque,Cubism,sketch_and_study,18,4,0.2222222222222222,24,0.16666666666666666
+ResNet-50,Baroque,Cubism,still_life,13,2,0.15384615384615385,24,0.08333333333333333
+ResNet-50,Impressionism,Renaissance,Unknown Genre,51,1,0.0196078431372549,3,0.3333333333333333
+ResNet-50,Impressionism,Renaissance,cityscape,44,0,0.0,3,0.0
+ResNet-50,Impressionism,Renaissance,genre_painting,74,0,0.0,3,0.0
+ResNet-50,Impressionism,Renaissance,landscape,127,0,0.0,3,0.0
+ResNet-50,Impressionism,Renaissance,nude_painting,7,0,0.0,3,0.0
+ResNet-50,Impressionism,Renaissance,portrait,52,1,0.019230769230769232,3,0.3333333333333333
+ResNet-50,Impressionism,Renaissance,sketch_and_study,9,1,0.1111111111111111,3,0.3333333333333333
+ResNet-50,Impressionism,Renaissance,still_life,11,0,0.0,3,0.0
+ResNet-50,Impressionism,Baroque,Unknown Genre,51,5,0.09803921568627451,8,0.625
+ResNet-50,Impressionism,Baroque,cityscape,44,1,0.022727272727272728,8,0.125
+ResNet-50,Impressionism,Baroque,genre_painting,74,1,0.013513513513513514,8,0.125
+ResNet-50,Impressionism,Baroque,landscape,127,0,0.0,8,0.0
+ResNet-50,Impressionism,Baroque,nude_painting,7,0,0.0,8,0.0
+ResNet-50,Impressionism,Baroque,portrait,52,1,0.019230769230769232,8,0.125
+ResNet-50,Impressionism,Baroque,sketch_and_study,9,0,0.0,8,0.0
+ResNet-50,Impressionism,Baroque,still_life,11,0,0.0,8,0.0
+ResNet-50,Impressionism,Cubism,Unknown Genre,51,2,0.0392156862745098,27,0.07407407407407407
+ResNet-50,Impressionism,Cubism,cityscape,44,4,0.09090909090909091,27,0.14814814814814814
+ResNet-50,Impressionism,Cubism,genre_painting,74,5,0.06756756756756757,27,0.18518518518518517
+ResNet-50,Impressionism,Cubism,landscape,127,7,0.05511811023622047,27,0.25925925925925924
+ResNet-50,Impressionism,Cubism,nude_painting,7,0,0.0,27,0.0
+ResNet-50,Impressionism,Cubism,portrait,52,5,0.09615384615384616,27,0.18518518518518517
+ResNet-50,Impressionism,Cubism,sketch_and_study,9,3,0.3333333333333333,27,0.1111111111111111
+ResNet-50,Impressionism,Cubism,still_life,11,1,0.09090909090909091,27,0.037037037037037035
+ResNet-50,Cubism,Renaissance,Unknown Genre,76,1,0.013157894736842105,2,0.5
+ResNet-50,Cubism,Renaissance,abstract_painting,18,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,cityscape,16,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,genre_painting,52,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,illustration,1,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,landscape,29,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,nude_painting,25,1,0.04,2,0.5
+ResNet-50,Cubism,Renaissance,portrait,47,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,religious_painting,2,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,sketch_and_study,10,0,0.0,2,0.0
+ResNet-50,Cubism,Renaissance,still_life,99,0,0.0,2,0.0
+ResNet-50,Cubism,Baroque,Unknown Genre,76,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,abstract_painting,18,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,cityscape,16,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,genre_painting,52,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,illustration,1,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,landscape,29,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,nude_painting,25,1,0.04,1,1.0
+ResNet-50,Cubism,Baroque,portrait,47,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,religious_painting,2,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,sketch_and_study,10,0,0.0,1,0.0
+ResNet-50,Cubism,Baroque,still_life,99,0,0.0,1,0.0
+ResNet-50,Cubism,Impressionism,Unknown Genre,76,2,0.02631578947368421,11,0.18181818181818182
+ResNet-50,Cubism,Impressionism,abstract_painting,18,0,0.0,11,0.0
+ResNet-50,Cubism,Impressionism,cityscape,16,0,0.0,11,0.0
+ResNet-50,Cubism,Impressionism,genre_painting,52,1,0.019230769230769232,11,0.09090909090909091
+ResNet-50,Cubism,Impressionism,illustration,1,0,0.0,11,0.0
+ResNet-50,Cubism,Impressionism,landscape,29,4,0.13793103448275862,11,0.36363636363636365
+ResNet-50,Cubism,Impressionism,nude_painting,25,1,0.04,11,0.09090909090909091
+ResNet-50,Cubism,Impressionism,portrait,47,3,0.06382978723404255,11,0.2727272727272727
+ResNet-50,Cubism,Impressionism,religious_painting,2,0,0.0,11,0.0
+ResNet-50,Cubism,Impressionism,sketch_and_study,10,0,0.0,11,0.0
+ResNet-50,Cubism,Impressionism,still_life,99,0,0.0,11,0.0
+ViT-B/16,Renaissance,Baroque,Unknown Genre,54,11,0.2037037037037037,44,0.25
+ViT-B/16,Renaissance,Baroque,genre_painting,9,4,0.4444444444444444,44,0.09090909090909091
+ViT-B/16,Renaissance,Baroque,illustration,3,0,0.0,44,0.0
+ViT-B/16,Renaissance,Baroque,landscape,3,1,0.3333333333333333,44,0.022727272727272728
+ViT-B/16,Renaissance,Baroque,nude_painting,3,1,0.3333333333333333,44,0.022727272727272728
+ViT-B/16,Renaissance,Baroque,portrait,68,18,0.2647058823529412,44,0.4090909090909091
+ViT-B/16,Renaissance,Baroque,religious_painting,213,8,0.03755868544600939,44,0.18181818181818182
+ViT-B/16,Renaissance,Baroque,sketch_and_study,22,1,0.045454545454545456,44,0.022727272727272728
+ViT-B/16,Renaissance,Impressionism,Unknown Genre,54,2,0.037037037037037035,12,0.16666666666666666
+ViT-B/16,Renaissance,Impressionism,genre_painting,9,0,0.0,12,0.0
+ViT-B/16,Renaissance,Impressionism,illustration,3,0,0.0,12,0.0
+ViT-B/16,Renaissance,Impressionism,landscape,3,0,0.0,12,0.0
+ViT-B/16,Renaissance,Impressionism,nude_painting,3,0,0.0,12,0.0
+ViT-B/16,Renaissance,Impressionism,portrait,68,3,0.04411764705882353,12,0.25
+ViT-B/16,Renaissance,Impressionism,religious_painting,213,7,0.03286384976525822,12,0.5833333333333334
+ViT-B/16,Renaissance,Impressionism,sketch_and_study,22,0,0.0,12,0.0
+ViT-B/16,Renaissance,Cubism,Unknown Genre,54,2,0.037037037037037035,11,0.18181818181818182
+ViT-B/16,Renaissance,Cubism,genre_painting,9,0,0.0,11,0.0
+ViT-B/16,Renaissance,Cubism,illustration,3,0,0.0,11,0.0
+ViT-B/16,Renaissance,Cubism,landscape,3,0,0.0,11,0.0
+ViT-B/16,Renaissance,Cubism,nude_painting,3,0,0.0,11,0.0
+ViT-B/16,Renaissance,Cubism,portrait,68,5,0.07352941176470588,11,0.45454545454545453
+ViT-B/16,Renaissance,Cubism,religious_painting,213,3,0.014084507042253521,11,0.2727272727272727
+ViT-B/16,Renaissance,Cubism,sketch_and_study,22,1,0.045454545454545456,11,0.09090909090909091
+ViT-B/16,Baroque,Renaissance,Unknown Genre,80,16,0.2,61,0.26229508196721313
+ViT-B/16,Baroque,Renaissance,cityscape,6,3,0.5,61,0.04918032786885246
+ViT-B/16,Baroque,Renaissance,genre_painting,64,2,0.03125,61,0.03278688524590164
+ViT-B/16,Baroque,Renaissance,illustration,2,2,1.0,61,0.03278688524590164
+ViT-B/16,Baroque,Renaissance,landscape,11,1,0.09090909090909091,61,0.01639344262295082
+ViT-B/16,Baroque,Renaissance,nude_painting,3,1,0.3333333333333333,61,0.01639344262295082
+ViT-B/16,Baroque,Renaissance,portrait,84,10,0.11904761904761904,61,0.16393442622950818
+ViT-B/16,Baroque,Renaissance,religious_painting,94,20,0.2127659574468085,61,0.32786885245901637
+ViT-B/16,Baroque,Renaissance,sketch_and_study,18,3,0.16666666666666666,61,0.04918032786885246
+ViT-B/16,Baroque,Renaissance,still_life,13,3,0.23076923076923078,61,0.04918032786885246
+ViT-B/16,Baroque,Impressionism,Unknown Genre,80,3,0.0375,7,0.42857142857142855
+ViT-B/16,Baroque,Impressionism,cityscape,6,0,0.0,7,0.0
+ViT-B/16,Baroque,Impressionism,genre_painting,64,2,0.03125,7,0.2857142857142857
+ViT-B/16,Baroque,Impressionism,illustration,2,0,0.0,7,0.0
+ViT-B/16,Baroque,Impressionism,landscape,11,0,0.0,7,0.0
+ViT-B/16,Baroque,Impressionism,nude_painting,3,0,0.0,7,0.0
+ViT-B/16,Baroque,Impressionism,portrait,84,0,0.0,7,0.0
+ViT-B/16,Baroque,Impressionism,religious_painting,94,2,0.02127659574468085,7,0.2857142857142857
+ViT-B/16,Baroque,Impressionism,sketch_and_study,18,0,0.0,7,0.0
+ViT-B/16,Baroque,Impressionism,still_life,13,0,0.0,7,0.0
+ViT-B/16,Baroque,Cubism,Unknown Genre,80,1,0.0125,9,0.1111111111111111
+ViT-B/16,Baroque,Cubism,cityscape,6,0,0.0,9,0.0
+ViT-B/16,Baroque,Cubism,genre_painting,64,2,0.03125,9,0.2222222222222222
+ViT-B/16,Baroque,Cubism,illustration,2,0,0.0,9,0.0
+ViT-B/16,Baroque,Cubism,landscape,11,0,0.0,9,0.0
+ViT-B/16,Baroque,Cubism,nude_painting,3,0,0.0,9,0.0
+ViT-B/16,Baroque,Cubism,portrait,84,2,0.023809523809523808,9,0.2222222222222222
+ViT-B/16,Baroque,Cubism,religious_painting,94,1,0.010638297872340425,9,0.1111111111111111
+ViT-B/16,Baroque,Cubism,sketch_and_study,18,2,0.1111111111111111,9,0.2222222222222222
+ViT-B/16,Baroque,Cubism,still_life,13,1,0.07692307692307693,9,0.1111111111111111
+ViT-B/16,Impressionism,Renaissance,Unknown Genre,51,0,0.0,4,0.0
+ViT-B/16,Impressionism,Renaissance,cityscape,44,1,0.022727272727272728,4,0.25
+ViT-B/16,Impressionism,Renaissance,genre_painting,74,0,0.0,4,0.0
+ViT-B/16,Impressionism,Renaissance,landscape,127,0,0.0,4,0.0
+ViT-B/16,Impressionism,Renaissance,nude_painting,7,0,0.0,4,0.0
+ViT-B/16,Impressionism,Renaissance,portrait,52,2,0.038461538461538464,4,0.5
+ViT-B/16,Impressionism,Renaissance,sketch_and_study,9,1,0.1111111111111111,4,0.25
+ViT-B/16,Impressionism,Renaissance,still_life,11,0,0.0,4,0.0
+ViT-B/16,Impressionism,Baroque,Unknown Genre,51,3,0.058823529411764705,6,0.5
+ViT-B/16,Impressionism,Baroque,cityscape,44,2,0.045454545454545456,6,0.3333333333333333
+ViT-B/16,Impressionism,Baroque,genre_painting,74,0,0.0,6,0.0
+ViT-B/16,Impressionism,Baroque,landscape,127,0,0.0,6,0.0
+ViT-B/16,Impressionism,Baroque,nude_painting,7,0,0.0,6,0.0
+ViT-B/16,Impressionism,Baroque,portrait,52,0,0.0,6,0.0
+ViT-B/16,Impressionism,Baroque,sketch_and_study,9,1,0.1111111111111111,6,0.16666666666666666
+ViT-B/16,Impressionism,Baroque,still_life,11,0,0.0,6,0.0
+ViT-B/16,Impressionism,Cubism,Unknown Genre,51,4,0.0784313725490196,21,0.19047619047619047
+ViT-B/16,Impressionism,Cubism,cityscape,44,0,0.0,21,0.0
+ViT-B/16,Impressionism,Cubism,genre_painting,74,2,0.02702702702702703,21,0.09523809523809523
+ViT-B/16,Impressionism,Cubism,landscape,127,7,0.05511811023622047,21,0.3333333333333333
+ViT-B/16,Impressionism,Cubism,nude_painting,7,1,0.14285714285714285,21,0.047619047619047616
+ViT-B/16,Impressionism,Cubism,portrait,52,4,0.07692307692307693,21,0.19047619047619047
+ViT-B/16,Impressionism,Cubism,sketch_and_study,9,2,0.2222222222222222,21,0.09523809523809523
+ViT-B/16,Impressionism,Cubism,still_life,11,1,0.09090909090909091,21,0.047619047619047616
+ViT-B/16,Cubism,Renaissance,Unknown Genre,76,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,abstract_painting,18,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,cityscape,16,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,genre_painting,52,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,illustration,1,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,landscape,29,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,nude_painting,25,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,portrait,47,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,religious_painting,2,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,sketch_and_study,10,0,0.0,0,0.0
+ViT-B/16,Cubism,Renaissance,still_life,99,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,Unknown Genre,76,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,abstract_painting,18,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,cityscape,16,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,genre_painting,52,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,illustration,1,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,landscape,29,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,nude_painting,25,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,portrait,47,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,religious_painting,2,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,sketch_and_study,10,0,0.0,0,0.0
+ViT-B/16,Cubism,Baroque,still_life,99,0,0.0,0,0.0
+ViT-B/16,Cubism,Impressionism,Unknown Genre,76,2,0.02631578947368421,3,0.6666666666666666
+ViT-B/16,Cubism,Impressionism,abstract_painting,18,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,cityscape,16,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,genre_painting,52,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,illustration,1,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,landscape,29,1,0.034482758620689655,3,0.3333333333333333
+ViT-B/16,Cubism,Impressionism,nude_painting,25,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,portrait,47,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,religious_painting,2,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,sketch_and_study,10,0,0.0,3,0.0
+ViT-B/16,Cubism,Impressionism,still_life,99,0,0.0,3,0.0

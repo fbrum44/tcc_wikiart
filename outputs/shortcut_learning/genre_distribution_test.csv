@@ -1,0 +1,38 @@
+split,Macro_Estilo,Genero,n,percent_class
+test,Baroque,religious_painting,94,25.066666666666666
+test,Baroque,portrait,84,22.400000000000002
+test,Baroque,Unknown Genre,80,21.333333333333336
+test,Baroque,genre_painting,64,17.066666666666666
+test,Baroque,sketch_and_study,18,4.8
+test,Baroque,still_life,13,3.4666666666666663
+test,Baroque,landscape,11,2.933333333333333
+test,Baroque,cityscape,6,1.6
+test,Baroque,nude_painting,3,0.8
+test,Baroque,illustration,2,0.5333333333333333
+test,Cubism,still_life,99,26.400000000000002
+test,Cubism,Unknown Genre,76,20.266666666666666
+test,Cubism,genre_painting,52,13.866666666666665
+test,Cubism,portrait,47,12.533333333333333
+test,Cubism,landscape,29,7.733333333333333
+test,Cubism,nude_painting,25,6.666666666666667
+test,Cubism,abstract_painting,18,4.8
+test,Cubism,cityscape,16,4.266666666666667
+test,Cubism,sketch_and_study,10,2.666666666666667
+test,Cubism,religious_painting,2,0.5333333333333333
+test,Cubism,illustration,1,0.26666666666666666
+test,Impressionism,landscape,127,33.86666666666667
+test,Impressionism,genre_painting,74,19.733333333333334
+test,Impressionism,portrait,52,13.866666666666665
+test,Impressionism,Unknown Genre,51,13.600000000000001
+test,Impressionism,cityscape,44,11.733333333333333
+test,Impressionism,still_life,11,2.933333333333333
+test,Impressionism,sketch_and_study,9,2.4
+test,Impressionism,nude_painting,7,1.866666666666667
+test,Renaissance,religious_painting,213,56.8
+test,Renaissance,portrait,68,18.133333333333333
+test,Renaissance,Unknown Genre,54,14.399999999999999
+test,Renaissance,sketch_and_study,22,5.866666666666666
+test,Renaissance,genre_painting,9,2.4
+test,Renaissance,illustration,3,0.8
+test,Renaissance,landscape,3,0.8
+test,Renaissance,nude_painting,3,0.8

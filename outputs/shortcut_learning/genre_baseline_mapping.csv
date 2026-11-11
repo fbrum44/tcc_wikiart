@@ -1,0 +1,12 @@
+Genero,predicted_class,predicted_idx,n_class,n_genre_train,class_share_train,n_classes_tied
+Unknown Genre,Baroque,1,379,1147,0.3304272013949433,1
+abstract_painting,Cubism,3,86,86,1.0,1
+cityscape,Impressionism,2,210,341,0.6158357771260997,1
+genre_painting,Impressionism,2,354,927,0.3818770226537217,1
+illustration,Baroque,1,3,7,0.42857142857142855,2
+landscape,Impressionism,2,582,826,0.7046004842615012,1
+nude_painting,Cubism,3,96,173,0.5549132947976878,1
+portrait,Baroque,1,387,1184,0.3268581081081081,1
+religious_painting,Renaissance,0,1004,1437,0.6986778009742519,1
+sketch_and_study,Renaissance,0,142,328,0.4329268292682927,1
+still_life,Cubism,3,432,544,0.7941176470588235,1

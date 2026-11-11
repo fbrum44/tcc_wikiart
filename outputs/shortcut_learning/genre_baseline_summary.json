@@ -1,0 +1,12 @@
+{
+  "accuracy": 0.5253333333333333,
+  "macro_precision": 0.578891189293783,
+  "macro_recall": 0.5253333333333333,
+  "macro_f1": 0.5304812063181128,
+  "n_samples": 1500,
+  "baseline": "genre_majority_train",
+  "train_samples": 7000,
+  "test_samples": 1500,
+  "n_genres_train": 11,
+  "n_genres_test": 11
+}

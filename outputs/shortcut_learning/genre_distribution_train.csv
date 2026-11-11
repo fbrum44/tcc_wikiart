@@ -1,0 +1,41 @@
+split,Macro_Estilo,Genero,n,percent_class
+train,Baroque,religious_painting,414,23.65714285714286
+train,Baroque,portrait,387,22.114285714285714
+train,Baroque,Unknown Genre,379,21.65714285714286
+train,Baroque,genre_painting,319,18.228571428571428
+train,Baroque,landscape,85,4.857142857142857
+train,Baroque,sketch_and_study,82,4.685714285714285
+train,Baroque,still_life,50,2.857142857142857
+train,Baroque,cityscape,19,1.0857142857142856
+train,Baroque,nude_painting,12,0.6857142857142857
+train,Baroque,illustration,3,0.17142857142857143
+train,Cubism,still_life,432,24.685714285714287
+train,Cubism,Unknown Genre,332,18.97142857142857
+train,Cubism,portrait,254,14.514285714285712
+train,Cubism,genre_painting,222,12.685714285714287
+train,Cubism,landscape,144,8.228571428571428
+train,Cubism,cityscape,100,5.714285714285714
+train,Cubism,nude_painting,96,5.485714285714286
+train,Cubism,abstract_painting,86,4.914285714285714
+train,Cubism,sketch_and_study,66,3.7714285714285714
+train,Cubism,religious_painting,15,0.8571428571428572
+train,Cubism,illustration,3,0.17142857142857143
+train,Impressionism,landscape,582,33.25714285714286
+train,Impressionism,genre_painting,354,20.228571428571428
+train,Impressionism,portrait,262,14.971428571428572
+train,Impressionism,cityscape,210,12.0
+train,Impressionism,Unknown Genre,188,10.742857142857144
+train,Impressionism,still_life,57,3.257142857142857
+train,Impressionism,nude_painting,54,3.085714285714286
+train,Impressionism,sketch_and_study,38,2.1714285714285713
+train,Impressionism,religious_painting,4,0.2285714285714286
+train,Impressionism,illustration,1,0.05714285714285715
+train,Renaissance,religious_painting,1004,57.371428571428574
+train,Renaissance,portrait,281,16.057142857142857
+train,Renaissance,Unknown Genre,248,14.17142857142857
+train,Renaissance,sketch_and_study,142,8.114285714285714
+train,Renaissance,genre_painting,32,1.8285714285714287
+train,Renaissance,landscape,15,0.8571428571428572
+train,Renaissance,cityscape,12,0.6857142857142857
+train,Renaissance,nude_painting,11,0.6285714285714286
+train,Renaissance,still_life,5,0.2857142857142857

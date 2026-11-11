@@ -1,0 +1,1501 @@
+Painting_ID,Macro_Estilo,Genero,predicted_class,predicted_idx,true_idx,correct
+wikiart_19f1717e34b1a375e14b3602,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_421a1ff1826a8922f889b498,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_2c255bfe77d207fff315c814,Baroque,landscape,Impressionism,2,1,False
+wikiart_aa4ec57a6a4fc7f03886b033,Baroque,portrait,Baroque,1,1,True
+wikiart_831c46b86ffb0f1cda6eba61,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_1f910481bdc7e8397b8a4de2,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_2864208a573c39fc2d44222a,Baroque,portrait,Baroque,1,1,True
+wikiart_d43cfb627c9cda64f69beab3,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_dd98b824b543d734708da01e,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_6db1fd5af3cd35f1e81f7589,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_e2c671da0de188b544f7f321,Baroque,landscape,Impressionism,2,1,False
+wikiart_ca77865c7e28ba89e4aca40d,Baroque,portrait,Baroque,1,1,True
+wikiart_e9e7d5fdae8a0b02fa66a9e4,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_25ea8319c557a30261f92ec7,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_44cbc21ca03ad8e87cf4f277,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_ecebc8cc2cfa6499a27f82ba,Baroque,portrait,Baroque,1,1,True
+wikiart_95134a2039677768e600fa84,Baroque,nude_painting,Cubism,3,1,False
+wikiart_35eb6b4b5596ec98f990cced,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_8e20ffbf5df917bb76dd21d5,Baroque,portrait,Baroque,1,1,True
+wikiart_ee42f31c33db201462ba542b,Baroque,portrait,Baroque,1,1,True
+wikiart_f5a5656edef82e1eac836d8b,Baroque,portrait,Baroque,1,1,True
+wikiart_75c39b6cef0a967565bc9947,Baroque,portrait,Baroque,1,1,True
+wikiart_0ed0bd317cec823503ed3136,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_6d2988306fa7b0fc025da258,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_3edf0f5520ac417d5001816a,Baroque,portrait,Baroque,1,1,True
+wikiart_ee79a5355f1e531a285310e4,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_314552559a8fad0078401162,Baroque,portrait,Baroque,1,1,True
+wikiart_83e19bff186e1b82d751e0ba,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_65a727df5237b5e72e68aa2d,Baroque,portrait,Baroque,1,1,True
+wikiart_1c032532ab519b201238fe34,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_497eb1efc1324d5022ade976,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_c90b8bf83ae1dc6312e8d6cd,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_d688be290bc4af3cd0fa45fd,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_556982fb5629167f42ddfc5e,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_637ab3b83b65ecb39a68a310,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_69c93bff4162fe8674bdafa8,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_00e9dd8f1f28b2fa28eb3c82,Baroque,portrait,Baroque,1,1,True
+wikiart_10e242993dcb8573e1235b99,Baroque,portrait,Baroque,1,1,True
+wikiart_76ce7e9f53e0de2eb6951434,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_527887c169257a8c3425d0c1,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d11f0e92da5a780e68ecfbaf,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_07117ca33ebe7b910d51dafe,Baroque,portrait,Baroque,1,1,True
+wikiart_40ebe08477cda682a619c5ab,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_832947f2d7040410eace29b0,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_ebdb8b316a833729e5328caf,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_729a3ed11b9878a21f34282d,Baroque,portrait,Baroque,1,1,True
+wikiart_353af79d3ad36a64dac46611,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_f0a6753a20a8ba43ef7ee5a8,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_16aaef877136e8437cb8b019,Baroque,portrait,Baroque,1,1,True
+wikiart_8b59d510cd066b7216f19c70,Baroque,portrait,Baroque,1,1,True
+wikiart_275908a25bd20754880580af,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_7c15c6af1001c4b6a14ac2ce,Baroque,portrait,Baroque,1,1,True
+wikiart_dba3359d7ea2f8d81e513eca,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_6398321e88297e46d107029f,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_0eafff0fbf496c14f3e62fe9,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_814c8ee7cc2b614345afdb9f,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_d3c8a177c6e9cbda9fda2f37,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_4e293a24a1175cc2973f8e73,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_07bd80f06d1352c39ff5ebb9,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_58f71a836210a90f6035775a,Baroque,portrait,Baroque,1,1,True
+wikiart_d4e01f98ea7f3b33eca65bb3,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_326c0edf457c1aa1005266d0,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_645ba9d4c1f038809ea2ac37,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_740cebf700ea38eaf1272e77,Baroque,portrait,Baroque,1,1,True
+wikiart_f5fdd93ed780311db8ffcd8f,Baroque,landscape,Impressionism,2,1,False
+wikiart_24e4d85835698f90e23f6141,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_183f8c491d973799b52693fb,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_f4f8d93ac47daff2e25ff653,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d289abed2ee711d0d74fb019,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_1bdb047c59380a10790ee400,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_903cbfabdba901101dbd6b3c,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_863c65ac7fc1dc2a03e78fcc,Baroque,portrait,Baroque,1,1,True
+wikiart_e5544dd22e175b8737fc5461,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_9dec3a72abcc5bcb24568dfc,Baroque,portrait,Baroque,1,1,True
+wikiart_3d7e130c76d7ef6a24fc6e81,Baroque,still_life,Cubism,3,1,False
+wikiart_b5163a39c43f2852dea529d5,Baroque,still_life,Cubism,3,1,False
+wikiart_91bbcaaaf5f26f90e1cc88b8,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_83310f20d4f0b7eedde9219b,Baroque,portrait,Baroque,1,1,True
+wikiart_f395d803bf5006ab2aa76e3e,Baroque,portrait,Baroque,1,1,True
+wikiart_45862d743abda4082372a530,Baroque,portrait,Baroque,1,1,True
+wikiart_6ec122272fd7e710551194bf,Baroque,portrait,Baroque,1,1,True
+wikiart_a3ed76462fb133864da73eab,Baroque,portrait,Baroque,1,1,True
+wikiart_1f9c21bbe1387338073ff2ef,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_956ca8efe9eb790c0bf1d11f,Baroque,landscape,Impressionism,2,1,False
+wikiart_306fcd630f25f84df7bd2a92,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_2344cdd97374d2196a3c8400,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_97199558b4187dc9db6d0042,Baroque,portrait,Baroque,1,1,True
+wikiart_cc1c82068fc6a79be33d42ee,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_535fef0ea2305820cee86a70,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_e20385d718ab2bd58c676d8a,Baroque,portrait,Baroque,1,1,True
+wikiart_5bcf5245b1d3dbfd7e926255,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_143ff5dbad7c0b2b65949b58,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_038fa23d5b4175dd5a8c7b96,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_165ad4b9665cf08071e1adc2,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_2a321f9d4d402fc5efb4787a,Baroque,illustration,Baroque,1,1,True
+wikiart_006728f2c82a2c5791d59fce,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_57afc7e71d7096ef410b2f49,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a1dcc4bdc5ab4929955d305b,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_487aa979158b7be89a56cff9,Baroque,portrait,Baroque,1,1,True
+wikiart_ee6d834e15f82dcedb6486c7,Baroque,landscape,Impressionism,2,1,False
+wikiart_ab908b7d95eb03f47f2a69a7,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_1411ce4b90f3d637f3634ec2,Baroque,illustration,Baroque,1,1,True
+wikiart_db911fa2c329a96cbf1b4711,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_dc233d66e70e6b03b8530e51,Baroque,cityscape,Impressionism,2,1,False
+wikiart_4e1e3bfe1c7d8684c56f299b,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_2dba97618439f14ed04655da,Baroque,still_life,Cubism,3,1,False
+wikiart_d695aca3b4b69a287b12dbe1,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_00d42bdb2539147df5fbb192,Baroque,landscape,Impressionism,2,1,False
+wikiart_205d25d9ade3bbc9a19ba360,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_f376b26a8590947bc8303076,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a5c33d96c3c83717ae0d8c47,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_f03bd9034487462a40d935eb,Baroque,portrait,Baroque,1,1,True
+wikiart_397471ccb89d8aaad8cf92b2,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_14a64aabc080c5d80884b441,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_c446bfdced75d24f500e1549,Baroque,portrait,Baroque,1,1,True
+wikiart_b090935a53ee4b1b076b3dc4,Baroque,portrait,Baroque,1,1,True
+wikiart_84228942f3adc881e2b75fcb,Baroque,portrait,Baroque,1,1,True
+wikiart_189dd772fd12fb2470b3e3dd,Baroque,still_life,Cubism,3,1,False
+wikiart_f068ccc601aefa13e0a713e5,Baroque,portrait,Baroque,1,1,True
+wikiart_ef46f667cb6c37196870b9c2,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_6657c2a75717e1dcdc706208,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_e0f95ebf30e8f3c9e576121e,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_a720d3ce2e60d7051d3d3e94,Baroque,cityscape,Impressionism,2,1,False
+wikiart_8a7f71233051ed0f6b62729c,Baroque,portrait,Baroque,1,1,True
+wikiart_b86d7bffc12f6ea0d804061a,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_95774cb620430a01ebd737ee,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_180f257fbc66fadf517ba736,Baroque,still_life,Cubism,3,1,False
+wikiart_9c1f77ac03871057ca76b0f4,Baroque,portrait,Baroque,1,1,True
+wikiart_82cb2669e103940c278ca042,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_877d89c3440e70a4b4871aa5,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_8aeff4727f8bdb5bd7078572,Baroque,portrait,Baroque,1,1,True
+wikiart_719b947020f3b0cb304457fe,Baroque,portrait,Baroque,1,1,True
+wikiart_50acb600b74dd2d94235c9ce,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_66fb650021e506a65398dad9,Baroque,nude_painting,Cubism,3,1,False
+wikiart_79129c6b5e5d12b6d0fbb3a3,Baroque,portrait,Baroque,1,1,True
+wikiart_acd0fb0c3cb9afec93c118df,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_bcaa2c0aaeaada1684c71da8,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_d9bd7bec4121aa0f64733d7a,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_02bcba67585ed0796e0c8c62,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_d36368ae0e392ad1213b19b7,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_d2126e957441f73184bacee3,Baroque,portrait,Baroque,1,1,True
+wikiart_4ab3c15fd518c3f8ff60e250,Baroque,cityscape,Impressionism,2,1,False
+wikiart_22c319cee531cd2ac98c03e1,Baroque,landscape,Impressionism,2,1,False
+wikiart_8c78c7cf82600ffb4bc11270,Baroque,portrait,Baroque,1,1,True
+wikiart_0da6091690cfa6b61c09afc3,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_59d801a5ed2030332fa2e0e5,Baroque,portrait,Baroque,1,1,True
+wikiart_fe84f900751a84fd632b485d,Baroque,portrait,Baroque,1,1,True
+wikiart_9bead86a0de7e5315436fa73,Baroque,portrait,Baroque,1,1,True
+wikiart_0830e493da7c0c9927812180,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_7ed7531277eae3fb496a87b4,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_16a2f3d0ab996ff9e4fb0e89,Baroque,still_life,Cubism,3,1,False
+wikiart_fe492ef7628002c0cc0d179a,Baroque,still_life,Cubism,3,1,False
+wikiart_8f579e9d34407980f2be81d4,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_2e06254d3343865f31b0719d,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_88518f3805b9ffe6f540e72e,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_485acaa33b2d5ba9e58e54e4,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d1e0bb7bf44224f886310a48,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_716c79542c46537b96cd4ce5,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_b80997dd73cee38d1494a588,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_738db1f9357fb9ebcf01b602,Baroque,portrait,Baroque,1,1,True
+wikiart_cfb215798aa5e969e1e00266,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_e1220d203c39862dc3bd7136,Baroque,portrait,Baroque,1,1,True
+wikiart_9e6ed9af76363c05a904a659,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_c595992b2262a90cc00b67bb,Baroque,portrait,Baroque,1,1,True
+wikiart_ef28f0541712cf5e02930489,Baroque,portrait,Baroque,1,1,True
+wikiart_03faccb187d24532bd8c9199,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_372a8184300c25e7b0e63207,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_9662e1be120eb679e256f19f,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_cadead9cd37d0fc3300785a8,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_91dcb378b73df290e587ab9b,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_504ba847f6945972c0a19dc9,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_137076cd4d23a12ad47ce141,Baroque,portrait,Baroque,1,1,True
+wikiart_0d9700808abf03936c9f4120,Baroque,still_life,Cubism,3,1,False
+wikiart_3cbdaba17faf7b5df4890b49,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_b3d2fcc52262782d6db7e6fc,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_41fff55242c8e30deabb27dd,Baroque,landscape,Impressionism,2,1,False
+wikiart_7f87372ea5882a008cd3d090,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_3b467953d0c6d8004cc78f34,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_b7521c5c14e0a14ccbc0630e,Baroque,portrait,Baroque,1,1,True
+wikiart_c6c9b6a5138af28f962a212a,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a95a1d7798ca13e8048ca886,Baroque,cityscape,Impressionism,2,1,False
+wikiart_716a25c90cf6c278c89fc24e,Baroque,landscape,Impressionism,2,1,False
+wikiart_7959eeceabf04bca72fc1ccb,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_b0443321196440f51d466eae,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_ec8edff4b56f109ca5c77ef3,Baroque,portrait,Baroque,1,1,True
+wikiart_d6c8a0bd733ad77104328cea,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a64aeada2c3c060d6299cd39,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_ff03590068e0f1bf44286ff4,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_a13f8d412767b688c83bf1a6,Baroque,portrait,Baroque,1,1,True
+wikiart_d2e300d62d5421d39a6290eb,Baroque,still_life,Cubism,3,1,False
+wikiart_531f92410056ca0af7f80f6d,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_6a2ce93b35e6cca69c6ecbb5,Baroque,portrait,Baroque,1,1,True
+wikiart_af969cb5a4c1d34c9046d7aa,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_aa11a4fad7fbc1a404acbb82,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_aa81dcba04b4d9ac576fd021,Baroque,still_life,Cubism,3,1,False
+wikiart_690ad52b5fa3b03300724d10,Baroque,portrait,Baroque,1,1,True
+wikiart_44c81577aeb226265e5da5d6,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_64da735ea42709416044c47c,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_51cfb2668b1d3097ca608f30,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_0a5c1a12f454e4c472ec8e07,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_cba2e8cfc0f47ab077de1797,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_1520b60b8740a47968107800,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_5a86c230dd9befd6d85917ad,Baroque,portrait,Baroque,1,1,True
+wikiart_80c86e0bb6f08d0db5f4c1d9,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d48f7787b6d0f7b9b125d5d0,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_6e9dee00c99c26ea84643285,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_35bb1306258c04c539390fcb,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_473be9ebdc19c5487464d936,Baroque,portrait,Baroque,1,1,True
+wikiart_1a83d0b268386f9aacbea1bc,Baroque,still_life,Cubism,3,1,False
+wikiart_f9a4cb7d551689a3ab879553,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_e2430ea35b93bbabb0712268,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_b12cde684efb40c5b9d9db8f,Baroque,portrait,Baroque,1,1,True
+wikiart_ac311ec7fcb283dcdf94ab63,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_9d244e1c638d9eb07e77c4e0,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d7b73e347a918d5847e5d12b,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_6c39ed5a7092a3212b027cc3,Baroque,portrait,Baroque,1,1,True
+wikiart_70692df62344107649d30fed,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a206c3d614f4b25c5f82a49a,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_20287a335bf67a33bf85b8f1,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_3d144591d4d8eee34e9ece3b,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_968f6abbe1f0a67a0d2e8d57,Baroque,landscape,Impressionism,2,1,False
+wikiart_be0cac807325d2960209d731,Baroque,portrait,Baroque,1,1,True
+wikiart_9b075cfaac16e4ba80798e75,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_2db3f1b9191132ab63d99046,Baroque,portrait,Baroque,1,1,True
+wikiart_48252fbc2a016f2f8e8b0844,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_daf76bb5c77e3d41738ed75c,Baroque,portrait,Baroque,1,1,True
+wikiart_50aa8924253bc3af929ad4ed,Baroque,portrait,Baroque,1,1,True
+wikiart_bcf416d67741016f50e7306d,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_880dba67bb22c9de1f4dd5d0,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_6beb97cb43c318a5679d0ec5,Baroque,portrait,Baroque,1,1,True
+wikiart_cfe6252ec9a8ea352a1b4790,Baroque,portrait,Baroque,1,1,True
+wikiart_073f5b0c37ada3d1bbf3bea7,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_7a77f3a4418f41b63d8d822d,Baroque,portrait,Baroque,1,1,True
+wikiart_b75ccef79e8208f6feda08b7,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_fea424704cfbe1d3b2b66cf4,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_99c5911603615584ab2fb473,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_9437481f69485ddd612a5e1f,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_9ac2dfd4c279d4b12623d448,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_33339d5680a2c9c9e2e34632,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_d016e3ce1d9e9611bc5da138,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_276020b069fb60734e8293f5,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_8888b60c04efa59586e84c47,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_14ac6468631267a5efaba73a,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_76bc261418b0d9c25ef572a0,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_65e011c420037e0f3a42997a,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_82bc8050f19c94366d126fea,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_b6acc3512c1843b0ee67629e,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_f9edec47cc6b7540dd775258,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_b9b36bd55091b93b5f020643,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_d3786cdbf78d7589fe93a34c,Baroque,genre_painting,Impressionism,2,1,False
+wikiart_1d78b09a40f40b62fdf5c1e7,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_f02eabceeef0603882989156,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_bc62f8aa646eadd5a80b5c7a,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d759fb70b8cbdc387d51a244,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_ccc38222d5c4c1ebb9aa15ea,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_20ef58cee44a7e6c4b9c533b,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a55ffe23f703e64b359685b8,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_036edd96b65a1eac8cdc927a,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_66b2bca81c9d9b476488e28c,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_f0ddbbabce7a858e03425809,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_c5b09341f88bd3d79ebfcda2,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_84f7deda25995787a6eed07c,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_c520830aa566c03cd9f86cf4,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_99700df9744aa08cefee2855,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_676d7384af67203732d3bbee,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d16238262ddfefd516a0febb,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_6b542a9c45b4ac38cee0418f,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_71a35b1946d156edf00caaad,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_6bbcbea08ad023c5bed3dbe6,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_b315c1a8f5317f04220a8d33,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_d445bca1d7acbcf841b9ee93,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_a0d2f4de1dfd200d914ee0cd,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_03e189bd471395193cb35e3c,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_289cfcda06e053bfc3ebd527,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_7b8c5ef7291f54e6bfc6b22b,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_7fdaded6092efc08287b847c,Baroque,religious_painting,Renaissance,0,1,False
+wikiart_c86d05534c462b065fab816a,Baroque,nude_painting,Cubism,3,1,False
+wikiart_56ac2dcd9b33e363a428a7f7,Baroque,cityscape,Impressionism,2,1,False
+wikiart_3abee40c178df153616a2296,Baroque,cityscape,Impressionism,2,1,False
+wikiart_1456a29e4a4fe663d818bef8,Baroque,landscape,Impressionism,2,1,False
+wikiart_029696b6bac9e653f2a37227,Baroque,still_life,Cubism,3,1,False
+wikiart_94a1512f584d50178b3bf80a,Baroque,still_life,Cubism,3,1,False
+wikiart_fb903437e03011bb482e7526,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_713070b4f6a4a531ed185c28,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_85b46e3252e590df62740829,Baroque,sketch_and_study,Renaissance,0,1,False
+wikiart_d4ef57da4b2cdb65d6141893,Baroque,portrait,Baroque,1,1,True
+wikiart_695179760fac3c843aa339d2,Baroque,portrait,Baroque,1,1,True
+wikiart_27d9d3873bedcdd4293af3ca,Baroque,portrait,Baroque,1,1,True
+wikiart_38b4659349a9309f762f53f1,Baroque,portrait,Baroque,1,1,True
+wikiart_93cac71b985b9bcb7473d6b8,Baroque,portrait,Baroque,1,1,True
+wikiart_c4dc841bb415241b80158842,Baroque,portrait,Baroque,1,1,True
+wikiart_0785d4b4e21f68a0d8d52184,Baroque,portrait,Baroque,1,1,True
+wikiart_e928719a6263d3a28f62fc28,Baroque,portrait,Baroque,1,1,True
+wikiart_0c89a6bf001670701db1b202,Baroque,portrait,Baroque,1,1,True
+wikiart_bddfe3ad95d40d4ffcc17ff9,Baroque,portrait,Baroque,1,1,True
+wikiart_226eb14db0820dd17beba7b0,Baroque,portrait,Baroque,1,1,True
+wikiart_59058c7eec43ce547d6a5f02,Baroque,portrait,Baroque,1,1,True
+wikiart_b85e53d21073dde9bf362bbe,Baroque,portrait,Baroque,1,1,True
+wikiart_efb0d7e04e11515d386c8eb1,Baroque,portrait,Baroque,1,1,True
+wikiart_465eda45c1bf355954e14c34,Baroque,portrait,Baroque,1,1,True
+wikiart_eaadc27926153e2580e1cd56,Baroque,portrait,Baroque,1,1,True
+wikiart_8bbcd36963d7334cbfe0ca0b,Baroque,portrait,Baroque,1,1,True
+wikiart_309ac2340c4a5d01d07bf785,Baroque,portrait,Baroque,1,1,True
+wikiart_b8433143e367cf6debd34559,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_7e27de4043b5d4cdf5d65128,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_8f997eceacd5c43be1a81f50,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_8780d6fe4291c871a997f2b0,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_89130500477c393c32e76188,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_a343843fa2d6e3c1f4584ce5,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_3120986565dc6682c9d24e02,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_2c6100ade24dbd8f4391367b,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_7a3f9915d7ca707edc8c5534,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c5ced68a83c96aa66336cc7f,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_785dd5a27a212109747ae90a,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_f27a4e2700c095a468cb346d,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_be5147fad09fbccc4e5f6fc0,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c484d2e756b1fe0abba55905,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_0f5b81600cb3c7f955ee1094,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_382035ac3bcf7e6136968092,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c9aff25b613e986e66357353,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_8745daaa490f6860957cd007,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_5bbe367303786f013cd3776a,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_21d241267528b5d7fd1e0769,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_bd5edfdb55aa083a688c390b,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_51fb9c10c9742620213d219f,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_e9e71fbfe6d9b63ae6afeffa,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_9761cc9ef18d763c71bb54b7,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_08bd76949984b612e1a9fa1b,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_dd7bceedee7d867dbac58d00,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_b42b345329eea8a8256cc4ad,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_61170c89eb51ebc62794f767,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_819279325b96e6756a20e3e3,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_70ddefee1c28b14cf4d0821f,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_01800572820affa1b0decb8a,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_04882d644ade020f555b55f0,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_8d0d0a6e4f8bd7cb7cf7444b,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_5179f68de250ab4fbcf6cb44,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_62f3050583fec0941c070751,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d17707423328bee44d5109b3,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_1ea3900b4e3daa9d9281e5c7,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c95ad8104cc33f3b82ab1886,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_9de17816ff9a8f467fb9c47f,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_bb908a05c81a213c8d9868ab,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c8e8939c83ebe21698330fc9,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_0f6211c80f0139f56bc27c9b,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_cc92e34f82c796c0d21a5d44,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_e67aa0dfbd8303282b8ff65e,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d4bd9f1705a1ce113080b6b9,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_480178c6b4700e2ff318de82,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_6f17ed964d1c33f507a01aea,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d190118cfac376e428a81209,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_46c5b0aaa6e58d3308fd1746,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_b4dc81f3d0c84d492dac135a,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_45aa23a06ba633cc8f3ab8c0,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_b817d02a116e9e93aa0c75c2,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d8f9377ab2fea55b182b9057,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_e14daff1fc1369f6607ea217,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_73003f2682eeb3ec313d2e16,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_84ebb39876a7dfcad0ec3d6e,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_3fcc8738130128a7271c1626,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_9ea6c9e4617b046918167b3c,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_ad5590a4a0c92e307e2237f4,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d494120c6e34fc7a905f7ee1,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_3083b1404a4aad6f5659d8d9,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c636b929edbd0f0dfb0b0dbb,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_d7d1c12e90f64619d3755ca8,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_ed4cb78d2fc60f5843502699,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_c3198186c8b6560bb9aba4b8,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_9ae6f9bc3c5a5c14d29100aa,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_2da8c32c94f3cd141df90149,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_3320a09926d0aff437a78300,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_9fc2fc50af2160a9dfd734d4,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_aa87696e0a7e1c986d17bedf,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_2b42acb847ea28c37a535389,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_a7d99e15c74fca648b777bc0,Baroque,Unknown Genre,Baroque,1,1,True
+wikiart_7bc4d0eeb574ede8d64bd1b7,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_28c8868bbe581de604dd0793,Cubism,still_life,Cubism,3,3,True
+wikiart_b4943e15bc1264a34911b231,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_5956b7569cc7c7647b62a16c,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_11bae43d3eb70a3567f9e1b7,Cubism,nude_painting,Cubism,3,3,True
+wikiart_1fe729cff185ec2c4f5715d0,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_8684636072457ecbaed9a5da,Cubism,still_life,Cubism,3,3,True
+wikiart_9803d59139379c2f58eaba42,Cubism,still_life,Cubism,3,3,True
+wikiart_68c6a7cc608353c29f4b6a2e,Cubism,still_life,Cubism,3,3,True
+wikiart_539707f88392f4716feadac3,Cubism,portrait,Baroque,1,3,False
+wikiart_9ebbcd4bb347d55b53f6fdd6,Cubism,still_life,Cubism,3,3,True
+wikiart_2df0b4b4d56ffad54e650470,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_958bf0c68f17acef5efb9266,Cubism,still_life,Cubism,3,3,True
+wikiart_c4373ab83dcad1f96ce0b6e9,Cubism,still_life,Cubism,3,3,True
+wikiart_7814c95584ac35183d37a707,Cubism,still_life,Cubism,3,3,True
+wikiart_a94133896fa69c50e5b22b1f,Cubism,still_life,Cubism,3,3,True
+wikiart_17a2fc234a72b90bd8a3ea03,Cubism,portrait,Baroque,1,3,False
+wikiart_bff8afb516fdef4142783d00,Cubism,still_life,Cubism,3,3,True
+wikiart_9b752f85b2c3bd435fa485ea,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_c910f70fcc6561abcff44976,Cubism,landscape,Impressionism,2,3,False
+wikiart_9bfcd6955b4d7c0a5d9d689d,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_698d193c1b24af9aab2c8a1d,Cubism,still_life,Cubism,3,3,True
+wikiart_c8640160a631e54b2977670e,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_a65c03520c3e77a574f3ff30,Cubism,landscape,Impressionism,2,3,False
+wikiart_02222a2cf5f1c1c4dee102db,Cubism,still_life,Cubism,3,3,True
+wikiart_b59ccb8b2e2112af806d22f3,Cubism,portrait,Baroque,1,3,False
+wikiart_0f7a0bc47a127dc948c142f7,Cubism,landscape,Impressionism,2,3,False
+wikiart_cffa19e9d8514d6378db44eb,Cubism,nude_painting,Cubism,3,3,True
+wikiart_8411064944dfa0234771b87d,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_f5675c32f9f2006db090e109,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_b8ede8e8a6abf7921f308976,Cubism,still_life,Cubism,3,3,True
+wikiart_612a80336146ffde58520c9b,Cubism,still_life,Cubism,3,3,True
+wikiart_4688038e4b674236a20db4ab,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_bfb37eacefaff17e56b909f7,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_304b982885416263812ba4a3,Cubism,still_life,Cubism,3,3,True
+wikiart_2437028b5b205a4bd945da74,Cubism,landscape,Impressionism,2,3,False
+wikiart_1aeddd16c387298783ed856f,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_bc081ce86124ab9eac9aab05,Cubism,religious_painting,Renaissance,0,3,False
+wikiart_22738f9110182f0454fdbfbd,Cubism,cityscape,Impressionism,2,3,False
+wikiart_c2b1b391a31df44f0294433c,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_92c6d29329bd2f53b02c8d60,Cubism,landscape,Impressionism,2,3,False
+wikiart_23bcd5dd2961a7fbbfe2ce61,Cubism,still_life,Cubism,3,3,True
+wikiart_4addc168d2f1a7146f50479c,Cubism,nude_painting,Cubism,3,3,True
+wikiart_74e74825d5bf9cc2a5e0ae85,Cubism,still_life,Cubism,3,3,True
+wikiart_3c0bd38382dfc9473c7b73ca,Cubism,still_life,Cubism,3,3,True
+wikiart_0809c81c5b1ffba500818941,Cubism,nude_painting,Cubism,3,3,True
+wikiart_96cd9ef609e8373ca13778b1,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_6b1b4608a9f0c232f6f84012,Cubism,landscape,Impressionism,2,3,False
+wikiart_eb2cbea9b557f62e4d9921ee,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_40993dd1dbe37c8c8f39d8a2,Cubism,still_life,Cubism,3,3,True
+wikiart_709484a17d7d2010f2e9da18,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_2ad00df8ff692cf05782684e,Cubism,still_life,Cubism,3,3,True
+wikiart_2a98e173fc3f950bceecdd01,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_7f6ffe74bcfdf19bf2ee7887,Cubism,nude_painting,Cubism,3,3,True
+wikiart_8c9fac5dc3b8488f9dbf40cb,Cubism,cityscape,Impressionism,2,3,False
+wikiart_283cae3fd015164b8796aa47,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1aa42594865ffaea2fedd5c3,Cubism,landscape,Impressionism,2,3,False
+wikiart_aec7ca62a7fe357c9751910c,Cubism,portrait,Baroque,1,3,False
+wikiart_01917074f660338544c250a0,Cubism,portrait,Baroque,1,3,False
+wikiart_73af2f69b80d8bd475e05843,Cubism,still_life,Cubism,3,3,True
+wikiart_f9e385acf57741ae1282c0ea,Cubism,still_life,Cubism,3,3,True
+wikiart_140f7101aba5ab0f5c76b65d,Cubism,still_life,Cubism,3,3,True
+wikiart_682b3270774b159f7e788d66,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1d05decdfc4803e5721fc10e,Cubism,landscape,Impressionism,2,3,False
+wikiart_997b6877af4af51ef6947157,Cubism,landscape,Impressionism,2,3,False
+wikiart_e08b3d60c809c906b6baf009,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_faf325cbb23714fe263991e1,Cubism,portrait,Baroque,1,3,False
+wikiart_f3cdb3f909bcd3f24c0375c6,Cubism,portrait,Baroque,1,3,False
+wikiart_adfff8b08e9d205930c657bd,Cubism,landscape,Impressionism,2,3,False
+wikiart_21b7534566e3f4ae7ff5dee9,Cubism,landscape,Impressionism,2,3,False
+wikiart_7684f1c5ce54341eb0064286,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_a8e0eed878ab5454c654bb3a,Cubism,landscape,Impressionism,2,3,False
+wikiart_c97c00d30e06a1eec5b37718,Cubism,nude_painting,Cubism,3,3,True
+wikiart_8bf801094337960379cba047,Cubism,portrait,Baroque,1,3,False
+wikiart_f225563d98397418e6d3c840,Cubism,still_life,Cubism,3,3,True
+wikiart_a87115fd2bcaa7decb64587f,Cubism,nude_painting,Cubism,3,3,True
+wikiart_528e7779ca21b4ccc678d6dc,Cubism,portrait,Baroque,1,3,False
+wikiart_9b4ccd94be7986bdef0405e0,Cubism,portrait,Baroque,1,3,False
+wikiart_38072413384b944a47add900,Cubism,nude_painting,Cubism,3,3,True
+wikiart_cc405f8b5568864f4e6bf858,Cubism,portrait,Baroque,1,3,False
+wikiart_a4077eb73c16291d6d50f287,Cubism,still_life,Cubism,3,3,True
+wikiart_d15b27a0bdc8060f18795f5a,Cubism,nude_painting,Cubism,3,3,True
+wikiart_f64cc23e968d96c6fb9b232a,Cubism,landscape,Impressionism,2,3,False
+wikiart_cf9e724392cc50aa4d193d1d,Cubism,portrait,Baroque,1,3,False
+wikiart_b8d0986a8df021061df00eeb,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_12cbeffd77893f9facf87101,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_9e816334e81dbfaed3afd37a,Cubism,portrait,Baroque,1,3,False
+wikiart_2e381c1175b6872396e85840,Cubism,still_life,Cubism,3,3,True
+wikiart_8cf231c6fc6539b6a4f4444c,Cubism,still_life,Cubism,3,3,True
+wikiart_2fb30a385045f54e83b64140,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_b7c989f2967aca5d55bb8933,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_3f3ac1377b4c013cb3dab348,Cubism,still_life,Cubism,3,3,True
+wikiart_33d44137e9955e7940bbd5f8,Cubism,still_life,Cubism,3,3,True
+wikiart_03f1f38e6e3cfe29d830b89e,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_6c7e13bb8da27228b68aebcd,Cubism,still_life,Cubism,3,3,True
+wikiart_63539c5e06a9c38a2eb11a8f,Cubism,still_life,Cubism,3,3,True
+wikiart_cc4de9bac0975346cdfa49c2,Cubism,landscape,Impressionism,2,3,False
+wikiart_7b6c55eb6c3cb8e027f3261e,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_f5d559f3b7553c35f050a2c3,Cubism,landscape,Impressionism,2,3,False
+wikiart_625a0cfba424ba199718f24d,Cubism,still_life,Cubism,3,3,True
+wikiart_b4595aff7d04539619fb6116,Cubism,nude_painting,Cubism,3,3,True
+wikiart_3103ee5c4550904434b06c62,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_f1fdb4b256f82499c835ee65,Cubism,landscape,Impressionism,2,3,False
+wikiart_4098bc8d433d593fb3e74199,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_48fe938f7f7c21432e85b55d,Cubism,portrait,Baroque,1,3,False
+wikiart_96c1d8215ea834e57bdf4448,Cubism,still_life,Cubism,3,3,True
+wikiart_ef6be03fa159a543d9837eff,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_667ab6905a8c2161082adfed,Cubism,religious_painting,Renaissance,0,3,False
+wikiart_654c08caf1f8822a041d829d,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_3c6d6111bfecbfda194e3693,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_b416f21a0cc9a6efa297fc55,Cubism,portrait,Baroque,1,3,False
+wikiart_ff86387bf86672d6a7127c10,Cubism,still_life,Cubism,3,3,True
+wikiart_4c1ce27af1a7077978adfbd4,Cubism,portrait,Baroque,1,3,False
+wikiart_c6eaeeb136cc8124338db525,Cubism,still_life,Cubism,3,3,True
+wikiart_4df540bfe3111ec515abe726,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_bc7a4312f09d6cb3d2383887,Cubism,landscape,Impressionism,2,3,False
+wikiart_244c4e5fc0cc7c0b05e3a93d,Cubism,portrait,Baroque,1,3,False
+wikiart_04851326aaced8823cf558d1,Cubism,portrait,Baroque,1,3,False
+wikiart_7e8e14764bc32de51fe79796,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_782168a306d3f05451ed7fdf,Cubism,portrait,Baroque,1,3,False
+wikiart_67bcd2bf758fdb313ef20797,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_7b3e5c5f3329b99b86e4580e,Cubism,cityscape,Impressionism,2,3,False
+wikiart_7de1ab0289f46acfea88aa34,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_2f4a4b457f6b0825801cc649,Cubism,still_life,Cubism,3,3,True
+wikiart_1196bde92f9967e02878fcc0,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_460879581817bfc6503709f4,Cubism,nude_painting,Cubism,3,3,True
+wikiart_d72f819d0186c14c6eb85979,Cubism,portrait,Baroque,1,3,False
+wikiart_51fa2858380b1cff48fe6cc5,Cubism,nude_painting,Cubism,3,3,True
+wikiart_c1db29b1e8062c260df3061e,Cubism,still_life,Cubism,3,3,True
+wikiart_1be398e2a9a856ccf498c972,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_e9a200aff430574af7516629,Cubism,portrait,Baroque,1,3,False
+wikiart_09ab416408af7d218102c41d,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_2eac05dd8c8ed875fe73a75a,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_097b00ee87bb46cf2ee3df47,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_be2038833a6d4937b36fb416,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_850980eccba26f962d40d187,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_059b5036b12d68b61581a217,Cubism,cityscape,Impressionism,2,3,False
+wikiart_6dadc6ef8be9531387f9613b,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_11d77e387ce6e99dfbe3e54b,Cubism,portrait,Baroque,1,3,False
+wikiart_e7fdba60662ed2d0dbe072b7,Cubism,still_life,Cubism,3,3,True
+wikiart_6b981576a2c14c2b55dedf8e,Cubism,still_life,Cubism,3,3,True
+wikiart_7516e380fa48fa4feac3e3a4,Cubism,still_life,Cubism,3,3,True
+wikiart_cb91cb9e00d337cb424a82d3,Cubism,still_life,Cubism,3,3,True
+wikiart_8e2bbe939b6972640ca25a46,Cubism,still_life,Cubism,3,3,True
+wikiart_aca4aef98c1da96c30de27a9,Cubism,landscape,Impressionism,2,3,False
+wikiart_4f896157e397e1dcfa1e5da5,Cubism,portrait,Baroque,1,3,False
+wikiart_50edf3af0f76a6ff3e0e321a,Cubism,still_life,Cubism,3,3,True
+wikiart_b9246917d6e6072cea4be779,Cubism,portrait,Baroque,1,3,False
+wikiart_489715e37b4c21e77876dccb,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_e7db1896bf4fba58862d31cd,Cubism,cityscape,Impressionism,2,3,False
+wikiart_e99742d0cd1fbc39b8043260,Cubism,nude_painting,Cubism,3,3,True
+wikiart_a905ce672f3618b9e9160e6f,Cubism,still_life,Cubism,3,3,True
+wikiart_d0ef3f01875be1c782a5db0e,Cubism,still_life,Cubism,3,3,True
+wikiart_c20543f3a56a27bad7fb64ef,Cubism,portrait,Baroque,1,3,False
+wikiart_e56ac40f8018b1545e8a692b,Cubism,nude_painting,Cubism,3,3,True
+wikiart_18dfc717bb926cffd35548a1,Cubism,still_life,Cubism,3,3,True
+wikiart_7096ec1f64c9bd16b2e9879c,Cubism,nude_painting,Cubism,3,3,True
+wikiart_c594e0a0c23473fb8a914370,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_602d7b075ce9aa4b2f48315f,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_7a3feac6341e1050dd4fec91,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_f863e1e24b23661b27c7cfa8,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_f31e7abd768c54aad6958880,Cubism,still_life,Cubism,3,3,True
+wikiart_fcb993e19a073af7e6c058b9,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_1152fd3b88273d59b89f76ec,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_2c1cdf9e3e2b94e63e6f8dcf,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_1f5f3ff58402ab7148164b88,Cubism,portrait,Baroque,1,3,False
+wikiart_5f1778d3849f4c039c2c2b4a,Cubism,still_life,Cubism,3,3,True
+wikiart_e52ce749093b9c418cb62d12,Cubism,landscape,Impressionism,2,3,False
+wikiart_d6e8e43934c58a07536be8e7,Cubism,landscape,Impressionism,2,3,False
+wikiart_fdf11c62cf4add9682cd04c1,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_faf076c975f8174f4d950df9,Cubism,landscape,Impressionism,2,3,False
+wikiart_f8b8ad2ff26da03e4a95ef39,Cubism,landscape,Impressionism,2,3,False
+wikiart_9a885b44f575ee192f157e4a,Cubism,landscape,Impressionism,2,3,False
+wikiart_59b35557fbc496baea00b18d,Cubism,cityscape,Impressionism,2,3,False
+wikiart_8f0a6a826642c97231ae76b4,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_675afb8e98f47fb455beaa42,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_3c56a1bc7ece45df8e9f1a3e,Cubism,still_life,Cubism,3,3,True
+wikiart_48be7c28b06966930def6cbe,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_8042ad3dc0fd0a2d2ae80832,Cubism,still_life,Cubism,3,3,True
+wikiart_15bf4615b7adc7f2d268e65d,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_14f059d12e66d87c2ac3bc36,Cubism,portrait,Baroque,1,3,False
+wikiart_695f8416c269ad8440d633f5,Cubism,nude_painting,Cubism,3,3,True
+wikiart_8309b320fdb00eb812c41a24,Cubism,nude_painting,Cubism,3,3,True
+wikiart_fbc78df58a820810cc23b6da,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_c1ee8b7f8a6cc863bce5c100,Cubism,portrait,Baroque,1,3,False
+wikiart_f16636469c78ec53136be74d,Cubism,portrait,Baroque,1,3,False
+wikiart_c71fa4888f91ae2f3cb8fc32,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_ea41ca90980b002972ea0588,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_bc3c8d4da52c0ff8c515ff0f,Cubism,portrait,Baroque,1,3,False
+wikiart_07082b4cc81064811b124f08,Cubism,landscape,Impressionism,2,3,False
+wikiart_546e0fde2e482087a9c63b30,Cubism,nude_painting,Cubism,3,3,True
+wikiart_ae2dfaed0c6a599ee946ad44,Cubism,portrait,Baroque,1,3,False
+wikiart_bb672c87924398231f5fb804,Cubism,illustration,Baroque,1,3,False
+wikiart_411bb4d8b99a912cb235e046,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_e2dbd1b2df1fdc354fe2f4fc,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_2c5d3dc0aa5e499c9a91f285,Cubism,cityscape,Impressionism,2,3,False
+wikiart_da088bc2af142e9a7e169c7b,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_34bed8daf52ab667f3d7f132,Cubism,cityscape,Impressionism,2,3,False
+wikiart_b7cfd726c407b274639f50d5,Cubism,still_life,Cubism,3,3,True
+wikiart_20f7919adefba0ee73966a44,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_c28868e3d6b36abab71dc8e9,Cubism,still_life,Cubism,3,3,True
+wikiart_1bf977597ca9b726ba171987,Cubism,cityscape,Impressionism,2,3,False
+wikiart_1fc3767c9c9d03a1a97480d7,Cubism,still_life,Cubism,3,3,True
+wikiart_ff5450081af744cc6026cf07,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_9b8bd23ee79701dce9439a13,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_c0100232e16bb2550c561c91,Cubism,cityscape,Impressionism,2,3,False
+wikiart_e1e71d5b2b4677e4a81c1c6f,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_201f1d2efc04e1ae1ba21c79,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_bb1ab2e10124c70512e3f7ac,Cubism,landscape,Impressionism,2,3,False
+wikiart_3ca1394d51a4b6890bcdf11c,Cubism,portrait,Baroque,1,3,False
+wikiart_bb0ff7632a9d190c34e169ab,Cubism,nude_painting,Cubism,3,3,True
+wikiart_f830c99e2ad4f33be6a2c20a,Cubism,still_life,Cubism,3,3,True
+wikiart_604c75ea63189df03a248256,Cubism,portrait,Baroque,1,3,False
+wikiart_ca76f67f72e0855d13fbed3c,Cubism,portrait,Baroque,1,3,False
+wikiart_5c7e6c8b2116db6c1b1fea2f,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_e22061c741bad859dc1b26fc,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_6afba01a7d0831fda4f7afe1,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_923fc6cc53e94e1e9a85603c,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_bf058ba46e92f5c553b479bf,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_18abea856788900ddff412cd,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_e28b2c21618797f1c587627d,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_2ddb5a2c4f3b5109e6835400,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_90676fc37d92448762a11e22,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_0a921b6591462ede83c3e87b,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_cf4b532e644bb182fdbc77f0,Cubism,nude_painting,Cubism,3,3,True
+wikiart_973a8e8915e3d6e3e9dd19d4,Cubism,nude_painting,Cubism,3,3,True
+wikiart_8ef88f0e11de5e3c32546fc3,Cubism,nude_painting,Cubism,3,3,True
+wikiart_fa2854b82d3304a085e643a2,Cubism,nude_painting,Cubism,3,3,True
+wikiart_677d29604a13be2a4d521b89,Cubism,nude_painting,Cubism,3,3,True
+wikiart_8dadad719924f9306669490b,Cubism,nude_painting,Cubism,3,3,True
+wikiart_3ace6ac9f99e6359b1dc8ea4,Cubism,cityscape,Impressionism,2,3,False
+wikiart_e8b0cec4f5e78f22c54671af,Cubism,cityscape,Impressionism,2,3,False
+wikiart_e811d62150de54b528e598ca,Cubism,cityscape,Impressionism,2,3,False
+wikiart_42941b61e111c22ce40a8aaf,Cubism,cityscape,Impressionism,2,3,False
+wikiart_ebc97b45931da6a6b93680ff,Cubism,cityscape,Impressionism,2,3,False
+wikiart_62c930b840510c860a1c0538,Cubism,cityscape,Impressionism,2,3,False
+wikiart_4ed7b1cc5b059690a92e610c,Cubism,landscape,Impressionism,2,3,False
+wikiart_c2cf3f02182aa013c4e7a9c9,Cubism,landscape,Impressionism,2,3,False
+wikiart_7eba2171598256d3d67da364,Cubism,landscape,Impressionism,2,3,False
+wikiart_039b3a7b78062ab5d4eb66eb,Cubism,landscape,Impressionism,2,3,False
+wikiart_6ed4004ecb52634d892fe798,Cubism,still_life,Cubism,3,3,True
+wikiart_cdfa9ab65deb5ac09c9361f2,Cubism,still_life,Cubism,3,3,True
+wikiart_e923f61fb2efe267007b8d4e,Cubism,still_life,Cubism,3,3,True
+wikiart_780da0a94e074e4260614be4,Cubism,still_life,Cubism,3,3,True
+wikiart_4f6c5a1729f7fd8949c68edb,Cubism,still_life,Cubism,3,3,True
+wikiart_b8b6ae87183ae60a3ea04767,Cubism,still_life,Cubism,3,3,True
+wikiart_ab42a65399bf43ee4b73dc0f,Cubism,still_life,Cubism,3,3,True
+wikiart_777d7679466bf8a159c3f7ed,Cubism,still_life,Cubism,3,3,True
+wikiart_433dff30a8bd9dee8ded6dbd,Cubism,still_life,Cubism,3,3,True
+wikiart_d73f878f3d46bbc061bf86d8,Cubism,still_life,Cubism,3,3,True
+wikiart_a37a3cc76733481f8179d216,Cubism,still_life,Cubism,3,3,True
+wikiart_1f78d1915e2e7fae5467a41e,Cubism,still_life,Cubism,3,3,True
+wikiart_e0da9290c031f212136afb45,Cubism,still_life,Cubism,3,3,True
+wikiart_39137e588076e0bc5e24380b,Cubism,still_life,Cubism,3,3,True
+wikiart_629f98e2edabe71fea33ea1a,Cubism,still_life,Cubism,3,3,True
+wikiart_9d1e8cffc9417765dd430be5,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_4a756e6d033e2b45719af51b,Cubism,sketch_and_study,Renaissance,0,3,False
+wikiart_43e9279b15cd11c49865d341,Cubism,portrait,Baroque,1,3,False
+wikiart_642f1e5c80316a47ac4bca78,Cubism,portrait,Baroque,1,3,False
+wikiart_7abfa5ebc20edfa525887b0b,Cubism,portrait,Baroque,1,3,False
+wikiart_586b7ded337064fcbe38d21f,Cubism,portrait,Baroque,1,3,False
+wikiart_06527cd2e34717ac7569f3a9,Cubism,portrait,Baroque,1,3,False
+wikiart_3f3ebdff8bbb6f5c24caf0a2,Cubism,portrait,Baroque,1,3,False
+wikiart_479ed414b8bfa9807816233a,Cubism,portrait,Baroque,1,3,False
+wikiart_338dd1a79fd4c1048285ec2f,Cubism,portrait,Baroque,1,3,False
+wikiart_aaad9cd717624e7934dc7e8a,Cubism,portrait,Baroque,1,3,False
+wikiart_da54800dab3aa56100958e7e,Cubism,portrait,Baroque,1,3,False
+wikiart_ebf49b76d58a6134d80c10de,Cubism,portrait,Baroque,1,3,False
+wikiart_5a757aaaca93556ced90a29b,Cubism,portrait,Baroque,1,3,False
+wikiart_f340446a073a883a69451df4,Cubism,portrait,Baroque,1,3,False
+wikiart_e7ac950fc2b66de1087a36e0,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_c2dd71b12e4d99d167dd7e22,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_92f4c9a941744806377ebf95,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_4a18695b7731703e39025c5b,Cubism,abstract_painting,Cubism,3,3,True
+wikiart_3a73af760d30d74cbf3d3361,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_58f90e36c353fd81e2265468,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_6c493ca4b7be3ced02a8bca3,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_29cc8232e418baa109409a48,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_52f7da97948449233d427f59,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_7f8f25de2ef6c0d3abf4c6d4,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_64482f94d110997db7250b2c,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1571a99ba9347484ba30022c,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_aae66edf1e2d7f69dfc3c77c,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_ec9faca5086cd06199c00370,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1224a04c8ca543da9874b8e1,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_ce51d7c237c494397ac9d4ce,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_87a66f70213e51ab803bb51f,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_9411ee97dd57cd769007ed0f,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_37ffc6c37acd362a95779d82,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_960e72ff62f4687900798f28,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_6c92b1e202ac9138424d2aae,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_38e1d7afaa634c5bcf8fba4b,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_71691a9ce7a16274ec79488e,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_aeb99c9795b1b667c96c8442,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_9fb41986cf934a273f8f4eab,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_e00ce934f3f0714069ce7c6c,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_a62c925cae1c85b2c62d2949,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_c4386f5125b942048f494602,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_291e0b9ae311c6ffda7f069b,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_ccd5f6938adfc75f2115ca5d,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_9e06cf1614eb589eb229c0c6,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_e658a3d52376bffb7c3dcb6a,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_862e759ee1a7fe165627561e,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_a23b2b1c5779b5255c4731e7,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_105a1ec9e9a0d3a9cacb6b92,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_952a4377bb371e24d87615ff,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_cbbcf110e50c400d10b94685,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1b37e83c2e35e1ed958653ec,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1e43e7fa968f48f6e3e94264,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_a80dbf093942e5f325bef603,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_7133fdc3226a7308aff3a682,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_1c45a378f52912cf135e65c6,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_c961eed40a8b703f09ac8161,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_bf7cbc61772f505fc8ad1b17,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_bbd9d60b778e992c76a38271,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_dfb16165ee9d91b555ed524c,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_0046b18ea77b0534cdfa876b,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_e232c8ad5e6fb418f105c5c2,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_56f429444ce19a00057627ca,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_0df89cce38796850432a0063,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_6d65bfe42e904308a1bdd806,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_8863503fcc946f590751b768,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_e5223dda5a712ce61f621ec3,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_bb07411b9cf0968e028983bf,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_289b802e78ae091f22167819,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_41cace41bf5fdae24adfb47c,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_207726ea05005c28189c61f1,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_913c1f6ed931a020300a7b64,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_dcab6732f29b4cb459ab7ba1,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_ec44682472ad45fe4ddd195f,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_f28bf5892c16125e5d64223f,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_861595981071aab7b26d48f5,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_e5be0b07cf7639113a6e8a0b,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_513eb8842c592822fb92ab1d,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_6ae90a7c053656d60f443537,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_a9154d0ffb0bc0054f135d51,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_066e0b08801f375272c9faad,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_d2af3b58903fc684fc66fadc,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_27a8ec92e6272b3f280c2108,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_9ac98f6cb858e3b82e665427,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_7a433ef9c4796be8714c1696,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_439c21ce2d7f266b9aecdd16,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_2850543c8fdf9cc44ed81841,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_3fb9a0685e18e4e439bbd18d,Cubism,Unknown Genre,Baroque,1,3,False
+wikiart_9165025ec9cbc1ea679188ce,Cubism,still_life,Cubism,3,3,True
+wikiart_d3507687cc28f05c1f8f58c6,Cubism,still_life,Cubism,3,3,True
+wikiart_c2d47205357f32cd94db7a24,Cubism,still_life,Cubism,3,3,True
+wikiart_94e66efc70d95f06d684a8d6,Cubism,still_life,Cubism,3,3,True
+wikiart_241441395855e60651dc3c8f,Cubism,still_life,Cubism,3,3,True
+wikiart_2d1a89657e1f86373ecba404,Cubism,still_life,Cubism,3,3,True
+wikiart_07f84410e9d5f0abce142129,Cubism,still_life,Cubism,3,3,True
+wikiart_b3f5a62f1ddb81212dc62b26,Cubism,still_life,Cubism,3,3,True
+wikiart_064a7f2c52c5f494998abd5f,Cubism,still_life,Cubism,3,3,True
+wikiart_458f20c0a6582c6b278d0986,Cubism,still_life,Cubism,3,3,True
+wikiart_f0821b5f3a0f1a272e251654,Cubism,still_life,Cubism,3,3,True
+wikiart_fe3993c40bfad3229d2f0996,Cubism,still_life,Cubism,3,3,True
+wikiart_0e726bc64beffced5f50d493,Cubism,still_life,Cubism,3,3,True
+wikiart_7203b08b86dbe639a9248c61,Cubism,still_life,Cubism,3,3,True
+wikiart_a98058097aeb947524c0c525,Cubism,still_life,Cubism,3,3,True
+wikiart_53a34bb869a2b5923494b318,Cubism,still_life,Cubism,3,3,True
+wikiart_e61156fba4c7d5746f04cfa6,Cubism,still_life,Cubism,3,3,True
+wikiart_ef64137e6dfc70cbe1486be5,Cubism,still_life,Cubism,3,3,True
+wikiart_171bb32462bd40f98bcd528a,Cubism,still_life,Cubism,3,3,True
+wikiart_eaa58aadf65ba6e335d424bf,Cubism,still_life,Cubism,3,3,True
+wikiart_17237378662b45d7e6961caa,Cubism,still_life,Cubism,3,3,True
+wikiart_17d8ba9be65ed8e08bc41912,Cubism,still_life,Cubism,3,3,True
+wikiart_5df79ec63d5c216463f48b69,Cubism,genre_painting,Impressionism,2,3,False
+wikiart_ca6063d34e7ea6dbbe071669,Cubism,still_life,Cubism,3,3,True
+wikiart_9d92db86617b4e141a8d48ec,Cubism,still_life,Cubism,3,3,True
+wikiart_10c8b42b39e0a972ae460e52,Cubism,still_life,Cubism,3,3,True
+wikiart_74019e95990a8eabf81c464a,Cubism,still_life,Cubism,3,3,True
+wikiart_1ab9f6be5d74e6547dffd07b,Cubism,still_life,Cubism,3,3,True
+wikiart_57a0284e44abe1b2a27b15bc,Cubism,still_life,Cubism,3,3,True
+wikiart_cd9cd3ec208fea258a20218e,Cubism,still_life,Cubism,3,3,True
+wikiart_2a6d65064b8346f566bf4acf,Cubism,still_life,Cubism,3,3,True
+wikiart_9e86149c1dfc1f46cf7294ee,Impressionism,landscape,Impressionism,2,2,True
+wikiart_9a92c4a30208e39018b0dccd,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_170bbef8e3dc871b6c5d9348,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_1fbcf48ccbb7a24c85d2e35f,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_4cc18198f4adb713ad3fba44,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_d42aeb043eb8cf8cb08cebc2,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3f4d31aea693e9a6877ed9bf,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f040bb9fb88e36054c017e31,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_a0dd1b4a56f6533f4313dce2,Impressionism,landscape,Impressionism,2,2,True
+wikiart_4ebe4a9eb4c6359b03496eda,Impressionism,landscape,Impressionism,2,2,True
+wikiart_550ab42e81fb81fc84f7b5b3,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_61acf20d03ec6fae90bee079,Impressionism,portrait,Baroque,1,2,False
+wikiart_01462a0d68d77406d10213af,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_3603154f56fcb3d2f99ec468,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_b44bba1c4637df6b57efd8dd,Impressionism,landscape,Impressionism,2,2,True
+wikiart_9815bebcdb47981631794aa3,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_cdf31a4fa07b66d4c7e7fc29,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_d06dcd3428f29166ee2a7449,Impressionism,still_life,Cubism,3,2,False
+wikiart_7345aa10ac49f1b5287d64f7,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_67e4dcffce4116053412ae0f,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_56e48a6827f16dddeb9e89a8,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_dac0a4c0cfb7e280fca34702,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_66683f20fae953239074e2d8,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_d369f1811005a958e13a1717,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_abbc0e9b53f122867078e164,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_f1ca31c90210a173559704c6,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_192bd9799f2c026fa831e3a2,Impressionism,landscape,Impressionism,2,2,True
+wikiart_fa1da9f45b46558fff102acf,Impressionism,landscape,Impressionism,2,2,True
+wikiart_671cc28d654bf6a9a9fa3485,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_8dd6c55cb01725ffd006494c,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_d3fcf5e7e1bd2824b37ae7bc,Impressionism,landscape,Impressionism,2,2,True
+wikiart_82add615422bbe0628c979ec,Impressionism,portrait,Baroque,1,2,False
+wikiart_ff8b83cea26eea44396b6d36,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_6f8d5f7fe9ddbbcc77059277,Impressionism,landscape,Impressionism,2,2,True
+wikiart_a04ab7bad970832d43cf8dde,Impressionism,landscape,Impressionism,2,2,True
+wikiart_b10b537ad93317e3d4e409c0,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_7bb51eb61c30459452189fea,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_2144e334a5f9ad3abf21d24f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e20297eade71c41ed047a5bf,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_29ef371eba6d5a3f43e8fac2,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_b3e939384be3ada11fd965e1,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_72c53b42352ba4e99deceb84,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0362c9ad91350378562914d2,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_ab285c448bb38bbfab456518,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_fdd98692f0bd4298dfead487,Impressionism,still_life,Cubism,3,2,False
+wikiart_e15b35050e143b0e0684726e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_d2c81ed6eb0a9fac0cbbd932,Impressionism,landscape,Impressionism,2,2,True
+wikiart_795c38dfc1cdd289712bd53b,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_48e07fa9f90d5a317296f80d,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_4f3d8b7b82c0c74b5c2253bd,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0d578830c30c61d57f03ea63,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_bdefe26b2d6e396f31863f08,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_43f37acd7c69c273bd2ae251,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_30484de0a039289a0e0630ee,Impressionism,portrait,Baroque,1,2,False
+wikiart_5c1d682ad99fd55b8b361fae,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_991cca66ec5700a735376058,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_6bf37dd7a75784b782e09d99,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_00a36b67a33ac07017e0504d,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_26ab49d68a1fc587e097124e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f11fc46770826088f30b8e59,Impressionism,landscape,Impressionism,2,2,True
+wikiart_652d19a9e4825e1cbf69b786,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_6790c895003332492270c57f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_60f2822fe5d8c84aaf1d6681,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_53abf50ceb5b69a9623447ef,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6a094ad3c2793e64b8a06618,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_c9f955e0329abc3ce89031f0,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_06116c10fbb234578f560ad4,Impressionism,landscape,Impressionism,2,2,True
+wikiart_33261b816c81b7dcc06b9fac,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_08c06b115d1c91e6eceb2a5f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_06ff9c7fd8031107b776e056,Impressionism,landscape,Impressionism,2,2,True
+wikiart_8b865889a68fe3c8af4c4f53,Impressionism,portrait,Baroque,1,2,False
+wikiart_4858f5be5a46537fd4d59139,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_ef254b5d6235aeab709413e3,Impressionism,still_life,Cubism,3,2,False
+wikiart_3129c564b17393ebfe8cba41,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f623ff11898c5f8cf5721a42,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_a2f420689b82c4596dc9a7d6,Impressionism,landscape,Impressionism,2,2,True
+wikiart_227f33764b2ff63c120e0c83,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_0bc60b72c9dafdf2457e9d4c,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_ef853977a4a94bb68e5ae931,Impressionism,landscape,Impressionism,2,2,True
+wikiart_ad6625704c1dbf68aafe743a,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_0b2786070761cfecca06bbf8,Impressionism,landscape,Impressionism,2,2,True
+wikiart_b68170fdf5bfcbfa5076d496,Impressionism,portrait,Baroque,1,2,False
+wikiart_803bd009b024bd0c5c04b88b,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_17c9eabbc29cdbcf753e6c51,Impressionism,landscape,Impressionism,2,2,True
+wikiart_ab3f30dfbb56d02d55c576e2,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_574eb4c5108c81a5ca855893,Impressionism,portrait,Baroque,1,2,False
+wikiart_bc268f9b2b58aa308a953fc7,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6209d7ec8330c326555ff14f,Impressionism,portrait,Baroque,1,2,False
+wikiart_b55a2539e1d3a8a1098b7e69,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_2d34b85e8ee1795d668e86c5,Impressionism,landscape,Impressionism,2,2,True
+wikiart_5089817f63a7bd811268bf15,Impressionism,portrait,Baroque,1,2,False
+wikiart_b96fe1bd789823d7139f2b8a,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_b3568a045eae180e467b67f9,Impressionism,landscape,Impressionism,2,2,True
+wikiart_ed55f33dba17710a69c8a16b,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_25db401a3dc0f95752b819dd,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_bfc81f9b00534eea816f8659,Impressionism,landscape,Impressionism,2,2,True
+wikiart_562bc347e78f474c19be8020,Impressionism,portrait,Baroque,1,2,False
+wikiart_0500df69c68760c26b7bfcb0,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_3a7f3db7852d956539f7b20b,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0c7e256dbd1ec3d5d97e1f55,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_c2aff9e7d4f40860b929e9a5,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_6f15b0549c9b0bb920c68b93,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_8e7ac55f66d3b3e165a7bd9c,Impressionism,portrait,Baroque,1,2,False
+wikiart_175bce32616e10e2487539b2,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_881b91e8a7f521e5970275e2,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_91bf4d33db5b06501e796a26,Impressionism,portrait,Baroque,1,2,False
+wikiart_d19bed66dca02bf9bebceaea,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_e97f2d4860d20309544047d9,Impressionism,still_life,Cubism,3,2,False
+wikiart_58bdd62318624f69699be16b,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_d287dd84bc49aaaa7f170f6c,Impressionism,landscape,Impressionism,2,2,True
+wikiart_4d90a012e14951708ea6a55c,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_18d773aff701592e990d9f82,Impressionism,landscape,Impressionism,2,2,True
+wikiart_b2776d82ffc9bda526c8bd5b,Impressionism,landscape,Impressionism,2,2,True
+wikiart_2b4082e32fcfe55e30d371fc,Impressionism,landscape,Impressionism,2,2,True
+wikiart_458d14cc5a675abb2fb07fa7,Impressionism,landscape,Impressionism,2,2,True
+wikiart_540fa76df240760bcc41012b,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6c89c014eaf84f58306283be,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_f637e782d995f8281c75e87f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_69fadc1ee78cf3617fd204eb,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_1923cb518c50c1fb9c38627f,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_a1088a0b398c19778a81e150,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_c83b580a05b34947e1f862de,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3384bbc890feb2f428cc16b4,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_178c78463b026a86bfa96360,Impressionism,landscape,Impressionism,2,2,True
+wikiart_cbe58f623c4fcc78c00ec9bf,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_0c0da70232ae88bc4e107912,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_d459570c7b39a364634d4b1f,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_57ce978c3952aa58655f4bf7,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f45d2f169d0d4e16906bc701,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_d95cbef73c426130c3d7b75f,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_6032d827fbeefe238307f036,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_4eb60d7fc32a7d630b008f81,Impressionism,landscape,Impressionism,2,2,True
+wikiart_b09f8cea7eb3d6414f5a837a,Impressionism,portrait,Baroque,1,2,False
+wikiart_87b5f7f6d3aeb4a12368909d,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_58212073d3e03ba4a8d11d8b,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_e53bee43bee9cfe14c2c420f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_17a0f0e1a7de8ccd69c72515,Impressionism,landscape,Impressionism,2,2,True
+wikiart_917b3ead901665534702b9d2,Impressionism,portrait,Baroque,1,2,False
+wikiart_f3e6613b0a7530fcca7c331c,Impressionism,still_life,Cubism,3,2,False
+wikiart_04308e9e655022c16ff84242,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_7bcde71658c285d08a92eee2,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_1ff9bc0139edc00a6cf4ee04,Impressionism,still_life,Cubism,3,2,False
+wikiart_36e404237a38e1e36aa0a9cb,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_7c904f9b7fdabb7aa06359f7,Impressionism,portrait,Baroque,1,2,False
+wikiart_e7c32cdf26074245cd887e7d,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3e5f6f913b3db77bffc70224,Impressionism,portrait,Baroque,1,2,False
+wikiart_5e72e987c81baf2940a32e3d,Impressionism,portrait,Baroque,1,2,False
+wikiart_745d2b98a2b7bedbf627045d,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_8790588d5e4856403676a0af,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_7cc07d206d27d7e16c565745,Impressionism,portrait,Baroque,1,2,False
+wikiart_9e20295ea1e9bbf0c62099e9,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e3723fdd0547c899dd7e7b09,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_f2af107fbb4affe3ba97ecb4,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_14359ae9daacddabef29bf5f,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_3c26eac84f1e986ebc5216f8,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f3e9482b8791073d6c870a4e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0c5ec611d25d4fd7296ea9fd,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_65b9d5362565c40c2e499d95,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_7b40c375a488dfdeeba02b39,Impressionism,still_life,Cubism,3,2,False
+wikiart_1119a2af15d9a7be71e35b5e,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_fdb86606480be4fcdcac4d2d,Impressionism,portrait,Baroque,1,2,False
+wikiart_e9937d698646aa63b911486b,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_3052b9c74783fe93b6dccbd8,Impressionism,still_life,Cubism,3,2,False
+wikiart_2661bb276a77011e052aa732,Impressionism,portrait,Baroque,1,2,False
+wikiart_461549f95175c17151c17c75,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6f841b9963e1320300c61882,Impressionism,landscape,Impressionism,2,2,True
+wikiart_233dd9c93c69c5270fa08c18,Impressionism,landscape,Impressionism,2,2,True
+wikiart_4c8d8134e33f2b134eee6934,Impressionism,landscape,Impressionism,2,2,True
+wikiart_99532d433b65155fccd33f7c,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_bd945331a1fe32ac95a343cd,Impressionism,portrait,Baroque,1,2,False
+wikiart_30de44f3ced9b8eb7d855daa,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_196ca6e6400aa0a6edb16b3b,Impressionism,landscape,Impressionism,2,2,True
+wikiart_5153040b4737a8b740e203ac,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_5aeaa90ccc7acbcbecd9067e,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_edbf535971a2c178b111cc4e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_d18ba3abd612b44016a636c0,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_303def36bade227f8e72e6f7,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6eb5c69a5c36ff80c840c8ce,Impressionism,landscape,Impressionism,2,2,True
+wikiart_5c0ada37f1e234cb8d76e073,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_68a8e82d68e6efcc0ca696b5,Impressionism,portrait,Baroque,1,2,False
+wikiart_83be3911acee4f4a15e7b105,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_7f1becacf0b4200930339171,Impressionism,landscape,Impressionism,2,2,True
+wikiart_503a4c9b9d35412e62b3286c,Impressionism,landscape,Impressionism,2,2,True
+wikiart_99732ff6c9f839749c860471,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_d2b3ff82817109297c0a74f8,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_3a0239d666007fa9b1f54a1e,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_14d2463cc8976e5de0059329,Impressionism,landscape,Impressionism,2,2,True
+wikiart_d4fcd186fd0adbedbd87a252,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0a82f5fbb5f22659000712aa,Impressionism,portrait,Baroque,1,2,False
+wikiart_c63b881e6f5dc6ccfa545e9d,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e34867fb72d758f94a359afb,Impressionism,landscape,Impressionism,2,2,True
+wikiart_28eb57e30dc40066c727a01d,Impressionism,portrait,Baroque,1,2,False
+wikiart_a0fb66afc28f576dd3950eba,Impressionism,portrait,Baroque,1,2,False
+wikiart_a01852d85a7d4d097dc93b97,Impressionism,landscape,Impressionism,2,2,True
+wikiart_25b83f6c11b4269abe8e3038,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_43403ffa8f073e669eaa792c,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_15d0de680549f8cbc9e562a3,Impressionism,landscape,Impressionism,2,2,True
+wikiart_2681aa77bb0bd1b8494bb618,Impressionism,still_life,Cubism,3,2,False
+wikiart_577af298b49e6e68860f09fc,Impressionism,landscape,Impressionism,2,2,True
+wikiart_752192125ee0d15a63763b70,Impressionism,portrait,Baroque,1,2,False
+wikiart_1a16cc578e33fd4d2e424f35,Impressionism,landscape,Impressionism,2,2,True
+wikiart_05001e0cad03e18b30ff610f,Impressionism,portrait,Baroque,1,2,False
+wikiart_13618fe23c3c5fdac82bd6e5,Impressionism,landscape,Impressionism,2,2,True
+wikiart_81a5a8f2b30380a585867f8e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_14d8442c58ee3de6c810efb4,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_fb8004633425871c7c9b24e4,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_514bcf0314d4b1a8cd4a300a,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_fe6221f97842e8d84bdf86d7,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_0387589fd3212e25e3f3b5ec,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_919aac8c571b1368629109fa,Impressionism,landscape,Impressionism,2,2,True
+wikiart_1f3b23c4f7259d30aeeff076,Impressionism,portrait,Baroque,1,2,False
+wikiart_0cad80d98ee0380374c6bb21,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_8b75fd4f93dda563a50cf56a,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_62864a0369adf1b0c1262e12,Impressionism,landscape,Impressionism,2,2,True
+wikiart_7ebf83b04cb92ba0daa09fb8,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_1fd9401a167f1f43bc0eae49,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_840f0eed8f3e51299aaf2e28,Impressionism,portrait,Baroque,1,2,False
+wikiart_c51d91731fe30330a9342eef,Impressionism,landscape,Impressionism,2,2,True
+wikiart_c348ac6dd0052ada786f7b89,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_04d52c82fba2600bac617226,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_fa2ba1074930412968139ce0,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_bd0ed59dd102214ae56f3cd1,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_54cb51bf2e4869937403a23c,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3ac80984784c9965e1650825,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e418bd02fe057c37630a1160,Impressionism,landscape,Impressionism,2,2,True
+wikiart_5d81637a17f962feec8930bc,Impressionism,landscape,Impressionism,2,2,True
+wikiart_936b5c8973d04d86249f594d,Impressionism,landscape,Impressionism,2,2,True
+wikiart_fb1d1252d428645172e8ff9f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_18447027097fea8302a50900,Impressionism,landscape,Impressionism,2,2,True
+wikiart_cbb7adb54c417a77a956e050,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_77216449cd8593fb91fb250c,Impressionism,portrait,Baroque,1,2,False
+wikiart_f243d532a9c2cc319aa3e171,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f08931a8a7462aae5f1bcce8,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_efe36ec92f7283fa50ba5f69,Impressionism,landscape,Impressionism,2,2,True
+wikiart_4b6eae3cc06db4ef689c65e2,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_5c6331a73c201d418189d9e7,Impressionism,nude_painting,Cubism,3,2,False
+wikiart_6d54aab297dd789d5327d0ea,Impressionism,landscape,Impressionism,2,2,True
+wikiart_8135f1f056bceee4ef713cab,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_596f9472847b3506d67e1c98,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_64ddaf048278965a6986d056,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0cb2f0d902eac654bdcfb281,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f4f83ae3f6cfa6fa3b2775be,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_c20ad90e7d2e7c1acecaa138,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_f13655891f5bdc6e5b6da0f7,Impressionism,portrait,Baroque,1,2,False
+wikiart_edaa3d6f0928659a4102d794,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_205f82b009db028da97b34fe,Impressionism,landscape,Impressionism,2,2,True
+wikiart_d1c9114f7a7070f6e8863b88,Impressionism,landscape,Impressionism,2,2,True
+wikiart_fff647308754aa4b518ea81d,Impressionism,landscape,Impressionism,2,2,True
+wikiart_29320e5cf1e147887355d6be,Impressionism,portrait,Baroque,1,2,False
+wikiart_84e25b91a6edb5bc56c9e96b,Impressionism,landscape,Impressionism,2,2,True
+wikiart_ca6636f07043511965083341,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_d9bf1b3ffc8c4cbf6229b92b,Impressionism,portrait,Baroque,1,2,False
+wikiart_71d69db50c6a3553db8458df,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_92ee1ddc38c8f2e5556aef80,Impressionism,portrait,Baroque,1,2,False
+wikiart_e854838898b524aef163bbfc,Impressionism,portrait,Baroque,1,2,False
+wikiart_8b08c09385d39e79f70b36bc,Impressionism,landscape,Impressionism,2,2,True
+wikiart_b3f18b9c2fec4542ef58f93a,Impressionism,landscape,Impressionism,2,2,True
+wikiart_73d5f173f41f50870e54fa67,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_24d17470752f0926d6d2ed24,Impressionism,portrait,Baroque,1,2,False
+wikiart_61d2c815d9730c67cb711e5d,Impressionism,landscape,Impressionism,2,2,True
+wikiart_d3cda57ae59124afd5dd54fe,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_6b8470026cf87fde6748f6c8,Impressionism,landscape,Impressionism,2,2,True
+wikiart_102529a8f728c14d2d832591,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3fba7c4e2115b5e1608b268b,Impressionism,portrait,Baroque,1,2,False
+wikiart_912098bc2117428fba0d4aa8,Impressionism,landscape,Impressionism,2,2,True
+wikiart_0fb778eb1e103fdfc0a1aaa6,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_9efde222d392d7612cacdfbe,Impressionism,portrait,Baroque,1,2,False
+wikiart_c2170c08398176d0785aefa5,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_ee627fcb3e82d6984bc6e439,Impressionism,portrait,Baroque,1,2,False
+wikiart_7de5451de0b9ce5d081027a2,Impressionism,portrait,Baroque,1,2,False
+wikiart_5700906b47682c9480a185e3,Impressionism,landscape,Impressionism,2,2,True
+wikiart_58f0f05f18f36742c371db27,Impressionism,portrait,Baroque,1,2,False
+wikiart_69e29da8441e01bbe73da051,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e2dd7ca36793962935750915,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_e8613888bf6170e490282753,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_dc026806be44d43d392b4a3e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_2fda6bf1d853d42f98972767,Impressionism,landscape,Impressionism,2,2,True
+wikiart_938182b27695a6deaf09f28c,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6365263d6bbde09f73ab4a46,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_ade107cba4610e49b3efef55,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_4dcceea83da265ca7c8120e5,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_6d665234d4e269578104d918,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_fd4ce0c149567970ae7b4e93,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_02bf6889537cb012e61d6f9e,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_0c251eca2db0912696bb469a,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_ae16f6b577d72230d7ee462e,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_5a5fb1a5794660118920dfa5,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_6cd9d2d43c474c96b99f9b4e,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_43473b568451941b3e1ef939,Impressionism,genre_painting,Impressionism,2,2,True
+wikiart_b4745b2925061a41742d1dea,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_46ed63eba03a628670f6272c,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_77178ab359ed08116bbc85f4,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_dfc9ec67877bae4d2d8f744e,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_e45d80198f44f5e9666f3dcf,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_89791c1c86fde9c5237c8453,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_b980b1b266c745bb9d11293c,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_86fb3281583622206ac842e3,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_5e35e599cfe6b1e6f919071e,Impressionism,cityscape,Impressionism,2,2,True
+wikiart_121911536fa77f4a3d387484,Impressionism,landscape,Impressionism,2,2,True
+wikiart_5a187f30033b9bc7881ef65c,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3754b0eca5d72607dc129695,Impressionism,landscape,Impressionism,2,2,True
+wikiart_4d634f368f0dccdc44db5af4,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e0cc68540d5b4ee3662537d7,Impressionism,landscape,Impressionism,2,2,True
+wikiart_85a4ec29fec159c3c568b166,Impressionism,landscape,Impressionism,2,2,True
+wikiart_7308ad7cdc43166b0c762997,Impressionism,landscape,Impressionism,2,2,True
+wikiart_57c802d997e2c37c017eb9d2,Impressionism,landscape,Impressionism,2,2,True
+wikiart_78c0e7210e36a210540e0340,Impressionism,landscape,Impressionism,2,2,True
+wikiart_9f5b955daed0659d80c85d1e,Impressionism,landscape,Impressionism,2,2,True
+wikiart_ec79228fa972c1b72178cc8c,Impressionism,landscape,Impressionism,2,2,True
+wikiart_d13faa20933f55814276971a,Impressionism,landscape,Impressionism,2,2,True
+wikiart_ac8322dcda87e6bd716b474a,Impressionism,landscape,Impressionism,2,2,True
+wikiart_13a53df76719643d2176ab88,Impressionism,landscape,Impressionism,2,2,True
+wikiart_8c3935ed5919635351dc26dc,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3460d30a2a0ed56fa03b77d5,Impressionism,landscape,Impressionism,2,2,True
+wikiart_9722bec2d86bf4129f12db77,Impressionism,landscape,Impressionism,2,2,True
+wikiart_84ad4dfddc4d7b2f24b7a849,Impressionism,landscape,Impressionism,2,2,True
+wikiart_561c0644bce8583905a38ca0,Impressionism,landscape,Impressionism,2,2,True
+wikiart_3bf3a153a33346009d8692a5,Impressionism,landscape,Impressionism,2,2,True
+wikiart_4e2aa0c287861a3eaf5d6b1a,Impressionism,landscape,Impressionism,2,2,True
+wikiart_5fa7fb59bdb5b5d45e77ae8f,Impressionism,landscape,Impressionism,2,2,True
+wikiart_356929b86b9b5a17fcda6b66,Impressionism,landscape,Impressionism,2,2,True
+wikiart_a4edf3d5b4c7d4db8d85071b,Impressionism,landscape,Impressionism,2,2,True
+wikiart_e0f198c65febbaa5ee5dcfbf,Impressionism,landscape,Impressionism,2,2,True
+wikiart_6a7e36ad3e771cdad2f62d82,Impressionism,landscape,Impressionism,2,2,True
+wikiart_f75a08fd9e185414f2ad9831,Impressionism,landscape,Impressionism,2,2,True
+wikiart_1970f76c6619a31c927b87c0,Impressionism,still_life,Cubism,3,2,False
+wikiart_f72ed344ba7059cc5507f08e,Impressionism,still_life,Cubism,3,2,False
+wikiart_ff6339f32e0a69669682b515,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_2702bdf6802d49f32b80e168,Impressionism,sketch_and_study,Renaissance,0,2,False
+wikiart_189bd12a0c30bd3d03432a3d,Impressionism,portrait,Baroque,1,2,False
+wikiart_42958acf1b7b984f0f64b7e5,Impressionism,portrait,Baroque,1,2,False
+wikiart_71f0886c207c4ee18dad6e58,Impressionism,portrait,Baroque,1,2,False
+wikiart_c74b533bed6a5f896a74d74e,Impressionism,portrait,Baroque,1,2,False
+wikiart_f1603c7eeac38b3f84c30527,Impressionism,portrait,Baroque,1,2,False
+wikiart_fbdb1f8954f87f7dbee58267,Impressionism,portrait,Baroque,1,2,False
+wikiart_65ef1e70ee8a550701125157,Impressionism,portrait,Baroque,1,2,False
+wikiart_982d73988c24d7d819256fbf,Impressionism,portrait,Baroque,1,2,False
+wikiart_849e536945a9192bee65152d,Impressionism,portrait,Baroque,1,2,False
+wikiart_b0e4597344d975846d5ddda7,Impressionism,portrait,Baroque,1,2,False
+wikiart_d61fd42ceec2d3a5654dbf1c,Impressionism,portrait,Baroque,1,2,False
+wikiart_01dc02802fb0c7f084cc8255,Impressionism,portrait,Baroque,1,2,False
+wikiart_851a6b95c60020feb3e3cb62,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_bbbe3b1619847a737aa195a8,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_497b11bd161cf14afe12068b,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_47215be823e9b5546e44f015,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_5980baa7f51cec8ac632ccc0,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_80247e4cbc1439086b01ac13,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_cd1e6a7bae430af310a2bb06,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_1207bff2ab61e25d165c83a8,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_f024a4695052e626c9fc4673,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_68c6fad29c8a010a1ca3c05a,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_298caf3ebe7f3f2d66418b15,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_1a498bf046bfade44fd22c09,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_3b6a932be85ad3b5a7ad4ec2,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_770cda0a0f56c961bbb6b9ef,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_138b3ad714297295be6465a3,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_9a5a9d98b6867ff8a3e37c14,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_06d23f33bd7e78da9718adf4,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_aa17acb59bed83f5b5d479a7,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_4c24de1e3c37babbcf0803a8,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_145e84542c0b4ae34be4d9e3,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_74700cb67f09e1cf7e1c4168,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_6018f96fd591b425ebabd4e7,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_0d992ec2eb7db58e620ceb1f,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_46c21ce02e45cdf4bb12fac7,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_bdb0e00bd801f54ba1fb9ca9,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_69b73f52bf19d682f0166935,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_dc9765d396ba61dec5c5036b,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_b15463a0e4673906895a43e4,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_8bfaf2f507c3e7eb91719890,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_ee0f1d5abf7589c01fbae2de,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_2c624010c5b7c1adcd55f130,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_95dc2c30b5521816b5bba3ac,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_210e922b551071c7ba3c6495,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_5d8b6693d8fe58074684ebcb,Impressionism,Unknown Genre,Baroque,1,2,False
+wikiart_4d9011ea2e9a10b3c8dd7a28,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_0f7c5f433c1d555508f6a17d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b9a3bb84f6678f87db643751,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_30e756cb170b1e3a8fc728f2,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5e4abfc4758a1562ec71493d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_af7f8a35a41c2fb08ede95d9,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_947c28bee5688860f77b70fc,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2fb731bcbe66247459dfb69b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2318ab12199265b942e1331d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ce20d6453bc4208843fcd00c,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_86d37bbcd682828c1ff5154f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_3d9032793ca261230901de9a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1328339db09c13c65732fd76,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b62931cbad100e3fe91d1375,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_24cf0e74e94416d29390d405,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_179a7015f8aea69b2ff37fdd,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_e6de27273b1dd1e67567d75a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e215c1dfe459ec2c57c507ae,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_de47fb3aff785d42e5d58125,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_232a5c291e9f86e9cec70d9e,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_46a07ac0d7861bea06efc430,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f1096630c0d6bea81c61bf9a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f383286c4b903f5e013fe7a7,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_40fbe0c8bb248aaa273bc009,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f93c895bff8cae3ffda36174,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_9bd1e9586eae21e41e263f22,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_bc6a323ca9a81a593cd4e571,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_8dd47e07b922181a4f58431e,Renaissance,illustration,Baroque,1,0,False
+wikiart_00fdf8a1f1b6d5e2744b848a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_6d62b7065ef672f740d78cdf,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_04555136d42714f87d8df16a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f62cf9dfd73800bbd8c762d5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_64a5b8acd39f631d9c7736d1,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_10feda563eebd113140e122d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_51f42fe2bf81381600496438,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_434832e6c374601505b668cd,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f9f2683d96003e0df122d4db,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ba788961ba708b909bc3d655,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d4f88f5331ecd5c517abc618,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f706b44c032137c478b5333b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f032a77a493a961d84ea933d,Renaissance,portrait,Baroque,1,0,False
+wikiart_033ba2bbf674ab04c61844d8,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ac33f5cdee3615cd47530168,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_bff794e9215210b05c0cf56b,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_41fc659871a1b9daaf26d47d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_6a2ccbc12272fb8b8ce84360,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e67b97c7557fa3fe8348a74f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_4f84bbf5baeed1d2612044b6,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2bc5ada8c774f2ea689bc87a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_9176c98c8c5e231a7f80b934,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ddb6656a2d30de41d9efc6d7,Renaissance,portrait,Baroque,1,0,False
+wikiart_250246ee684b9d14b15b256d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e69a4c3e6551398fc6e9f975,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_820567b00caa52c9a5bc28f2,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f89809df3fc6eedfe533eeab,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_6b6ce8c5f4467004e04171ed,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_9bb475cda7c5773211df84bb,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_bb3b2c10c2850c61af8c1b4d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_c133501eee5d73c4d8db5c7d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5434df4b600db7f7ae2ca636,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_a8d3ff361b1dbaa17f7bff42,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_16e783838a297de296492db1,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_134d7ddf777737ef52e05864,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2526b6c56e1eee13d909bae5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_46f25c3b57ccf522b6bfedba,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_8f002c059b3ba1faa1fb6ddd,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_36e02874b24979afe9849e71,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_822698ad889a68ae852424c2,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_3c4691d4d479e4ec06c0e96f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e87240f99338168c5dd3a3db,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_48eda1284fd981e4d8984a16,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_211f360128cee99c9c0fa2c5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_bb143cde8369ba9239fa9cbf,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b30ceb6cff4d7a9a0363b1ca,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_0442fd29f18b831e7b3aecbd,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_ecd776eae363e506d7945d01,Renaissance,portrait,Baroque,1,0,False
+wikiart_f7c846d692dca012b5c68f7b,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_2efc2bcd28baa8c89b3db608,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_a2c2eb22e3c92e0422c36ad2,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_f0b75c149b49f430664fbb08,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_834c231d9405b19710ba3048,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_7d864dfc9744540c762e07a2,Renaissance,portrait,Baroque,1,0,False
+wikiart_ee5e9b9dc8783429994b79f5,Renaissance,portrait,Baroque,1,0,False
+wikiart_65a680f2d05da725fd877622,Renaissance,portrait,Baroque,1,0,False
+wikiart_bb32a59d343a30a8f286f8bf,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_caed4b25fe14938b53dca0ad,Renaissance,portrait,Baroque,1,0,False
+wikiart_8fa65161ebb37742440ad281,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5678bed3fc105683bb4a956e,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_4d22ee54480e15974d8c6bdf,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_1bf4cfd01319d158d1d9097b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_6a4a0ed03b8df61145b3107b,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_11ecb4624b823abc1c167278,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_18b4ed5e7a1fdbc02c75cfc0,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_26f189ba59f5c217f9026348,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e20de8bdc269fa8e82bd4e5b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_95b2f0e747605f1676383f0d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_7d9749706b7cefdbfa731ffa,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_7053998295be60bf2ffaa882,Renaissance,portrait,Baroque,1,0,False
+wikiart_71612ebb21e4253e9727befc,Renaissance,portrait,Baroque,1,0,False
+wikiart_23d9ebdc278f5861c41680e2,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_9e7c357883d993c7e8bc245c,Renaissance,portrait,Baroque,1,0,False
+wikiart_319ac9ddef79705e15bee618,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_515e0bdabdc2c6cbc9dde13f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5137774a9e1022191b68936d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_403f124a1bd9c8e452bfe74d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_78deddbc22d91852dcf78958,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_d764185bfd95e2a933ae16ae,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_96b25545323ecf3bb8c7c134,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_9215038022eca8eba56d368f,Renaissance,portrait,Baroque,1,0,False
+wikiart_c076cea5d0ac0f7e42fb4239,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5852b5895fdc7217dfd4146d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_096a70aeae1a19a34cb42be8,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_55e41baf26d441b8075c719a,Renaissance,portrait,Baroque,1,0,False
+wikiart_9f658a85eccfffd8f44b1022,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e15328efe574975d80da19ca,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_801976d6db0b62f86d92d607,Renaissance,portrait,Baroque,1,0,False
+wikiart_1508e977da782038d63b4ade,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e033633058e3a6af6e9bdfc2,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_42c1445b75d8608a1a883800,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_7976516f4b87f9c4099a9847,Renaissance,portrait,Baroque,1,0,False
+wikiart_d798c5b5b93b049e6903b767,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_03697bd21a13e38d99b0bb6e,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_4e76ffb2819ef1de6f3b77ff,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ef0a631d1c81d723f17f14af,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_fc633de968de715d36d43053,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d74a814312e5655948a146ee,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e3013172e22ca72e2977af6b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b64e2688c68d4da42bc47ec7,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_68b08ec89ecf4076c597caf3,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_33c4ec53b4fc0f803335622b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_58939f6c8a739a4c2358f4a8,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_158d9e1b4e573a96b3452347,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2e64023b6b413be1a6ca9477,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5fc670a3ad1a3232ddfd2b67,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_b992ef56d7b997030f4a32cd,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_25bbb0645fb18b944fa09ca7,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_65445bbdf4096c9becc2fb28,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_1d231c652f298262d9e68853,Renaissance,portrait,Baroque,1,0,False
+wikiart_b92448f8915f90e1af89533a,Renaissance,portrait,Baroque,1,0,False
+wikiart_c2a259a1c4bbf2f4262add96,Renaissance,portrait,Baroque,1,0,False
+wikiart_3175ab55a3516e151ea50d45,Renaissance,portrait,Baroque,1,0,False
+wikiart_385c5cc5803d3335e2cf8ea2,Renaissance,portrait,Baroque,1,0,False
+wikiart_d2a2bff1d32faa35932ade50,Renaissance,portrait,Baroque,1,0,False
+wikiart_0d3830af137a03d8ba40c9be,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_c98e25ce6f969a1e6ac7df82,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_058b3e5dc6c8593d1db230c0,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_3b942ba0f4e8c490ef5b08cd,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_cb9d2bdab09f7c54750a912f,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_c26ff379ad861916f9e0b5a2,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_355bf9e2e8573c5e2e9a4189,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_30dbbce20cae64c229074bc3,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_55cce239bca872449982dbbe,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_81dc9bd777a1afa09bb84bdc,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_4a580f5c4dbe9f63ead206b6,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_2cc2230f3b1e2381222120ac,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_f38d612f32788ab0aadd42f9,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_758c7f43e5c874bafceb7cd5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f59ec359fc6114ba98a9d348,Renaissance,portrait,Baroque,1,0,False
+wikiart_f8fc8a352b21f26a6669c005,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ab837970e2af4616adc12fff,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_80231d172f08bb4c4a1e00c9,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e946f9fc835fa14e290cad6c,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d083b63093e1133c4e640c2f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_cef0625940880308fc1f35c8,Renaissance,portrait,Baroque,1,0,False
+wikiart_69c3f19921db0dc2a898ae8f,Renaissance,nude_painting,Cubism,3,0,False
+wikiart_883ccad27ecb187f70e63314,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d09217dc77f34a3d519c1cec,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_335f23bfa752049aa134b5b6,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_55e1db313faa1862986569f3,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_59e2e05d640bf547ce14f6de,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_78471be0cf5d208323eb4ca2,Renaissance,portrait,Baroque,1,0,False
+wikiart_569de6f0c7d2f13d5bb69e35,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_a176ee1031b8601ed9fe4157,Renaissance,portrait,Baroque,1,0,False
+wikiart_46cab071688c9fc03779c765,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_386fbb87c8ff26ed0f9d0e97,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_563be77fc61ba8b62bed618e,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_0dc95266bc40bd89b906f141,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_eca9d809652eb66f76b005c7,Renaissance,portrait,Baroque,1,0,False
+wikiart_63156e8408ddfc8afad1f807,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e80593a964010f2448fbc32b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_a76fca81431e238815584acb,Renaissance,portrait,Baroque,1,0,False
+wikiart_d76fe4462e6362f47b46eb92,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_9f5d99362884af5af07d7b37,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_325f426c78adb67b83d129cc,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_752f36d388b74d37197792a9,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_933104b528c3993c8e8ea2e7,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d9944cd4c7ef79b16f531702,Renaissance,portrait,Baroque,1,0,False
+wikiart_640e43f72a638e99791dab0b,Renaissance,portrait,Baroque,1,0,False
+wikiart_69d4a199eed2327defe36775,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_02863c62ae166a2989c45f31,Renaissance,portrait,Baroque,1,0,False
+wikiart_6a75d2f5e9cf236e58c6452d,Renaissance,portrait,Baroque,1,0,False
+wikiart_9425b21a5c6a0de4177c8fa5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1b525c55f8c97daed83b95b5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_fe1578b30710d2ca07c84148,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_4479e8395a6327a549b622e7,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_a77194499778b34494fdc0d2,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_37c1885d7c85161cc5e77793,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ce0db944ddac8b18bdf5c4e3,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_c2d7d2b4d7c52678ef1497e8,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_4f471ab1558c200afef02b35,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_6f57396f801a7f1a2dcc27d8,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_e3cc0f1aab25529521cd8d11,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_8882507582e6e9c14fbb04b2,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_be722a904b1f2f7536db4c0e,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_484f61b039394c3f87c7b4aa,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_14a4b7e17dc40e82e08fdd9a,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_e41e2432ec714a873bfd11f8,Renaissance,portrait,Baroque,1,0,False
+wikiart_699f4ae7e8312b5a4deddf9e,Renaissance,portrait,Baroque,1,0,False
+wikiart_40e9cde5517c24199fb04313,Renaissance,portrait,Baroque,1,0,False
+wikiart_7b51b8a7d020412c425f834d,Renaissance,portrait,Baroque,1,0,False
+wikiart_ccfbaabb4ff5c0eab89bb1e0,Renaissance,portrait,Baroque,1,0,False
+wikiart_0e311ad5731a0a5141a9eccf,Renaissance,portrait,Baroque,1,0,False
+wikiart_f17052583bd8e8f6c2127a3e,Renaissance,portrait,Baroque,1,0,False
+wikiart_609dc6ecae1b6d6ddfc63f27,Renaissance,portrait,Baroque,1,0,False
+wikiart_7b60ae9cef8d923304bfab52,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_8bac2b37cee31def74764234,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_16599b66c5a9e9743c39ca67,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_c15b9d71bf59b6db3944a594,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_df1cad5c627aa0dcbe395897,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_3dc34fb85e2a1bb4c4277705,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_157d075014849b609b1b255e,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_f1fdd2f906dcd33beac38489,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_4122a1fc32045fd4d37f3af9,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_487ff52d730c90ec4eeefc27,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_afe836b152ff1fa7eea1eafd,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_c2837bb5db5244efb835f07b,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_d130d175ac99f1e9a9832927,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_04d47ec1c5ed648735cfe8ac,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_458955151375ad4d9edb5d11,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_2a3d80841cbd2e44cc28f506,Renaissance,portrait,Baroque,1,0,False
+wikiart_b70cfe79d874a43e9988bf0a,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_1462fb1c4df3d0dfdea30c4c,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b8140fd56cfa8d3bbc794325,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_0442b034137d115bd273635b,Renaissance,landscape,Impressionism,2,0,False
+wikiart_ea3aa5dac254d1052bb183a9,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f945e2e03f79717b2b4d0cf1,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_31fb2c04ecaecf8647f88635,Renaissance,portrait,Baroque,1,0,False
+wikiart_a4b61417bb787f7d9c4dd267,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_cc3c14640810fd79f7891371,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_84bc2abfb3b03d5079e8e016,Renaissance,portrait,Baroque,1,0,False
+wikiart_f347a636f613e90f339a2752,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_582a157944aeb39b8a7ef213,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_a8bd7552950f07f3316a752e,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_93487c35d76920a3abdca3ca,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_a8613ead51e973382b9de43d,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_c0e442cca18d3f887cd7bb4c,Renaissance,portrait,Baroque,1,0,False
+wikiart_3371b9f5fe7766a1acdf18d1,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_8cbc5693b83f9b4b5cb38033,Renaissance,nude_painting,Cubism,3,0,False
+wikiart_7c92c9495979f14af65e8a5a,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_56b258f15250b24366b24210,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_eea0fdb24b4d0e4bc293684d,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_17d994f40d412fb7b0cdc647,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_356288db61937cebd3c26dc5,Renaissance,landscape,Impressionism,2,0,False
+wikiart_af5e9fb66fc4f2cc5d60e1cc,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_028d96bee81f94bb7f88fb39,Renaissance,portrait,Baroque,1,0,False
+wikiart_5c99d39da0e76036eed85ad6,Renaissance,nude_painting,Cubism,3,0,False
+wikiart_ed1f14dc6c5d32d52cb2dd65,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_66ab972c8ab5fb36ed135f0d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_334617249f2eb824323d17ef,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_33082130fb039d7701501c39,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f9549b40ac19d4347f359e8e,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_de03901b1262bd06fe33d8fa,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1a35dd40434e2e741001a93a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1ea5396b7e19ceffe3932eb0,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_2fc114c40c7e50ea430ac76c,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_75ed2a615e1d5e9c9cd4cb29,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_569d592b2f27912f588512d7,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_abfbf81a5c7db3a17574f281,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_fa2b9e18211f2e222fe99878,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_774419837cc205ac5de29bce,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5689a16f712fd97f1dfc59e9,Renaissance,portrait,Baroque,1,0,False
+wikiart_71f68e95bc0204837cc68898,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_37207057875ff20f45c6b12d,Renaissance,portrait,Baroque,1,0,False
+wikiart_aa3314e8a81668c2e85afc51,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_f27aa2a1670714f5662a845b,Renaissance,illustration,Baroque,1,0,False
+wikiart_b16cee26900380561b3deed6,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f66ae4b389a305e931555b98,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_18db6a3854cbad50a0e9a421,Renaissance,portrait,Baroque,1,0,False
+wikiart_67d75cd09df329e03d12b6b6,Renaissance,portrait,Baroque,1,0,False
+wikiart_fbb297588c02c3ac79917626,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_0ec63cd32c5cc7a91def5f08,Renaissance,portrait,Baroque,1,0,False
+wikiart_b4d09b81b3a3577d19e89350,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1bc39923f120d77ecb4c2eb4,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_6b3afc283645fe5dc2fd666a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_3ebbdeabb5d5e18f69b0b0c5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b68103c3240d72dd86020e3b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_56b2c3ecb8be64187f122697,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_727540e72471bf34e8266f15,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_191d52e5a77a354b3733a588,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_364fb9ae9c6a50c8c94e5d49,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_fec5427e8f04e2b067c1f214,Renaissance,portrait,Baroque,1,0,False
+wikiart_7037784348fc67c1e63865cd,Renaissance,portrait,Baroque,1,0,False
+wikiart_0b266c8078eafbb1ceb4859f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_78676d809d80991607ec3fd6,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1fa5a4b53f48caf5d3d1c506,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_223c7cb47078a3cabd8a3055,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2452e8e74dfdb7285a9db73e,Renaissance,portrait,Baroque,1,0,False
+wikiart_e8d36b9c12d782a87d99f3d5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_7769fa1d288e116bf407790c,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_547b7b9c8e4d5b6eb7ee5560,Renaissance,portrait,Baroque,1,0,False
+wikiart_60da164847c174087c8b5bfd,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_3e1f8ee46b7f53ddc12ef8c3,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_c830ea6d868bba6fed4c19cc,Renaissance,portrait,Baroque,1,0,False
+wikiart_7f30fcc71203e77a25bd7b1b,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_cddbb1b2e26f3cc650f6faf4,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_46b00e4c218e50c638186177,Renaissance,portrait,Baroque,1,0,False
+wikiart_ea312ecd2e29d6c02dfebb32,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_1251e37bbd69bad5b05682e5,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d626ae3782b2db6073cd6758,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_fe41edb213cd5281c1507dfe,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_c057cf0e36aa443eaa5229e1,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_37663daffd1ce8514aa703e8,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_3748195422c1342da4f33d3a,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_28acdd7821dc37af93825a03,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ce451d1063f5d185ede4325c,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_cecd9063407a6696edfb5d3d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_2d1fdedcf5463faec6f35121,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_573f25855326eb8914faaf0c,Renaissance,portrait,Baroque,1,0,False
+wikiart_9262525e8d853587d0deece0,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_cd7d23897f5592e219f7d269,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_814a587eddec3d195a98f717,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5a114303fd8e5c606a205f8f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_5e9bf56503ecd4dad0caa715,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_fd2eb71aa990784be60d7902,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_eb4569d428ae0777afc88271,Renaissance,portrait,Baroque,1,0,False
+wikiart_15d402b36b3bbb4de119b6d7,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_a95d4c5d7d4c5822cb0dd817,Renaissance,portrait,Baroque,1,0,False
+wikiart_b79c5ef4204da10d9ea2a1ef,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_d8fab372b6c27aa55e69f76d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_644e61e59290eefe124fe617,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_9ab0a10da23e7e62eceaaab9,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_4c776f8dd6174240a506a18b,Renaissance,portrait,Baroque,1,0,False
+wikiart_a82e1de96b9296356f597f4f,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_37fbcee6ce2477aef23b2afb,Renaissance,portrait,Baroque,1,0,False
+wikiart_cfe9a0524ed9e916fde8187a,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_96e4182d27c44a6696fd3447,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_677604e95235e0553184265d,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_82f74f9f677131687a28d748,Renaissance,portrait,Baroque,1,0,False
+wikiart_eb3e548976db46a4cd9ba479,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_ab149c7a0623cd8ac6c38f69,Renaissance,genre_painting,Impressionism,2,0,False
+wikiart_1b69792579eed1ac6187e0e7,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_9570ffebd80dde7565a0aa32,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_c543ec24df66526c1b9ffe98,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_f049130907819be18489bafa,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_418df85fc5ef4c13d1fb9096,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_c06abf944e188bb0058bea51,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_b55b7d37edafa9d359e8cc1c,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_cc772cf6b0609fe9aa7eb704,Renaissance,religious_painting,Renaissance,0,0,True
+wikiart_360906c25ab39907971bf2c6,Renaissance,landscape,Impressionism,2,0,False
+wikiart_0ba31dbbd3a545ae93de76ff,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_7af854cfb30af1563fc49f60,Renaissance,sketch_and_study,Renaissance,0,0,True
+wikiart_12d52da0df5280618c02f565,Renaissance,illustration,Baroque,1,0,False
+wikiart_bf82ae3d44a28119576d85e0,Renaissance,portrait,Baroque,1,0,False
+wikiart_ad39738a7f0dd2165f3869a8,Renaissance,portrait,Baroque,1,0,False
+wikiart_584226af616f69c2f28b6894,Renaissance,portrait,Baroque,1,0,False
+wikiart_c91a7079e27b20dd0c9845ff,Renaissance,portrait,Baroque,1,0,False
+wikiart_5c046cfd90657126125c3baa,Renaissance,portrait,Baroque,1,0,False
+wikiart_f5117441a79ead1053bb0e63,Renaissance,portrait,Baroque,1,0,False
+wikiart_d8779dc406f6cbe7c76c787f,Renaissance,portrait,Baroque,1,0,False
+wikiart_86ce2e8fded87df4f8e381d4,Renaissance,portrait,Baroque,1,0,False
+wikiart_d88bcc81c8befd3a5bfbe157,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_dda4886bb2be4d7dc5117030,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_648b9e93986cb2145df2a7eb,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_b07b32dc4c513176e1c60465,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_8d57cb5e318c1f4432215c3d,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_fa16c3e1d2eedd0216c4f648,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_0e1d026c0192c4b0f56da7ee,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_6f272896c61357c4f189ce89,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_467bc013042bc6cdf632684a,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_2204292e92efc24eb208c126,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_1bf46581ee7902a48520b27f,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_8a847d498c95621b47dbd5b4,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_18324f27b8e51e5d6a0f47e0,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_c64fc78bcb38a3ca81b3a508,Renaissance,Unknown Genre,Baroque,1,0,False
+wikiart_dc27563168d2994dd011bfc5,Renaissance,Unknown Genre,Baroque,1,0,False

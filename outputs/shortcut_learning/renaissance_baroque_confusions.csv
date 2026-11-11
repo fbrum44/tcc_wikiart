@@ -1,0 +1,13 @@
+model,direction,scope,n_source,n_confusions,confusion_rate,share_of_pair_errors
+ResNet-50,Renaissance → Baroque,full_test,375,51,0.136,1.0
+ResNet-50,Renaissance → Baroque,religious_painting,213,9,0.04225352112676056,0.17647058823529413
+ResNet-50,Renaissance → Baroque,portrait,68,24,0.35294117647058826,0.47058823529411764
+ResNet-50,Baroque → Renaissance,full_test,375,73,0.19466666666666665,1.0
+ResNet-50,Baroque → Renaissance,religious_painting,94,22,0.23404255319148937,0.3013698630136986
+ResNet-50,Baroque → Renaissance,portrait,84,10,0.11904761904761904,0.136986301369863
+ViT-B/16,Renaissance → Baroque,full_test,375,44,0.11733333333333333,1.0
+ViT-B/16,Renaissance → Baroque,religious_painting,213,8,0.03755868544600939,0.18181818181818182
+ViT-B/16,Renaissance → Baroque,portrait,68,18,0.2647058823529412,0.4090909090909091
+ViT-B/16,Baroque → Renaissance,full_test,375,61,0.16266666666666665,1.0
+ViT-B/16,Baroque → Renaissance,religious_painting,94,20,0.2127659574468085,0.32786885245901637
+ViT-B/16,Baroque → Renaissance,portrait,84,10,0.11904761904761904,0.16393442622950818
