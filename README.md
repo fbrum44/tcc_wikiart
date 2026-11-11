@@ -1631,7 +1631,6 @@ Resultados:
 ```text
 outputs/shortcut_learning/
 ```
-## Estado atual do projeto
 
 A próxima etapa utilizará **Grad-CAM** para investigar quais regiões das pinturas exercem maior influência nas decisões.
 ---
@@ -1840,7 +1839,7 @@ notebooks/
 ├── 03_curadoria_dataset.ipynb
 ├── 04_treinamento_resnet_colab.ipynb
 ├── 05_treinamento_vit_colab.ipynb
-└── 06_avaliacao_quantitativa_colab.ipynb
+├── 06_avaliacao_quantitativa_colab.ipynb
 └── 07_shortcut_learning_colab.ipynb
 
 src/
@@ -1858,55 +1857,29 @@ src/
 │   ├── resnet.py
 │   └── vit.py
 │
-└── training/
-│    ├── __init__.py
-│    ├── train_resnet.py
-│    ├── train_resnet_head.py
-│    ├── finetune_resnet.py
-│    ├── train_vit_head.py
-│    └── finetune_vit.py
-└── evaluation/
-│    ├── __init__.py
-│    ├── evaluate_model.py
-│    ├── aggregate_painting.py
-│     └── compare_models.py
-│     ├── evaluate_model.py
-│     ├── aggregate_painting.py
-│     ├── compare_models.py
-│     ├── shortcut_analysis.py
-│     ├── genre_baseline.py
-│     ├── portrait_control.py
-│     └── thematic_confusions.py
+├── training/
+│   ├── __init__.py
+│   ├── train_resnet.py
+│   ├── train_resnet_head.py
+│   ├── finetune_resnet.py
+│   ├── train_vit_head.py
+│   └── finetune_vit.py
 │
-└outputs/
-├── resnet50/
-│   ├── head_config.json
-│   ├── head_history.csv
-│   ├── finetune_config.json
-│   ├── finetune_history.csv
-│   ├── resnet_history.csv
-│   ├── resnet_loss.png
-│   └── resnet_accuracy.png
-    └── shortcut_learning/
-│ 
-└── vit/
-│    ├── head_config.json
-│    ├── head_history.csv
-│    ├── finetune_config.json
-│    ├── finetune_history.csv
-│    ├── vit_history.csv
-│    ├── vit_loss.png
-│    ├── vit_accuracy.png
-│    ├── comparacao_resnet_vit.png
-│    └── comparacao_resnet_vit.csv
 └── evaluation/
-    ├── resnet50/
-    ├── vit_b16/
-    ├── comparison_summary.csv
-    ├── comparison_by_class.csv
-    ├── comparison_accuracy_macro_f1.png
-    ├── comparison_f1_by_class.png
-    └── comparison_validation_loss.png    
+    ├── __init__.py
+    ├── evaluate_model.py
+    ├── aggregate_painting.py
+    ├── compare_models.py
+    ├── shortcut_analysis.py
+    ├── genre_baseline.py
+    ├── portrait_control.py
+    └── thematic_confusions.py
+
+outputs/
+├── resnet50/
+├── vit/
+├── evaluation/
+└── shortcut_learning/
 ```
 
 Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
