@@ -1470,20 +1470,170 @@ A comparação deve ser interpretada como uma comparação entre os pipelines de
 
 ---
 
-# Próxima etapa — Interpretabilidade
+# Etapa 10 — Análise de shortcut learning
 
-A próxima etapa investigará quais regiões das pinturas influenciam as decisões dos modelos.
+A próxima fase é:
 
-Serão utilizadas técnicas de interpretabilidade para:
+**Interpretabilidade visual com Grad-CAM**
 
-- gerar mapas de ativação;
-- analisar exemplos de acertos e erros;
-- investigar a distinção entre Renaissance e Baroque;
-- examinar os padrões associados ao elevado desempenho em Cubism e Impressionism;
-- buscar evidências de *shortcut learning* relacionadas a gênero da pintura, composição, autoria ou outras correlações do dataset.
+O arquivo:
 
-Os mapas de ativação deverão ser interpretados como regiões influentes para a decisão do modelo, e não como prova de compreensão semântica ou histórico-artística.
+```text
+data/metadata/dataset_final.csv
+```
 
+é, desde a Etapa 3, a **fonte de verdade do conjunto experimental**.
+
+A partir da Etapa 4, os manifestos:
+
+```text
+data/metadata/train.csv
+data/metadata/validation.csv
+data/metadata/test.csv
+```
+
+são a **fonte de verdade da divisão experimental** e permanecem congelados.
+
+---
+
+Notebook:
+
+```text
+notebooks/07_shortcut_learning_colab.ipynb
+```
+
+Código principal:
+
+```text
+src/evaluation/shortcut_analysis.py
+src/evaluation/genre_baseline.py
+src/evaluation/portrait_control.py
+src/evaluation/thematic_confusions.py
+```
+
+A Etapa 10 investigou se características relacionadas ao gênero temático das pinturas poderiam funcionar como pistas correlacionadas às macroclasses e, consequentemente, como possíveis fontes de *shortcut learning*.
+
+## Associação entre gênero e macroclasse
+
+A distribuição temática do conjunto de teste mostrou associações importantes:
+
+- Renaissance: `religious_painting` = **56,80%**;
+- Impressionism: `landscape` = **33,87%**;
+- Cubism: `still_life` = **26,40%**;
+- Baroque apresentou distribuição temática mais heterogênea.
+
+Essas diferenças mostram que gênero e macroclasse não são independentes no conjunto experimental.
+
+## Baseline baseado exclusivamente em gênero
+
+Foi construído um baseline que não utiliza pixels das imagens.
+
+Para cada gênero, a macroclasse mais frequente foi aprendida exclusivamente no conjunto de treino e posteriormente aplicada ao teste.
+
+| Método | Accuracy | Macro-F1 |
+|---|---:|---:|
+| Acaso — 4 classes balanceadas | 25,00% | — |
+| Genre-only | 52,53% | 53,05% |
+| ResNet-50 | 81,67% | 81,28% |
+| ViT-B/16 | 88,13% | 88,01% |
+
+O baseline `genre-only` atingiu **52,53% de accuracy**, demonstrando que o gênero temático contém informação relevante sobre a macroclasse.
+
+Entretanto, os dois modelos visuais permanecem substancialmente superiores, indicando que o gênero isoladamente não explica suas decisões.
+
+## Experimento controlado com portrait
+
+O gênero `portrait`, presente nas quatro macroclasses, foi utilizado como subconjunto parcialmente controlado.
+
+Composição:
+
+```text
+Renaissance:    68
+Baroque:        84
+Impressionism:  52
+Cubism:         47
+
+Total:         251 pinturas
+```
+
+Resultados:
+
+| Modelo | Accuracy completa | Accuracy portrait | Macro-F1 completo | Macro-F1 portrait |
+|---|---:|---:|---:|---:|
+| ResNet-50 | 81,67% | 75,30% | 81,28% | 75,22% |
+| ViT-B/16 | 88,13% | 82,47% | 88,01% | 83,06% |
+
+O maior efeito ocorreu em Renaissance.
+
+```text
+ResNet-50 recall:
+71,73% → 47,06%
+
+ViT-B/16 recall:
+82,13% → 61,76%
+```
+
+A redução do desempenho quando o gênero é parcialmente controlado é compatível com a hipótese de que diferenças temáticas facilitam parte da classificação.
+
+## Confusões Renaissance ↔ Baroque
+
+A Etapa 9 havia identificado Renaissance e Baroque como o principal par de classes confundidas.
+
+A Etapa 10 mostrou que a direção dessas confusões varia de acordo com o gênero.
+
+### Renaissance → Baroque
+
+```text
+ResNet-50
+religious_painting: 4,23%
+portrait:          35,29%
+
+ViT-B/16
+religious_painting: 3,76%
+portrait:          26,47%
+```
+
+### Baroque → Renaissance
+
+```text
+ResNet-50
+religious_painting: 23,40%
+portrait:           11,90%
+
+ViT-B/16
+religious_painting: 21,28%
+portrait:           11,90%
+```
+
+Pinturas religiosas reduziram fortemente os erros Renaissance → Baroque e aumentaram os erros Baroque → Renaissance.
+
+Esse comportamento, observado nas duas arquiteturas, é compatível com a hipótese de que características associadas ao conteúdo religioso favoreçam previsões como Renaissance.
+
+## Interpretação
+
+Os experimentos produziram evidências complementares:
+
+- gênero e macroclasse apresentam associação relevante;
+- um baseline utilizando somente `genre` supera amplamente o acaso;
+- controlar o gênero por meio de `portrait` reduz o desempenho dos modelos;
+- Renaissance apresenta a maior sensibilidade ao controle temático;
+- as confusões Renaissance ↔ Baroque variam sistematicamente conforme o conteúdo.
+
+Esses resultados são interpretados como evidência de uma **fonte plausível de shortcut learning**.
+
+Eles não demonstram, entretanto, que os modelos estejam classificando exclusivamente pelo gênero nem estabelecem relação causal entre elementos semânticos específicos e as previsões.
+
+ResNet-50 e ViT-B/16 recebem exclusivamente os pixels das imagens e continuam apresentando desempenho elevado mesmo no subconjunto controlado.
+
+
+Resultados:
+
+```text
+outputs/shortcut_learning/
+```
+## Estado atual do projeto
+
+A próxima etapa utilizará **Grad-CAM** para investigar quais regiões das pinturas exercem maior influência nas decisões.
 ---
 
 # Configuração do ambiente
@@ -1581,7 +1731,17 @@ src.evaluation.aggregate_painting
         ↓
 src.evaluation.compare_models
         ↓
-próxima etapa: interpretabilidade
+07_shortcut_learning_colab.ipynb
+        ↓
+src.evaluation.shortcut_analysis
+        ↓
+src.evaluation.genre_baseline
+        ↓
+src.evaluation.portrait_control
+        ↓
+src.evaluation.thematic_confusions
+        ↓
+próxima etapa: interpretabilidade com Grad-CAM
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -1681,6 +1841,7 @@ notebooks/
 ├── 04_treinamento_resnet_colab.ipynb
 ├── 05_treinamento_vit_colab.ipynb
 └── 06_avaliacao_quantitativa_colab.ipynb
+└── 07_shortcut_learning_colab.ipynb
 
 src/
 ├── data/
@@ -1705,12 +1866,19 @@ src/
 │    ├── train_vit_head.py
 │    └── finetune_vit.py
 └── evaluation/
-    ├── __init__.py
-    ├── evaluate_model.py
-    ├── aggregate_painting.py
-    └── compare_models.py
-
-outputs/
+│    ├── __init__.py
+│    ├── evaluate_model.py
+│    ├── aggregate_painting.py
+│     └── compare_models.py
+│     ├── evaluate_model.py
+│     ├── aggregate_painting.py
+│     ├── compare_models.py
+│     ├── shortcut_analysis.py
+│     ├── genre_baseline.py
+│     ├── portrait_control.py
+│     └── thematic_confusions.py
+│
+└outputs/
 ├── resnet50/
 │   ├── head_config.json
 │   ├── head_history.csv
@@ -1719,6 +1887,8 @@ outputs/
 │   ├── resnet_history.csv
 │   ├── resnet_loss.png
 │   └── resnet_accuracy.png
+    └── shortcut_learning/
+│ 
 └── vit/
 │    ├── head_config.json
 │    ├── head_history.csv

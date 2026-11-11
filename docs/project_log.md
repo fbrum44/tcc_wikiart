@@ -1775,6 +1775,303 @@ Os resultados também foram preservados no Google Drive compartilhado do grupo.
 
 ---
 
+## 2026-11-10 — Etapa 10: análise de shortcut learning
+
+### Objetivo
+
+Foi investigada a possibilidade de que os modelos ResNet-50 e ViT-B/16 utilizem características temáticas correlacionadas às macroclasses como atalhos durante a classificação.
+
+A análise utilizou as predições finais por pintura produzidas na Etapa 9.
+
+Nenhum modelo foi treinado novamente e nenhum hiperparâmetro foi alterado após a abertura do conjunto de teste.
+
+### Integração entre gênero e predições
+
+Foi criado:
+
+```text
+src/evaluation/shortcut_analysis.py
+```
+
+O script integra:
+
+- metadados de treino;
+- metadados de teste;
+- gênero das pinturas;
+- classes reais;
+- predições finais da ResNet-50;
+- predições finais do ViT-B/16.
+
+Foram analisadas as distribuições `Genero × Macro_Estilo` nos conjuntos de treino e teste.
+
+No teste foram observadas associações relevantes:
+
+```text
+Renaissance / religious_painting: 56,80%
+Impressionism / landscape:        33,87%
+Cubism / still_life:              26,40%
+```
+
+Baroque apresentou composição temática mais heterogênea.
+
+A existência dessas associações foi interpretada como uma oportunidade potencial para shortcut learning, e não como prova de que os modelos utilizem causalmente essas características.
+
+### Desempenho condicionado ao gênero
+
+O desempenho foi calculado:
+
+1. globalmente dentro de cada gênero;
+2. condicionando simultaneamente classe e gênero.
+
+A segunda análise foi utilizada como evidência principal para evitar que a composição desigual das classes dentro de determinado gênero distorcesse a interpretação.
+
+Em Renaissance:
+
+```text
+ResNet-50
+religious_painting recall: 81,69%
+portrait recall:           47,06%
+
+ViT-B/16
+religious_painting recall: 91,55%
+portrait recall:           61,76%
+```
+
+Assim, entre pinturas Renaissance, a mudança de `religious_painting` para `portrait` correspondeu a uma diferença de:
+
+```text
+ResNet-50: -34,63 p.p.
+ViT-B/16:  -29,79 p.p.
+```
+
+Baroque apresentou comportamento diferente, com melhor recall em retratos do que em pinturas religiosas.
+
+Cubism permaneceu altamente reconhecível em diferentes gêneros.
+
+### Baseline baseado exclusivamente em gênero
+
+Foi criado:
+
+```text
+src/evaluation/genre_baseline.py
+```
+
+O baseline não utiliza pixels.
+
+Para cada gênero, a macroclasse mais frequente foi aprendida exclusivamente no conjunto de treino.
+
+Essa associação foi então utilizada para classificar as pinturas do conjunto de teste.
+
+Resultados:
+
+```text
+Accuracy:        52,53%
+Macro-Precision: 57,89%
+Macro-Recall:    52,53%
+Macro-F1:        53,05%
+```
+
+Como o teste possui quatro classes balanceadas, a referência de acaso uniforme é:
+
+```text
+25,00%
+```
+
+Comparação:
+
+```text
+Genre-only: 52,53%
+ResNet-50:  81,67%
+ViT-B/16:   88,13%
+```
+
+O gênero isoladamente possui poder preditivo relevante, mas não é suficiente para explicar o desempenho dos modelos visuais.
+
+### Experimento controlado com portrait
+
+Foi criado:
+
+```text
+src/evaluation/portrait_control.py
+```
+
+O gênero `portrait` foi selecionado como subconjunto controlado por estar presente nas quatro macroclasses e já ter sido identificado anteriormente, durante a análise exploratória, como candidato adequado para esse tipo de experimento.
+
+Composição:
+
+```text
+Renaissance:    68
+Baroque:        84
+Impressionism:  52
+Cubism:         47
+
+Total:         251 pinturas
+```
+
+Não foi realizada subamostragem para balancear artificialmente as classes.
+
+Devido à distribuição desigual dos suportes, foram analisadas:
+
+- accuracy;
+- balanced accuracy;
+- macro-F1;
+- precision, recall e F1 por classe.
+
+Resultados globais:
+
+```text
+ResNet-50
+accuracy:          81,67% → 75,30%
+balanced accuracy: 81,67% → 77,04%
+macro-F1:          81,28% → 75,22%
+
+ViT-B/16
+accuracy:          88,13% → 82,47%
+balanced accuracy: 88,13% → 83,99%
+macro-F1:          88,01% → 83,06%
+```
+
+O maior efeito ocorreu em Renaissance:
+
+```text
+ResNet-50 recall:
+71,73% → 47,06%
+queda de 24,67 p.p.
+
+ViT-B/16 recall:
+82,13% → 61,76%
+queda de 20,37 p.p.
+```
+
+Baroque apresentou aumento de recall no subconjunto de retratos.
+
+Impressionism apresentou redução menor e Cubism permaneceu altamente reconhecível.
+
+### Confusões temáticas Renaissance ↔ Baroque
+
+Foi criado:
+
+```text
+src/evaluation/thematic_confusions.py
+```
+
+A análise aprofundou a principal confusão identificada na Etapa 9.
+
+A taxa utilizada foi:
+
+```text
+número de pinturas da classe de origem e do gênero
+classificadas como a classe de destino
+/
+número total de pinturas da classe de origem naquele gênero
+```
+
+Resultados:
+
+```text
+Renaissance → Baroque
+
+ResNet-50
+religious_painting: 4,23%
+portrait:          35,29%
+
+ViT-B/16
+religious_painting: 3,76%
+portrait:          26,47%
+```
+
+No sentido contrário:
+
+```text
+Baroque → Renaissance
+
+ResNet-50
+religious_painting: 23,40%
+portrait:           11,90%
+
+ViT-B/16
+religious_painting: 21,28%
+portrait:           11,90%
+```
+
+O comportamento complementar foi observado nas duas arquiteturas.
+
+Pinturas religiosas:
+
+- reduziram fortemente os erros Renaissance → Baroque;
+- aumentaram os erros Baroque → Renaissance.
+
+Esse resultado é compatível com a hipótese de que características visuais associadas ao conteúdo religioso favoreçam previsões como Renaissance.
+
+### Interpretação consolidada
+
+As análises produziram múltiplas evidências convergentes:
+
+1. gênero e macroclasse apresentam associação relevante;
+2. gênero isoladamente permite classificação muito acima do acaso;
+3. restringir a avaliação a um gênero compartilhado reduz o desempenho;
+4. Renaissance é particularmente sensível ao controle temático;
+5. a direção das confusões Renaissance ↔ Baroque varia sistematicamente conforme o gênero.
+
+A conclusão metodológica adotada é:
+
+```text
+gênero temático = fonte plausível de shortcut learning
+```
+
+Não foi adotada a conclusão:
+
+```text
+os modelos classificam exclusivamente pelo gênero
+```
+
+ResNet-50 e ViT-B/16 continuam substancialmente superiores ao baseline temático e apresentam bom desempenho mesmo no subconjunto `portrait`.
+
+Além disso, o gênero não é fornecido explicitamente aos modelos. Ambos recebem somente os pixels das imagens.
+
+Portanto, a Etapa 10 demonstra a existência de correlações temáticas potencialmente exploráveis, mas não estabelece relação causal entre elementos semânticos específicos e as decisões das redes.
+
+### Artefatos
+
+Notebook:
+
+```text
+notebooks/07_shortcut_learning_colab.ipynb
+```
+
+Código:
+
+```text
+src/evaluation/shortcut_analysis.py
+src/evaluation/genre_baseline.py
+src/evaluation/portrait_control.py
+src/evaluation/thematic_confusions.py
+```
+
+Resultados:
+
+```text
+outputs/shortcut_learning/
+```
+
+Foram versionados os resultados compactos da etapa, incluindo:
+
+- distribuições de gênero;
+- desempenho por gênero;
+- desempenho por classe e gênero;
+- baseline `genre-only`;
+- predições do baseline;
+- métricas por classe;
+- matriz de confusão do baseline;
+- resultados do subconjunto `portrait`;
+- matrizes de confusão normalizadas;
+- análise das confusões Renaissance ↔ Baroque;
+- predições integradas por pintura.
+
+**Etapa 10 concluída.**
+
+---
+
 ## Estado atual do projeto
 
 Etapas concluídas:
@@ -1788,16 +2085,19 @@ Etapas concluídas:
 - [x] pipeline de entrada e normalização;
 - [x] treinamento e fine-tuning da ResNet-50;
 - [x] treinamento e fine-tuning do ViT-B/16;
-- [x] avaliação quantitativa no conjunto de teste.
+- [x] avaliação quantitativa no conjunto de teste;
+- [x] análise de shortcut learning.
 
-### Próxima etapa — interpretabilidade
+### Próxima etapa — interpretabilidade visual
 
-A próxima etapa investigará as regiões das pinturas que influenciam as decisões dos modelos, com foco em:
+A próxima etapa utilizará **Grad-CAM** para investigar espacialmente quais regiões das pinturas exercem maior influência nas decisões dos modelos.
 
-- mapas de ativação;
-- análise de acertos e erros;
-- diferenças entre Renaissance e Baroque;
-- comportamento em Impressionism e Cubism;
-- investigação de possíveis padrões de *shortcut learning*.
+A análise priorizará:
 
-Os mapas de ativação serão interpretados como evidência de regiões influentes para a predição, e não como prova de compreensão semântica por parte dos modelos.
+- Renaissance e Baroque, devido à maior confusão observada;
+- pinturas religiosas e retratos;
+- exemplos corretamente classificados e erros;
+- Impressionism e Cubism como classes de maior separabilidade;
+- comparação entre ResNet-50 e ViT-B/16.
+
+Os mapas de ativação serão interpretados como evidência de regiões influentes para a predição e não como prova de compreensão semântica por parte dos modelos.
