@@ -142,6 +142,8 @@ def main() -> None:
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--max-pinturas", type=int, default=None, help="apenas para smoke test")
     p.add_argument("--dpi", type=int, default=130)
+    p.add_argument("--sem-figuras-individuais", action="store_true", help="não salva paintings/ e patches/ (arquivos grandes)")
+    p.add_argument("--max-montagem", type=int, default=12, help="máximo de miniaturas por montagem")
     args = p.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -217,12 +219,12 @@ def main() -> None:
             probs=probs,
         )
 
-        figura_pintura(img, mapa01, mapa_true01, linha, out / "paintings" / f"{linha.Painting_ID}.png", args.dpi)
-
-        pico = cams[alvos[0]].reshape(len(g), -1).max(axis=1)
-        top = np.argsort(-pico)[:4]
-        patches = [np.ascontiguousarray(img[y:y + PATCH, x:x + PATCH]) for x, y in zip(x0s, y0s)]
-        figura_patches(patches, cams[alvos[0]], top, linha, out / "patches" / f"{linha.Painting_ID}.png", args.dpi)
+        if not args.sem_figuras_individuais:
+            figura_pintura(img, mapa01, mapa_true01, linha, out / "paintings" / f"{linha.Painting_ID}.png", args.dpi)
+            pico = cams[alvos[0]].reshape(len(g), -1).max(axis=1)
+            top = np.argsort(-pico)[:4]
+            patches = [np.ascontiguousarray(img[y:y + PATCH, x:x + PATCH]) for x, y in zip(x0s, y0s)]
+            figura_patches(patches, cams[alvos[0]], top, linha, out / "patches" / f"{linha.Painting_ID}.png", args.dpi)
 
         reg = {
             "Painting_ID": linha.Painting_ID, "true_class": linha.true_class,
@@ -247,7 +249,7 @@ def main() -> None:
 
     for chave, itens in montagens.items():
         classe, tipo = chave.split("|")
-        montagem(itens, f"Grad-CAM (ResNet-50) — real: {classe} — {tipo}", out / "montagens" / f"{classe}_{tipo}.png", args.dpi)
+        montagem(itens[: args.max_montagem], f"Grad-CAM (ResNet-50) — real: {classe} — {tipo}", out / "montagens" / f"{classe}_{tipo}.png", args.dpi)
 
     df = pd.DataFrame(registros)
     df.to_csv(out / "metricas_por_pintura.csv", index=False)

@@ -130,3 +130,28 @@ def test_selecao_nao_depende_de_probabilidade():
 def test_chave_hash_estavel():
     assert chave_hash("x", 42) == chave_hash("x", 42)
     assert chave_hash("x", 42) != chave_hash("x", 43)
+
+
+def test_holm_e_comparacao_acerto_erro():
+    from src.interpretability.analise_grupos import comparar_acerto_erro, holm, preparar
+
+    p = holm(np.array([0.01, 0.04, 0.03, np.nan]))
+    assert p[0] == pytest.approx(0.03) and p[2] == pytest.approx(0.06) and p[1] == pytest.approx(0.06)
+    assert np.isnan(p[3])
+
+    rng = np.random.default_rng(0)
+    linhas = []
+    for c in CLASSES_FINAIS:
+        for i in range(30):
+            ac = i % 2 == 0
+            linhas.append({
+                "true_class": c, "acertou": ac, "area_borda": 0.34,
+                "massa_borda": rng.normal(0.30 if ac else 0.42, 0.04), "massa_top": rng.normal(0.4, 0.05),
+                "contraste_razao": rng.normal(1.3, 0.2), "bordas_razao": rng.normal(1.5, 0.4),
+                "saturacao_razao": rng.normal(1, 0.1), "brilho_razao": rng.normal(1, 0.1),
+            })
+    tab = comparar_acerto_erro(preparar(pd.DataFrame(linhas)))
+    borda = tab[(tab.estrato == "todas") & (tab.metrica == "massa_borda_rel")].iloc[0]
+    assert borda.p_holm < 0.001 and borda.auc_erro_maior > 0.8
+    topo = tab[(tab.estrato == "todas") & (tab.metrica == "massa_top")].iloc[0]
+    assert topo.p_holm > 0.05
