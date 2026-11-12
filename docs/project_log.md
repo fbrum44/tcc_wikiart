@@ -2101,3 +2101,50 @@ A análise priorizará:
 - comparação entre ResNet-50 e ViT-B/16.
 
 Os mapas de ativação serão interpretados como evidência de regiões influentes para a predição e não como prova de compreensão semântica por parte dos modelos.
+---
+
+# Etapa 11 — Interpretabilidade visual com Grad-CAM
+
+### Objetivo
+
+Investigar a distribuição espacial das ativações da ResNet-50 nas pinturas classificadas corretamente e nos erros, utilizando métricas extraídas dos mapas Grad-CAM. Esta análise complementa a avaliação quantitativa e a investigação de possíveis atalhos temáticos realizada na Etapa 10.
+
+### Procedimento
+
+Foi utilizado o checkpoint da ResNet-50 já treinado, com a camada `layer4` como alvo do Grad-CAM. A análise estatística foi realizada a partir do arquivo `metricas_por_pintura.csv`, sem recalcular os mapas durante esta etapa local.
+
+O conjunto analisado contém 154 pinturas: 80 classificações corretas e 74 incorretas. As comparações entre acertos e erros utilizaram o teste de Mann-Whitney bilateral, com correção de Holm. Para comparar os estilos entre as pinturas acertadas, foi utilizado o teste de Kruskal-Wallis, também com correção de Holm.
+
+### Resultados principais
+
+Na comparação conjunta, a métrica `massa_top` apresentou diferença estatisticamente significativa após a correção de Holm. A mediana foi 0,401 nas pinturas acertadas e 0,438 nas pinturas classificadas incorretamente, com p corrigido de 0,020.
+
+Na análise por estilo, Impressionism também apresentou diferença significativa para `massa_top`: mediana de 0,353 nos acertos e 0,420 nos erros, com p corrigido de 0,022.
+
+Entre as pinturas acertadas, foram observadas diferenças entre as quatro classes para `massa_top` no teste de Kruskal-Wallis, com p corrigido inferior a 0,001. As demais métricas não apresentaram diferenças significativas após as respectivas correções múltiplas.
+
+### Interpretação e limitações
+
+Os resultados sugerem uma associação entre a distribuição espacial das ativações e o desempenho da classificação. A métrica `massa_top`, isoladamente, não permite determinar quais elementos semânticos foram utilizados pelo modelo, nem estabelecer causalidade. Os resultados devem ser considerados exploratórios e interpretados em conjunto com a inspeção visual dos mapas e as demais análises do projeto.
+
+### Artefatos
+
+Notebook:
+
+`notebooks/08_gradcam_resnet_colab.ipynb`
+
+Código:
+
+`src/interpretability/`
+
+Resultados:
+
+`outputs/gradcam/resnet50_amplo/`
+
+Arquivos principais:
+
+- `metricas_por_pintura.csv`
+- `comparacao_acerto_erro.csv`
+- `comparacao_entre_classes_acertos.csv`
+
+**Etapa 11 — análise estatística inicial concluída.**

@@ -35,3 +35,9 @@ data/cache/
 Thumbs.db
 # Generated visual inspection results
 outputs/visual_check/
+
+# Grad-CAM: imagens e mapas gerados
+outputs/gradcam/**/maps/
+outputs/gradcam/**/*.png
+outputs/gradcam/**/*.jpg
+outputs/gradcam/**/*.jpeg

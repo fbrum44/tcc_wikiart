@@ -1632,7 +1632,7 @@ Resultados:
 outputs/shortcut_learning/
 ```
 
-A próxima etapa utilizará **Grad-CAM** para investigar quais regiões das pinturas exercem maior influência nas decisões.
+A análise inicial com Grad-CAM da ResNet-50 foi realizada na Etapa 11. Foram analisadas 154 pinturas (80 acertos e 74 erros). A métrica massa_top apresentou diferenças estatisticamente significativas entre acertos e erros e entre estilos. Os resultados são exploratórios e não demonstram causalidade ou compreensão semântica pelo modelo. A inspeção visual sistemática e a comparação com o ViT-B/16 permanecem como trabalhos futuros.
 ---
 
 # Configuração do ambiente
@@ -1840,7 +1840,8 @@ notebooks/
 ├── 04_treinamento_resnet_colab.ipynb
 ├── 05_treinamento_vit_colab.ipynb
 ├── 06_avaliacao_quantitativa_colab.ipynb
-└── 07_shortcut_learning_colab.ipynb
+├── 07_shortcut_learning_colab.ipynb
+└── 08_gradcam_resnet_colab.ipynb
 
 src/
 ├── data/
@@ -1865,21 +1866,32 @@ src/
 │   ├── train_vit_head.py
 │   └── finetune_vit.py
 │
-└── evaluation/
+├── evaluation/
+│   ├── __init__.py
+│   ├── evaluate_model.py
+│   ├── aggregate_painting.py
+│   ├── compare_models.py
+│   ├── shortcut_analysis.py
+│   ├── genre_baseline.py
+│   ├── portrait_control.py
+│   └── thematic_confusions.py
+│
+└── interpretability/
     ├── __init__.py
-    ├── evaluate_model.py
-    ├── aggregate_painting.py
-    ├── compare_models.py
-    ├── shortcut_analysis.py
-    ├── genre_baseline.py
-    ├── portrait_control.py
-    └── thematic_confusions.py
+    ├── analise_grupos.py
+    ├── gradcam.py
+    ├── mapas.py
+    ├── run_gradcam.py
+    └── selecao.py
 
 outputs/
 ├── resnet50/
 ├── vit/
 ├── evaluation/
-└── shortcut_learning/
+├── shortcut_learning/
+└── gradcam/
+    └── resnet50_amplo/
+        ├── comparacao_acerto_erro.csv
+        ├── comparacao_entre_classes_acertos.csv
+        └── metricas_por_pintura.csv
 ```
-
-Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.

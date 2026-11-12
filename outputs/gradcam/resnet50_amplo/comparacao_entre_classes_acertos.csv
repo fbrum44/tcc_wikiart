@@ -1,0 +1,7 @@
+metrica,n_classes,p_kruskal,mediana_Baroque,mediana_Cubism,mediana_Impressionism,mediana_Renaissance,p_holm
+massa_borda_rel,4,0.4671,0.8057,0.8708,0.9282,0.881,1.0
+massa_top,4,0.0,0.4285,0.3749,0.3535,0.4498,0.0001
+contraste_razao,4,0.3763,1.2935,1.2786,1.283,1.366,1.0
+bordas_razao,4,0.1768,1.453,1.1928,1.5295,1.4163,0.8842
+saturacao_razao,4,0.4603,1.0784,1.0574,1.1137,1.1305,1.0
+brilho_razao,4,0.8011,1.0049,0.9373,0.9691,0.9794,1.0
