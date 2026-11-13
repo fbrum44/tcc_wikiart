@@ -2148,3 +2148,28 @@ Arquivos principais:
 - `comparacao_entre_classes_acertos.csv`
 
 **Etapa 11 — análise estatística inicial concluída.**
+
+## Complemento da Etapa 11 — Comparação entre mapas Grad-CAM
+
+### Objetivo e procedimento
+
+Foi realizada uma análise complementar dos mapas Grad-CAM de 74 pinturas classificadas incorretamente pela ResNet-50. Para cada pintura, foram comparados os mapas referentes à classe prevista pelo modelo e à classe real. A comparação utilizou a correlação espacial entre os mapas e o índice de Jaccard entre as regiões com maior ativação, selecionadas pelos 20% de maiores valores.
+
+Os resultados foram registrados em `outputs/gradcam/resnet50_amplo/comparacao_numerica_gradcam_erros.csv`, com identificação da pintura, índice no dataset, classe real, classe prevista, correlação espacial e Jaccard.
+
+### Resultados
+
+| Métrica | Média | Mediana | Desvio-padrão |
+|---|---:|---:|---:|
+| Correlação espacial | 0,0480 | 0,0512 | 0,2237 |
+| Jaccard das regiões de maior ativação | 0,1335 | 0,1395 | 0,0855 |
+
+A baixa correlação espacial média indica que, no conjunto analisado, os mapas das classes real e prevista não apresentaram uma relação espacial linear consistente. O Jaccard mediano de 0,1395 indica sobreposição limitada entre as regiões selecionadas. Esses resultados descrevem a semelhança espacial dos mapas, mas não demonstram, por si só, quais características visuais determinaram a classificação.
+
+Entre os pares de confusão, Baroque → Renaissance apresentou correlação mediana de 0,3282 e Jaccard mediano de 0,2140, enquanto Renaissance → Baroque apresentou correlação mediana de 0,3173 e Jaccard mediano de 0,2253. Em contrapartida, Renaissance → Impressionism apresentou correlação mediana de -0,2497 e Jaccard mediano de 0,0208. Esses resultados por par devem ser tratados como exploratórios, especialmente nos grupos com poucas pinturas.
+
+### Limitações
+
+A análise considera somente as 74 pinturas classificadas incorretamente e compara mapas condicionados a classes diferentes. Correlação e Jaccard medem propriedades espaciais, não a validade semântica das explicações. Os resultados não provam causalidade, compreensão da obra pelo modelo ou uso de elementos artísticos específicos. A inspeção visual também apresentou ativações difusas e padrões retangulares, o que limita conclusões sobre regiões semanticamente relevantes.
+
+**Status:** comparação numérica complementar concluída para as 74 pinturas analisadas. A comparação com o ViT-B/16 permanece pendente, caso esteja dentro do escopo acordado para a tarefa de interpretabilidade.

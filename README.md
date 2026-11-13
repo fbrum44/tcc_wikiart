@@ -1632,7 +1632,7 @@ Resultados:
 outputs/shortcut_learning/
 ```
 
-A análise inicial com Grad-CAM da ResNet-50 foi realizada na Etapa 11. Foram analisadas 154 pinturas (80 acertos e 74 erros). A métrica massa_top apresentou diferenças estatisticamente significativas entre acertos e erros e entre estilos. Os resultados são exploratórios e não demonstram causalidade ou compreensão semântica pelo modelo. A inspeção visual sistemática e a comparação com o ViT-B/16 permanecem como trabalhos futuros.
+A análise de interpretabilidade da ResNet-50 com Grad-CAM foi ampliada na Etapa 11. Foram analisadas 154 pinturas (80 acertos e 74 erros), com diferenças exploratórias na métrica massa_top entre acertos, erros e estilos. Uma análise complementar comparou os mapas da classe prevista e da classe real nas 74 pinturas classificadas incorretamente, utilizando correlação espacial e índice de Jaccard. Os resultados estão em outputs/gradcam/resnet50_amplo/. As análises são exploratórias: os mapas não comprovam compreensão semântica nem causalidade. A comparação com o ViT-B/16 permanece pendente.
 ---
 
 # Configuração do ambiente
