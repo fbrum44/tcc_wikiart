@@ -35,3 +35,17 @@ data/cache/
 Thumbs.db
 # Generated visual inspection results
 outputs/visual_check/
+
+# Predições grandes/intermediárias
+outputs/evaluation/*/test_patch_predictions.csv.gz
+outputs/evaluation/*/test_painting_predictions.csv.gz
+
+# Mapas Grad-CAM brutos
+outputs/gradcam/*/cams/
+
+# Execuções exploratórias
+outputs/gradcam/resnet50_smoke/
+outputs/gradcam/resnet50/
+
+# Arquivos temporários de verificação
+outputs/gradcam/*/*_reproduzida.csv

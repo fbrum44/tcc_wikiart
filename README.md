@@ -2,7 +2,7 @@
 
 Projeto de Trabalho de Conclusão de Curso voltado à classificação automática de movimentos artísticos a partir de pinturas digitalizadas utilizando técnicas de **Visão Computacional** e **Deep Learning**.
 
-Além da classificação, o projeto pretende utilizar técnicas de **Inteligência Artificial Explicável (XAI)**, como Grad-CAM, para investigar quais regiões das imagens influenciam as decisões dos modelos.
+Além da classificação, o projeto também utiliza técnicas de **Inteligência Artificial Explicável (XAI)**, como Grad-CAM, para investigar quais regiões das imagens influenciam as decisões dos modelos.
 
 O objetivo não é substituir a avaliação humana ou a análise de especialistas em arte, mas desenvolver uma prova de conceito capaz de:
 
@@ -111,6 +111,7 @@ Esses mapeamentos não devem ser redefinidos manualmente nos notebooks.
 
 ---
 
+
 # Estado atual do projeto
 
 Estão concluídas:
@@ -123,10 +124,14 @@ Estão concluídas:
 - **Etapa 6 — Pipeline de entrada e normalização**
 - **Etapa 7 — Treinamento e fine-tuning da ResNet-50**
 - **Etapa 8 — Treinamento e fine-tuning do Vision Transformer (ViT-B/16)**
+- **Etapa 9 — Avaliação quantitativa dos modelos**
+- **Etapa 10 — Análise de shortcut learning**
+- **Etapa 11 — Interpretabilidade visual com Grad-CAM (ResNet-50)**
 
-A próxima fase é:
 
-**Avaliação quantitativa**
+A investigação de *shortcut learning* foi complementada na Etapa 11 por técnicas de interpretabilidade visual, utilizando Grad-CAM na ResNet-50. Essa análise permitiu examinar espacialmente as regiões de maior contribuição para as previsões, incluindo acertos, erros e confusões entre Renaissance e Baroque.
+
+
 
 O arquivo:
 
@@ -965,23 +970,6 @@ A Etapa 6 foi considerada validada.
 
 ---
 
-# Estado atual do projeto
-
-Estão concluídas:
-
-- **Etapa 1 — Análise Exploratória**
-- **Etapa 2 — Auditoria de Integridade**
-- **Etapa 3 — Construção do Subconjunto Final Reproduzível**
-- **Etapa 4 — Divisão em treino, validação e teste**
-- **Etapa 5 — Pipeline de patches**
-- **Etapa 6 — Pipeline de entrada e normalização**
-- **Etapa 7 — Treinamento e fine-tuning da ResNet-50**
-- **Etapa 8 — Treinamento e fine-tuning do Vision Transformer (ViT-B/16)**
-
-A próxima fase é:
-
-**Avaliação quantitativa**
-
 O conjunto experimental permanece definido por:
 
 ```text
@@ -1472,10 +1460,6 @@ A comparação deve ser interpretada como uma comparação entre os pipelines de
 
 # Etapa 10 — Análise de shortcut learning
 
-A próxima fase é:
-
-**Interpretabilidade visual com Grad-CAM**
-
 O arquivo:
 
 ```text
@@ -1635,6 +1619,315 @@ outputs/shortcut_learning/
 A próxima etapa utilizará **Grad-CAM** para investigar quais regiões das pinturas exercem maior influência nas decisões.
 ---
 
+
+---
+
+# Etapa 11 — Interpretabilidade Visual com Grad-CAM (ResNet-50)
+
+Notebook:
+
+```text
+notebooks/08_gradcam_resnet_colab.ipynb
+```
+
+Código principal:
+
+```text
+src/interpretability/gradcam.py
+src/interpretability/mapas.py
+src/interpretability/selecao.py
+src/interpretability/run_gradcam.py
+src/interpretability/analise_grupos.py
+src/interpretability/compare_target_maps.py
+```
+
+A Etapa 11 investigou quais regiões das pinturas contribuíram positivamente para as previsões da **ResNet-50**, utilizando a técnica **Gradient-weighted Class Activation Mapping (Grad-CAM)**.
+
+A investigação complementa os resultados da Etapa 10, na qual foram identificadas associações entre gênero temático e macroclasse, especialmente nas confusões entre Renaissance e Baroque.
+
+O objetivo foi verificar como as ativações espaciais variam entre:
+
+- pinturas corretamente e incorretamente classificadas;
+- diferentes movimentos artísticos;
+- gêneros temáticos distintos;
+- mapas direcionados à classe prevista e à classe real nos erros.
+
+Nenhum treinamento adicional foi realizado. Foi utilizado o checkpoint:
+
+```text
+models/resnet50_finetune_best.pt
+```
+
+As análises utilizaram o conjunto de teste congelado e as predições da Etapa 9, agregadas pela média das probabilidades dos patches.
+
+## Metodologia de geração dos mapas
+
+O Grad-CAM foi aplicado à camada convolucional final da ResNet-50, identificada como `layer4`.
+
+O processamento respeitou a estratégia de patches definida na Etapa 5:
+
+- patches de **256×256 pixels**;
+- mapas Grad-CAM internos de **8×8**;
+- ampliação bilinear para **256×256**;
+- posicionamento dos mapas nas coordenadas originais;
+- média das ativações nas regiões de sobreposição;
+- reconstrução do mapa da pintura completa;
+- normalização pelo percentil **99,5** para visualização.
+
+Para pinturas corretamente classificadas, o Grad-CAM foi calculado em relação à classe prevista.
+
+Para pinturas classificadas incorretamente, foram produzidos dois mapas:
+
+1. mapa direcionado à classe prevista incorretamente;
+2. mapa direcionado à classe real.
+
+Essa estratégia permitiu comparar as evidências espaciais associadas às duas classes na mesma pintura.
+
+Os mapas indicam regiões de contribuição positiva para a classe analisada. Não demonstram compreensão semântica nem constituem explicações causais completas das decisões.
+
+## Validação de consistência
+
+Inicialmente, foi realizado um *smoke test* com duas pinturas Renaissance corretamente classificadas.
+
+A execução confirmou:
+
+- carregamento do checkpoint;
+- funcionamento do Grad-CAM;
+- reconstrução espacial dos mapas;
+- consistência com as predições da Etapa 9.
+
+Os indicadores registrados foram:
+
+```text
+concordancia_patch_media: 1.0
+concordancia_patch_minima: 1.0
+predicao_pintura_reproduzida: 1.0
+```
+
+A execução ampliada também apresentou esses três indicadores iguais a 1,0.
+
+Isso confirmou a reprodução das decisões registradas na avaliação anterior, condição importante para a confiabilidade das análises de interpretabilidade.
+
+## Seleção reproduzível das pinturas
+
+A escolha das pinturas foi determinística, utilizando SHA-256 calculado a partir da semente `42` e do identificador `Painting_ID`.
+
+A seleção não utilizou como critério a confiança do modelo nem a aparência dos mapas Grad-CAM.
+
+Foram realizadas duas execuções principais:
+
+| Execução | Pinturas | Acertos | Erros |
+|---|---:|---:|---:|
+| Exploração visual inicial | 39 | 20 | 19 |
+| Análise ampliada | 154 | 80 | 74 |
+
+Na exploração inicial, foram selecionados exemplos de acertos e erros nas quatro macroclasses, incluindo casos específicos de `religious_painting` e `portrait` em Renaissance e Baroque.
+
+Na execução ampliada, a seleção buscou até 20 acertos e 20 erros por macroclasse, respeitando a disponibilidade dos exemplos no conjunto de teste.
+
+A proporção de acertos e erros dessas amostras foi construída para fins de análise e **não representa a taxa de erro da ResNet-50 no conjunto de teste completo**.
+
+## Análise visual exploratória
+
+A inspeção dos mapas revelou diferentes padrões de ativação.
+
+Em exemplos Renaissance, foram observadas ativações sobre figuras humanas, rostos, mãos, vestimentas e regiões centrais da composição.
+
+Em Baroque, apareceram ativações sobre contornos, áreas de contraste, superfícies de objetos e elementos figurativos.
+
+Em Impressionism, alguns mapas apresentaram distribuição mais ampla, acompanhando regiões cromáticas, arquitetura, paisagens e texturas.
+
+Em Cubism, foram observadas ativações distribuídas por estruturas geométricas, contornos e regiões fragmentadas das composições.
+
+Essas observações são ilustrativas e não devem ser generalizadas a todas as obras de cada movimento.
+
+Também foram identificadas ativações sobre molduras, bordas e estruturas quadrangulares, exigindo cautela na interpretação dos mapas reconstruídos a partir de patches.
+
+## Métricas espaciais e descritores visuais
+
+Foram desenvolvidas métricas para caracterizar a distribuição das ativações:
+
+- `massa_top`: fração da ativação concentrada nos 10% de pixels mais ativados;
+- `massa_borda`: fração da ativação localizada na região periférica;
+- `massa_borda_rel`: ativação periférica relativa à proporção de área ocupada pela borda;
+- `cx` e `cy`: coordenadas normalizadas do centro de massa da ativação;
+- `contraste_razao`: contraste local nas regiões mais ativadas em relação ao restante;
+- `saturacao_razao`: razão de saturação;
+- `brilho_razao`: razão de brilho;
+- `bordas_razao`: razão de densidade de bordas visuais.
+
+Esses indicadores descrevem características das regiões destacadas pelo Grad-CAM, sem demonstrar que a rede utiliza causalmente cada atributo para classificar as pinturas.
+
+## Comparação quantitativa entre acertos e erros
+
+Na amostra ampliada de 154 pinturas, a principal diferença foi observada na métrica `massa_top`.
+
+| Grupo | Mediana massa_top |
+|---|---:|
+| Acertos — todas as classes | 0,4012 |
+| Erros — todas as classes | 0,4380 |
+
+A comparação utilizou o teste bilateral de Mann–Whitney, com correção de Holm–Bonferroni para múltiplas comparações.
+
+O resultado global apresentou:
+
+```text
+p ajustado (Holm) = 0,0201
+```
+
+Assim, os erros apresentaram mapas espacialmente mais concentrados que os acertos, com diferença estatisticamente significativa após a correção.
+
+Em Impressionism, a diferença também permaneceu significativa:
+
+```text
+Acertos: mediana = 0,3535
+Erros:   mediana = 0,4200
+
+p ajustado (Holm) = 0,0220
+```
+
+Nas demais macroclasses, as diferenças em `massa_top` não atingiram significância estatística após a correção aplicada.
+
+## Comparação entre macroclasses nos acertos
+
+A análise das pinturas corretamente classificadas também identificou diferenças de concentração espacial.
+
+| Macroclasse | Mediana massa_top |
+|---|---:|
+| Renaissance | 0,4498 |
+| Baroque | 0,4285 |
+| Cubism | 0,3749 |
+| Impressionism | 0,3535 |
+
+O teste de Kruskal–Wallis, com correção de Holm, apresentou:
+
+```text
+p ajustado = 0,0001
+```
+
+O resultado indica diferenças estatisticamente significativas na distribuição da concentração espacial entre as macroclasses.
+
+Entretanto, essa análise global não determina, isoladamente, quais pares de classes diferem significativamente.
+
+## Comparação dos mapas nos erros de classificação
+
+Foi implementada uma verificação complementar para comparar os mapas Grad-CAM direcionados à classe prevista incorretamente e à classe real.
+
+O procedimento utilizou as **74 pinturas classificadas incorretamente** na execução ampliada.
+
+Foram calculadas duas medidas:
+
+- **Correlação espacial de Pearson:** mede a associação entre os valores dos dois mapas;
+- **Jaccard top-20%:** mede a sobreposição entre os conjuntos de 20% de pixels mais ativados em cada mapa.
+
+Resultados:
+
+| Grupo | n | Correlação mediana | Jaccard mediano |
+|---|---:|---:|---:|
+| Todos os erros | 74 | 0,0512 | 0,1395 |
+| Renaissance → Baroque | 8 | 0,3173 | 0,2253 |
+| Baroque → Renaissance | 11 | 0,3282 | 0,2140 |
+
+Os valores globais indicam que a distribuição espacial das ativações pode mudar substancialmente quando a classe-alvo do Grad-CAM é alterada.
+
+Nas confusões entre Renaissance e Baroque, a similaridade espacial foi relativamente maior, embora a sobreposição das regiões mais ativadas permanecesse limitada.
+
+Essas comparações são descritivas e não estabelecem diferenças estatisticamente significativas entre os pares de confusão.
+
+## Relação com a Etapa 10 — Shortcut Learning
+
+A Etapa 10 mostrou que o gênero temático está associado às macroclasses e à direção de determinadas confusões, especialmente Renaissance ↔ Baroque.
+
+Na Etapa 11, os mapas permitiram examinar espacialmente pinturas religiosas e retratos dessas duas classes.
+
+Nos exemplos visuais, pinturas religiosas apresentaram ativações distribuídas por múltiplas figuras e elementos composicionais, enquanto retratos frequentemente destacaram rostos, mãos e contornos corporais.
+
+Nos erros entre Renaissance e Baroque, os mapas direcionados à classe prevista e à classe real destacaram regiões parcialmente distintas da mesma composição.
+
+Os resultados são compatíveis com a possibilidade de utilização de diferentes pistas visuais relacionadas ao gênero temático.
+
+Entretanto, não demonstram que a rede reconheça semanticamente o conteúdo religioso nem estabelecem causalidade entre elementos específicos e os erros de classificação.
+
+## Limitações da etapa
+
+A interpretação dos resultados exige considerar algumas limitações:
+
+1. O Grad-CAM foi calculado originalmente em resolução de 8×8 por patch, limitando a precisão espacial.
+2. A ampliação dos mapas e a reconstrução por patches sobrepostos podem introduzir padrões quadrangulares.
+3. Foram observadas ativações em molduras, bordas e contornos externos, que podem constituir pistas visuais não relacionadas diretamente ao estilo artístico.
+4. As amostras foram selecionadas para investigação, não para estimar a distribuição natural de acertos e erros.
+5. Os descritores visuais são medidas observacionais e não demonstram relações causais.
+6. O Grad-CAM identifica regiões de contribuição positiva para a classe-alvo, mas não comprova compreensão semântica.
+7. A análise foi realizada na ResNet-50, sem comparação equivalente de interpretabilidade com o ViT-B/16.
+
+## Artefatos e reprodutibilidade
+
+A implementação reutilizável da etapa está concentrada em:
+
+```text
+src/interpretability/
+```
+
+Para reproduzir a execução ampliada:
+
+```bash
+python -m src.interpretability.run_gradcam \
+    --checkpoint models/resnet50_finetune_best.pt \
+    --out outputs/gradcam/resnet50_amplo \
+    --n-por-grupo 20 \
+    --sem-figuras-individuais
+```
+
+Para reproduzir a análise estatística:
+
+```bash
+python -m src.interpretability.analise_grupos \
+    --in outputs/gradcam/resnet50_amplo
+```
+
+Para reproduzir a comparação dos mapas nos erros:
+
+```bash
+python -m src.interpretability.compare_target_maps \
+    --in outputs/gradcam/resnet50_amplo
+```
+
+Os arquivos principais são:
+
+```text
+outputs/gradcam/resnet50_amplo/
+├── selecao.csv
+├── verificacao.json
+├── resumo_por_grupo.csv
+├── metricas_por_pintura.csv
+├── comparacao_acerto_erro.csv
+├── comparacao_entre_classes_acertos.csv
+└── comparacao_numerica_gradcam_erros.csv
+```
+
+A execução completa depende dos manifestos congelados, das predições da Etapa 9, do checkpoint treinado e do dataset WikiArt.
+
+Os mapas brutos em `cams/` são arquivos intermediários que podem ser regenerados e não precisam ser versionados no GitHub.
+
+## Conclusão da Etapa 11
+
+A Etapa 11 concluiu a investigação de interpretabilidade visual proposta para a ResNet-50.
+
+O pipeline reproduziu consistentemente as predições da avaliação anterior e permitiu examinar as regiões das pinturas associadas às previsões do classificador.
+
+A análise quantitativa identificou maior concentração espacial das ativações nos erros, além de diferenças entre macroclasses.
+
+A comparação dos mapas direcionados às classes prevista e real mostrou que a distribuição das ativações depende da classe analisada.
+
+Em conjunto com os resultados da Etapa 10, essas observações ampliam a compreensão do comportamento da ResNet-50 e das possíveis pistas visuais utilizadas na classificação de movimentos artísticos.
+
+Os resultados devem ser interpretados como evidências exploratórias de associação espacial, não como demonstração de compreensão semântica ou causalidade.
+
+A aplicação de métodos de interpretabilidade ao ViT-B/16 permanece como possível extensão do projeto.
+
+---
+
+
 # Configuração do ambiente
 
 ## 1. Clonar o repositório
@@ -1700,15 +1993,15 @@ Atualmente:
         ↓
 03_curadoria_dataset.ipynb
         ↓
-python -m src.data.split   (Etapa 4)
+python -m src.data.split   
         ↓
-python -m src.data.patches        (Etapa 5)
+python -m src.data.patches       
         ↓
-python -m src.data.augmentations  (teste da Etapa 5)
+python -m src.data.augmentations  
         ↓
 python tests/test_input_pipeline.py
         ↓
-python -m src.data.visual_check   (Etapa 6)
+python -m src.data.visual_check   
         ↓
 04_treinamento_resnet_colab.ipynb
         ↓
@@ -1740,7 +2033,13 @@ src.evaluation.portrait_control
         ↓
 src.evaluation.thematic_confusions
         ↓
-próxima etapa: interpretabilidade com Grad-CAM
+08_gradcam_resnet_colab.ipynb          
+        ↓
+src.interpretability.run_gradcam
+        ↓
+src.interpretability.analise_grupos
+        ↓
+src.interpretability.compare_target_maps
 ```
 
 A execução completa das etapas anteriores não é necessariamente obrigatória para trabalhar nas etapas seguintes.
@@ -1866,20 +2165,38 @@ src/
 │   └── finetune_vit.py
 │
 └── evaluation/
+│    ├── __init__.py
+│    ├── evaluate_model.py
+│    ├── aggregate_painting.py
+│    ├── compare_models.py
+│    ├── shortcut_analysis.py
+│    ├── genre_baseline.py
+│    ├── portrait_control.py
+│    └── thematic_confusions.py
+│
+│──outputs/
+│        ├── resnet50/
+│        ├── vit/
+│        ├── evaluation/
+│        └── shortcut_learning/
+│        └── gradcam/
+│        └── resnet50_amplo/
+│                ├── selecao.csv
+│                ├── verificacao.json
+│                ├── resumo_por_grupo.csv
+│                ├── metricas_por_pintura.csv
+│                ├── comparacao_acerto_erro.csv
+│                ├── comparacao_entre_classes_acertos.csv
+│                └── comparacao_numerica_gradcam_erros.csv
+│
+└── interpretability/
     ├── __init__.py
-    ├── evaluate_model.py
-    ├── aggregate_painting.py
-    ├── compare_models.py
-    ├── shortcut_analysis.py
-    ├── genre_baseline.py
-    ├── portrait_control.py
-    └── thematic_confusions.py
-
-outputs/
-├── resnet50/
-├── vit/
-├── evaluation/
-└── shortcut_learning/
+    ├── analise_grupos.py
+    ├── compare_target_maps.py
+    ├── gradcam.py
+    ├── mapas.py
+    ├── run_gradcam.py
+    └── selecao.py
 ```
 
 Novos módulos e diretórios serão adicionados conforme o desenvolvimento avançar.
