@@ -1,0 +1,12 @@
+{
+  "pinturas": 154,
+  "concordancia_patch_media": 1.0,
+  "concordancia_patch_minima": 1.0,
+  "predicao_pintura_reproduzida": 1.0,
+  "checkpoint": "models/resnet50_finetune_best.pt",
+  "camada_alvo": "layer4",
+  "resolucao_mapa_por_patch": "8x8 (ampliado bilinearmente para 256x256)",
+  "alvo": "classe prevista (média das probabilidades); classe real adicional nos erros",
+  "normalizacao_mapa": "percentil 99,5 por pintura",
+  "seed_selecao": 42
+}

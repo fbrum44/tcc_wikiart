@@ -2101,3 +2101,75 @@ A análise priorizará:
 - comparação entre ResNet-50 e ViT-B/16.
 
 Os mapas de ativação serão interpretados como evidência de regiões influentes para a predição e não como prova de compreensão semântica por parte dos modelos.
+---
+
+# Etapa 11 — Interpretabilidade visual com Grad-CAM
+
+### Objetivo
+
+Investigar a distribuição espacial das ativações da ResNet-50 nas pinturas classificadas corretamente e nos erros, utilizando métricas extraídas dos mapas Grad-CAM. Esta análise complementa a avaliação quantitativa e a investigação de possíveis atalhos temáticos realizada na Etapa 10.
+
+### Procedimento
+
+Foi utilizado o checkpoint da ResNet-50 já treinado, com a camada `layer4` como alvo do Grad-CAM. A análise estatística foi realizada a partir do arquivo `metricas_por_pintura.csv`, sem recalcular os mapas durante esta etapa local.
+
+O conjunto analisado contém 154 pinturas: 80 classificações corretas e 74 incorretas. As comparações entre acertos e erros utilizaram o teste de Mann-Whitney bilateral, com correção de Holm. Para comparar os estilos entre as pinturas acertadas, foi utilizado o teste de Kruskal-Wallis, também com correção de Holm.
+
+### Resultados principais
+
+Na comparação conjunta, a métrica `massa_top` apresentou diferença estatisticamente significativa após a correção de Holm. A mediana foi 0,401 nas pinturas acertadas e 0,438 nas pinturas classificadas incorretamente, com p corrigido de 0,020.
+
+Na análise por estilo, Impressionism também apresentou diferença significativa para `massa_top`: mediana de 0,353 nos acertos e 0,420 nos erros, com p corrigido de 0,022.
+
+Entre as pinturas acertadas, foram observadas diferenças entre as quatro classes para `massa_top` no teste de Kruskal-Wallis, com p corrigido inferior a 0,001. As demais métricas não apresentaram diferenças significativas após as respectivas correções múltiplas.
+
+### Interpretação e limitações
+
+Os resultados sugerem uma associação entre a distribuição espacial das ativações e o desempenho da classificação. A métrica `massa_top`, isoladamente, não permite determinar quais elementos semânticos foram utilizados pelo modelo, nem estabelecer causalidade. Os resultados devem ser considerados exploratórios e interpretados em conjunto com a inspeção visual dos mapas e as demais análises do projeto.
+
+### Artefatos
+
+Notebook:
+
+`notebooks/08_gradcam_resnet_colab.ipynb`
+
+Código:
+
+`src/interpretability/`
+
+Resultados:
+
+`outputs/gradcam/resnet50_amplo/`
+
+Arquivos principais:
+
+- `metricas_por_pintura.csv`
+- `comparacao_acerto_erro.csv`
+- `comparacao_entre_classes_acertos.csv`
+
+**Etapa 11 — análise estatística inicial concluída.**
+
+## Complemento da Etapa 11 — Comparação entre mapas Grad-CAM
+
+### Objetivo e procedimento
+
+Foi realizada uma análise complementar dos mapas Grad-CAM de 74 pinturas classificadas incorretamente pela ResNet-50. Para cada pintura, foram comparados os mapas referentes à classe prevista pelo modelo e à classe real. A comparação utilizou a correlação espacial entre os mapas e o índice de Jaccard entre as regiões com maior ativação, selecionadas pelos 20% de maiores valores.
+
+Os resultados foram registrados em `outputs/gradcam/resnet50_amplo/comparacao_numerica_gradcam_erros.csv`, com identificação da pintura, índice no dataset, classe real, classe prevista, correlação espacial e Jaccard.
+
+### Resultados
+
+| Métrica | Média | Mediana | Desvio-padrão |
+|---|---:|---:|---:|
+| Correlação espacial | 0,0480 | 0,0512 | 0,2237 |
+| Jaccard das regiões de maior ativação | 0,1335 | 0,1395 | 0,0855 |
+
+A baixa correlação espacial média indica que, no conjunto analisado, os mapas das classes real e prevista não apresentaram uma relação espacial linear consistente. O Jaccard mediano de 0,1395 indica sobreposição limitada entre as regiões selecionadas. Esses resultados descrevem a semelhança espacial dos mapas, mas não demonstram, por si só, quais características visuais determinaram a classificação.
+
+Entre os pares de confusão, Baroque → Renaissance apresentou correlação mediana de 0,3282 e Jaccard mediano de 0,2140, enquanto Renaissance → Baroque apresentou correlação mediana de 0,3173 e Jaccard mediano de 0,2253. Em contrapartida, Renaissance → Impressionism apresentou correlação mediana de -0,2497 e Jaccard mediano de 0,0208. Esses resultados por par devem ser tratados como exploratórios, especialmente nos grupos com poucas pinturas.
+
+### Limitações
+
+A análise considera somente as 74 pinturas classificadas incorretamente e compara mapas condicionados a classes diferentes. Correlação e Jaccard medem propriedades espaciais, não a validade semântica das explicações. Os resultados não provam causalidade, compreensão da obra pelo modelo ou uso de elementos artísticos específicos. A inspeção visual também apresentou ativações difusas e padrões retangulares, o que limita conclusões sobre regiões semanticamente relevantes.
+
+**Status:** comparação numérica complementar concluída para as 74 pinturas analisadas. A comparação com o ViT-B/16 permanece pendente, caso esteja dentro do escopo acordado para a tarefa de interpretabilidade.

@@ -2139,7 +2139,8 @@ notebooks/
 ├── 04_treinamento_resnet_colab.ipynb
 ├── 05_treinamento_vit_colab.ipynb
 ├── 06_avaliacao_quantitativa_colab.ipynb
-└── 07_shortcut_learning_colab.ipynb
+├── 07_shortcut_learning_colab.ipynb
+└── 08_gradcam_resnet_colab.ipynb
 
 src/
 ├── data/
